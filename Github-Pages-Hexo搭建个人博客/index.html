@@ -73,8 +73,6 @@
 
 
 
-  
-
 
   <link rel="alternate" href="/atom.xml" title="ReBE" type="application/atom+xml">
 
@@ -90,7 +88,7 @@
 <meta property="og:site_name" content="ReBE">
 <meta property="og:description" content="引言&amp;emsp;&amp;emsp;上一个博客是使用WordPress搭建在云服务器上的，郁闷的是这个位于美国的服务器ip被墙了，无奈放弃。正好最近抽出时间，又迫切地想记录点东西，选择了基本不会被墙的Github Pages，搭配Hexo框架，构建了一个轻量级的博客，在此将其过程记录下来。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-11T15:06:14.000Z">
+<meta property="og:updated_time" content="2019-01-11T15:14:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Github Pages+Hexo搭建个人博客">
 <meta name="twitter:description" content="引言&amp;emsp;&amp;emsp;上一个博客是使用WordPress搭建在云服务器上的，郁闷的是这个位于美国的服务器ip被墙了，无奈放弃。正好最近抽出时间，又迫切地想记录点东西，选择了基本不会被墙的Github Pages，搭配Hexo框架，构建了一个轻量级的博客，在此将其过程记录下来。">
@@ -330,24 +328,8 @@
 <li>进入博客文件夹中的/source/，新建一个记事本文件，只需填写域名即可。如果在域名前填了www，则每次浏览器访问都要填入www，不填则没这个必要。之后将该文件保存为<strong>所有文件</strong>，名称为<strong>CNAME</strong>。</li>
 </ul>
 <h2 id="备份与恢复"><a href="#备份与恢复" class="headerlink" title="备份与恢复"></a>备份与恢复</h2><p>&emsp;&emsp;由于在Github Pages的仓库中，只有生成的静态网页的文件，没有整个博客的源文件，如果当前电脑出现问题，或者需要多设备操作时，就会很麻烦。所以需要对博客进行备份与恢复。</p>
-<h3 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h3><p>&emsp;&emsp;具体步骤如下：</p>
-<ul>
-<li>在仓库中新建一个分支，名称随意，譬如“backup”，将其设为默认分支。</li>
-<li>clone博客仓库至本地，将之前的Hexo文件夹中的<br>_config.yml，themes/，source，scffolds/，package.json，.gitignore复制到克隆下来的仓库文件夹——{账户名}.github.io文件夹。</li>
-<li>将clone文件夹中themes/next/(我用的是NexT主题)中的.git/删除，否则无法push主题文件夹。</li>
-<li><p>在clone文件夹中键入命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install </span><br><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行以下命令以提交Hexo网站源文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;提交网站源文件&quot;</span><br><span class="line">git push origin backup</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>&emsp;&emsp;至此，Hexo的备份已经完成，在每次发表文章之后，重复以下两个过程，顺序不作要求。</p>
-<ul>
-<li>执行“hexo g -d”生成静态网页，同时部署到github上。</li>
-<li>add .、commit、push网站源文件以更新仓库。</li>
-</ul>
-<h3 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h3><p>&emsp;&emsp;</p>
+<h3 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h3><p>&emsp;&emsp;未知</p>
+<h3 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h3><p>&emsp;&emsp;未知</p>
 
       
     </div>
