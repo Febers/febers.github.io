@@ -99,81 +99,73 @@ public static void findLongestPalindrome(String s,int low,int high) {
 
 ## O(n)算法——Manacher算法
 
-最右回文右边界的中心点C，如下图，p=4时，R=6，C=3
+### 思路
+Manacher算法是通过求解一个中心点，在距离这个点R长度以内都是关于这个点左右对称的，也就是说这个长度为2R的字符串是一个回文串，最后再比较大小，求出最大的长度2R及其中心点。整个过程只扫描整个字符串一遍。<br>
+这里也可以看出，因为要求回文子串的中心点，这个中心点也是唯一的，所以它只能处理字符串是奇数位的情况。因此第一步就是把字符串长度变为奇数，这里使用一个非常巧妙的方式，把字符串中每个字符使用一个其它字符号包围起来，这里以`＃`号为例，可以想象一下，要把每个字符都使用#号包裹，那么需要的#号总是要比原来的字符串长度多一位，才能保证每个字符都能被插入到#与#中间，比如：
+```
+a -> #a# 
+abaf -> #a#b#a#f#
+```
 
-![最右回文右边界的对称中心](LeetCode：最长回文子串（Longest-Palindromic-Substring）的解法/最右回文右边界的对称中心.png)
+可以看出，不管原来的字符串长度是什么，奇数加偶数结果肯定为奇数，在这之后，就可以开始求最长回文子串的半径R了。
 
-#### 具体过程
-首先大的方面分为两种情况：
+借助两个变量center、right分别记录回文子串对应的中心点和右端点
 
-`第一种情况`：下一个要移动的位置在最右回文右边界R的右边。
+![你想输入的替代文字](LeetCode：最长回文子串（Longest-Palindromic-Substring）的解法/i-center-right.png)
 
-比如在最开始时，R=-1,p的下一个移动的位置为p=0，p=0在R=-1的右边；p=0时，此时的R=0，p的下一个移动位置为p=1，也在R=0的右边。<br>
-在这种情况下，采用普遍的解法，将移动的位置为对称中心，向两边扩，同时更新回文半径数组，最右回文右边界R和最右回文右边界的对称中心C。
+可以直接看出，right就是`2*center-i`（也就是i关于center的对称点），既然是对称点，那么当端点right > i时，端点i需要进行计算回文子串R，但它的对称点有可能也进行过计算，所以可以无需从头开始匹配，因为这些点都包含在一个已经进行过匹配的父回文串中，所以这里可以直接取right-i和它的对称点回文子串半径长度较小的，用来保证绝对进行过计算的回文子串的部分;<br>
+反之，就只能从1个长度开始匹配了，就是下面的这行代码:
 
-`第二种情况`：下一个要移动的位置就是最右回文右边界R或是在R的左边
+```
+r[i] = right > i ? (Math.min(r[2*center-i], right-i)) : 1
+```
 
-在这种情况下又分为三种：
-
-1. 下一个要移动的位置p1不在最右回文右边界R右边，且cL<pL。<br>
-p2是p1以C为对称中心的对称点；<br>
-pL是以p2为对称中心的回文子串的左边界；<br>
-cL是以C为对称中心的回文子串的左边界。<br>
-这种情况下p1的回文半径就是p2的回文半径radius[p2]。<br>
-![第1种情况](LeetCode：最长回文子串（Longest-Palindromic-Substring）的解法/第一种情况.png)<br>
-2. 下一个要移动的位置票p1不在最右回文右边界R的右边，且cL>pL。<br>
-p2是p1以C为对称中心的对称点；<br>
-pL是以p2为对称中心的回文子串的左边界；<br>
-cL是以C为对称中心的回文子串的左边界；<br>
-这种情况下p1的回文半径就是p1到R的距离R-p1+1。<br>
-![第2种情况](LeetCode：最长回文子串（Longest-Palindromic-Substring）的解法/第二种情况.png)<br>
-3. 下一个要移动的位置票p1不在最右回文右边界R的右边，且cL=pL。<br>
-p2是p1以C为对称中心的对称点；<br>
-pL是以p2为对称中心的回文子串的左边界；<br>
-cL是以C为对称中心的回文子串的左边界；<br>
-这种情况下p1的回文半径就还要继续往外扩，但是只需要从R之后往外扩就可以了，扩了之后更新R和C。<br>
-![第3种情况](LeetCode：最长回文子串（Longest-Palindromic-Substring）的解法/第三种情况.png)
+这里借助一个辅助的数组r[]来记录回文子串的半径R，r[i]表示的是以i为中心点的回文字符串的半径长度(初始情况下为1)，知道r[i]后，就可以继续把索引向左右两边扩充，也就是看i+r[i]与i-r[i]左右端点的位置所对应的字符是否相等，相等的话就把回文半径r[i]继续扩充，直到不相等为止。<br>
+进行这一轮扩充后，观察之前的右端点right是否小于回文子串扩充后的右端点i+r[i],小于就直接更新右端点和中心点，不小于就说明当前回文子串还是在当前right端点的内部。
 
 ### 时间复杂度
-从上面的分析中，可以看出，第二种情况的1，2的求某个位置的回文半径的时间复杂度是O(1)，对于第一种情况和第二种情况的3，R是不断的向外扩的，不会往回退，而且寻找回文半径时，R之内的位置是不进行判断的，所以对整个字符串而言，R的移动是从字符串的起点移动到终点，时间复杂度是O(n),即整个Manacher的时间复杂度是O(n)。
+只需进行一次遍历，时间复杂度为O(n)，具体的证明过程省略。
 
 ### 代码
 ```
-public static char[] manacherString(String str){
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < str.length(); i++) {
-        sb.append("#");
-        sb.append(str.charAt(i));
-    }
-    sb.append("#");
-    return sb.toString().toCharArray();
+public static String longestPalindrome(String s) {
+	if(s == null || s.length() < 1) {
+		return s;
+	}
+	StringBuilder builder = new StringBuilder();
+	// 防止左端点越界
+	builder.append("&#");
+	char[] c = s.toCharArray();
+	for (char a : c) {
+		builder.append(a).append("#");
+	}
+	String newStr = builder.toString();
+	c = newStr.toCharArray();
+	// 回文半径
+	int[] r = new int[newStr.length()];
+	// 回文子串最大右端点、中心点
+	int right=0, center=0;
+	// 最大回文半径、最大中心点
+	int maxR=0, maxC=0;
+	for (int i=1;i < c.length;i++) {
+		// 以i为中心点的回文半径，可以重复利用以及匹配过对称点的半径
+		r[i] = right > i ? (Math.min(r[2*center-i], right-i)) : 1;
+		while (i+r[i]<c.length && c[i+r[i]]==c[i-r[i]]) {
+			++r[i];
+		}
+		// 更新右端点和中心点
+		if (right < i+r[i]) {
+			right = i+r[i];
+			center = i;
+		}
+		// 更新最大半径和最大中心点
+		if (maxR < r[i]) {
+			maxR = r[i];
+			maxC = i;
+		}
+	}
+    // 计算在原字符串中的起始点
+	int start = (maxC-maxR)/2;
+	return s.substring(start, start+maxR-1);
 }
-
-public static int longestPalindrome(String s) {
-    if(s == null || s.length() < 1) {
-        return s;
-    }
-    char[] charArr = manacherString(s);
-    int[] radius = new int[charArr.length];
-    int R = -1;
-    int C = -1;
-    int max = Integer.MIN_VALUE;
-    for (int i = 0; i < radius.length; i++) {
-        radius[i] = R > i ? Math.min(radius[2*C-i],R-i+1):1;
-        while(i+radius[i] < charArr.length && i - radius[i] > -1) {
-            if(charArr[i-radius[i]] == charArr[i+radius[i]]) {
-                radius[i]++;
-            } else {
-                break;
-            }
-        }
-        if(i + radius[i] > R){
-            R = i + radius[i]-1;
-            C = i;
-        }
-        max = Math.max(max,radius[i]);
-    } 
-    return max;
-}
-
 ```
