@@ -8,10 +8,9 @@ categories:
 ## 题目
 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为1000。
 
-```
-Input: "babcd"
+> Input: "babcd"
 Output: "bab"
-```
+
 <!--more-->
 
 本文将介绍三种解法，重点介绍时间复杂度最低的Manacher算法。
@@ -29,7 +28,7 @@ Output: "bab"
 
 ### 代码
 
-```
+```java
 public static String longestPalindrome(String s) {
     if(s.length() <= 1)
         return s;
@@ -66,7 +65,7 @@ public static String longestPalindrome(String s) {
 
 
 ### 代码
-```
+```java
 private static int maxLen = 0;
 
 private static String sub = "";
@@ -102,10 +101,9 @@ public static void findLongestPalindrome(String s,int low,int high) {
 ### 思路
 Manacher算法是通过求解一个中心点，在距离这个点R长度以内都是关于这个点左右对称的，也就是说这个长度为2R的字符串是一个回文串，最后再比较大小，求出最大的长度2R及其中心点。整个过程只扫描整个字符串一遍。<br>
 这里也可以看出，因为要求回文子串的中心点，这个中心点也是唯一的，所以它只能处理字符串是奇数位的情况。因此第一步就是把字符串长度变为奇数，这里使用一个非常巧妙的方式，把字符串中每个字符使用一个其它字符号包围起来，这里以`＃`号为例，可以想象一下，要把每个字符都使用#号包裹，那么需要的#号总是要比原来的字符串长度多一位，才能保证每个字符都能被插入到#与#中间，比如：
-```
-a -> #a# 
+
+> a -> #a# 
 abaf -> #a#b#a#f#
-```
 
 可以看出，不管原来的字符串长度是什么，奇数加偶数结果肯定为奇数，在这之后，就可以开始求最长回文子串的半径R了。
 
@@ -127,7 +125,7 @@ r[i] = right > i ? (Math.min(r[2*center-i], right-i)) : 1
 只需进行一次遍历，时间复杂度为O(n)，具体的证明过程省略。
 
 ### 代码
-```
+```java
 public static String longestPalindrome(String s) {
 	if(s == null || s.length() < 1) {
 		return s;
@@ -164,7 +162,7 @@ public static String longestPalindrome(String s) {
 			maxC = i;
 		}
 	}
-    // 计算在原字符串中的起始点
+    //计算在原字符串中的起始点
 	int start = (maxC-maxR)/2;
 	return s.substring(start, start+maxR-1);
 }

@@ -136,7 +136,7 @@ npm install hexo-deployer-git
 
 ## Hexo各文件（夹）说明
 
-- _config.yml：站点的配置文件，需要拷贝；
+- _config.yml：站点的配置文件，备份过程中需要拷贝；
 - themes/：主题文件夹，需要拷贝；
 - source：博客文章的.md文件，需要拷贝；
 - scaffolds/：文章的模板，需要拷贝；
