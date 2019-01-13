@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://yoursite.com/翻越GFW记/GFW内部结构.jpg">
 <meta property="og:image" content="http://yoursite.com/翻越GFW记/SSH连接方式.png">
 <meta property="og:image" content="http://yoursite.com/翻越GFW记/SS连接方式.png">
-<meta property="og:updated_time" content="2019-01-13T05:39:30.000Z">
+<meta property="og:updated_time" content="2019-01-13T05:49:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="翻越GFW记">
 <meta name="twitter:description" content="前言GFW是中国互联网上独特而不可忽视的存在，很多人在生活中都主动地搭建翻墙工具或者使用翻墙服务，以此访问“不存在的网站”。本文将记录GFW所为何物，以及翻的原理。">
@@ -379,18 +379,18 @@
 <p>相比传统的 VPN (IKE, IPSec, PPTP…)，Shadowsocks 协议具有更好的灵活性和隐蔽性，且搭建相对简单，可以拥有相对传统VPN更快的速度和更高的稳定性；而对比 V2Ray 这种科学上网的集合体，Shadowsocks在服务端更加轻量，单一协议完善程度更高；同时，Shadowsocks在移动端有更丰富的客户端选择，兼容性和灵活性更优。</p>
 <h5 id="Shadowsocks-R"><a href="#Shadowsocks-R" class="headerlink" title="Shadowsocks-R"></a>Shadowsocks-R</h5><p>虽说Shadowsocks“抹除了流量特征”，但从另一个角度看，其实它的特征也很明显：TCP/UDP上层的包全是密文，几乎和VPN没有区别。为解决这一问题，出现了Shadowsocks-R，它的其中一个特性，是在原 Shadowsocks 协议的数据流前面加上HTTP头，让GFW误认为是HTTP协议，从而对数据流应用针对HTTP的规则。</p>
 <p>作为SS的一个发展分支，由于SSR的作者一开始未将其开源（违反了 GPL 协议），所以实际上两者早期有不可调和的分歧。SSR拥有更多的功能，支持更多的加密方式，此外SSR还可以利用运营商的漏洞，开启免流服务，不过这是另一个问题了。</p>
-<h5 id="v2ray"><a href="#v2ray" class="headerlink" title="v2ray"></a>v2ray</h5><p>v2ray 的实现原理跟Shadowsocks一脉相承，其特点在于引入新的通信协议，改正 Shadowsocks已有的缺点，使流量特征更难被 GFW 检测到；同时使用 UDP 作为下层协议，避免 TCP 带来的窗口和 RTO(Retry Timeout)等导致网速变慢的问题。</p>
+<h5 id="V2Ray"><a href="#V2Ray" class="headerlink" title="V2Ray"></a>V2Ray</h5><p>V2Ray 的实现原理跟Shadowsocks一脉相承，其特点在于引入新的通信协议，改正 Shadowsocks已有的缺点，使流量特征更难被 GFW 检测到；同时使用 UDP 作为下层协议，避免 TCP 带来的窗口和 RTO(Retry Timeout)等导致网速变慢的问题。</p>
 <h3 id="记"><a href="#记" class="headerlink" title="记"></a>记</h3><ul>
-<li>1998年，公安部在全国公安机关开展”金盾工程”建设。次年，方滨兴调任国家计算机网络与信息安全管理中心副总工程师。</li>
+<li>1998年，公安部开展”金盾工程”建设。次年，方滨兴调任国家计算机网络与信息安全管理中心副总工程师。</li>
 <li>2002年，Google经历多次封锁与解封，主要手段为DNS劫持、TCP会话阻断等。</li>
-<li>2004年，维基百科遭遇网络封锁。</li>
-<li>2008年，北京奥运会期间，中国政府放宽了GFW的封锁范围。</li>
-<li>2010年，Google公司因内容审查问题与中国政府交涉无效后，退出中国。</li>
+<li>2004年，维基百科遭遇网络封锁，至今未解封。</li>
+<li>2008年，北京奥运会期间，中国政府短暂放宽GFW的封锁范围。</li>
+<li>2010年，Google因内容审查问题与中国政府交涉无效后，退出中国。</li>
 <li>2013年，GFW利用域名污染和关键词过滤等手段屏蔽GitHub，几天后被解封。</li>
-<li>2015年，Shadowsocks作者 @clowwindy遭遇公安机关调查，删除代码，表示不再参与开发。</li>
+<li>2015年，Shadowsocks作者 @clowwindy遭遇公安机关调查，随后删除代码，不再参与开发。</li>
 <li>2017年，Shadowsocks-R作者 @BreakWa11被人肉和人身威胁，随后删除所有项目代码。</li>
 </ul>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>从二十年前“金盾工程”至今，中国的互联网管制未曾松动，在可预见的未来，应该也不会有所放缓。GFW经过十几年的发展，已经足够成熟，同时对于翻墙这一行为，执政党的侧重点也有从技术手段转向行政手段的趋势，每年，个人因为翻墙或者出售翻墙服务而被逮捕的时间屡屡见诸报端。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>从二十年前“金盾工程”至今，中国的互联网管制未曾松动，在可预见的未来，应该也不会有所放缓。GFW经过十几年的发展，已经足够成熟，同时对于翻墙这一行为，执政党的治理侧重点也有从技术手段转向行政手段的趋势，每年，个人因为翻墙或者出售翻墙服务而被逮捕的时间屡屡见诸报端。</p>
 <p>翻墙技术和GFW每天都在上演道高一尺魔高一丈的戏码，两者的斗争更进一步，可能是人工智能在GFW上的深度部署，或者IPv6的全面普及。</p>
 <p>本文的绝大多数资料和图片均来自互联网，避免累赘，不再添加引用说明。</p>
 
@@ -567,7 +567,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GFW"><span class="nav-number">2.</span> <span class="nav-text">GFW</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#所为何物"><span class="nav-number">2.1.</span> <span class="nav-text">所为何物</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何工作"><span class="nav-number">2.2.</span> <span class="nav-text">如何工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关键字过滤阻断"><span class="nav-number">2.2.1.</span> <span class="nav-text">关键字过滤阻断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IP地址封锁"><span class="nav-number">2.2.2.</span> <span class="nav-text">IP地址封锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS污染、劫持"><span class="nav-number">2.2.3.</span> <span class="nav-text">DNS污染、劫持</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻越记"><span class="nav-number">3.</span> <span class="nav-text">翻越记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#翻"><span class="nav-number">3.1.</span> <span class="nav-text">翻</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改Hosts文件"><span class="nav-number">3.1.1.</span> <span class="nav-text">修改Hosts文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH-Tunnel"><span class="nav-number">3.1.2.</span> <span class="nav-text">SSH Tunnel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VPN"><span class="nav-number">3.1.3.</span> <span class="nav-text">VPN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shadowsocks"><span class="nav-number">3.1.4.</span> <span class="nav-text">Shadowsocks</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Shadowsocks-R"><span class="nav-number">3.1.4.1.</span> <span class="nav-text">Shadowsocks-R</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#v2ray"><span class="nav-number">3.1.4.2.</span> <span class="nav-text">v2ray</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#记"><span class="nav-number">3.2.</span> <span class="nav-text">记</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GFW"><span class="nav-number">2.</span> <span class="nav-text">GFW</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#所为何物"><span class="nav-number">2.1.</span> <span class="nav-text">所为何物</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何工作"><span class="nav-number">2.2.</span> <span class="nav-text">如何工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关键字过滤阻断"><span class="nav-number">2.2.1.</span> <span class="nav-text">关键字过滤阻断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IP地址封锁"><span class="nav-number">2.2.2.</span> <span class="nav-text">IP地址封锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS污染、劫持"><span class="nav-number">2.2.3.</span> <span class="nav-text">DNS污染、劫持</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻越记"><span class="nav-number">3.</span> <span class="nav-text">翻越记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#翻"><span class="nav-number">3.1.</span> <span class="nav-text">翻</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改Hosts文件"><span class="nav-number">3.1.1.</span> <span class="nav-text">修改Hosts文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH-Tunnel"><span class="nav-number">3.1.2.</span> <span class="nav-text">SSH Tunnel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VPN"><span class="nav-number">3.1.3.</span> <span class="nav-text">VPN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shadowsocks"><span class="nav-number">3.1.4.</span> <span class="nav-text">Shadowsocks</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Shadowsocks-R"><span class="nav-number">3.1.4.1.</span> <span class="nav-text">Shadowsocks-R</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#V2Ray"><span class="nav-number">3.1.4.2.</span> <span class="nav-text">V2Ray</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#记"><span class="nav-number">3.2.</span> <span class="nav-text">记</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>
