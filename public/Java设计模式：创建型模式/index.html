@@ -89,10 +89,10 @@
 <meta property="og:description" content="设计模式及其分类设计模式设计模式（Design pattern）是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。 1994 年，Erich Gamma、Richard Helm、Ralph Johnson 和 John Vlissides 四人合著出版了一本《Design Patterns - Elements of">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/Java设计模式：创建型模式/设计模式之间的关系.jpg">
-<meta property="og:image" content="https://images2015.cnblogs.com/blog/880287/201608/880287-20160808164046371-1731195742.jpg">
-<meta property="og:image" content="https://images2015.cnblogs.com/blog/880287/201608/880287-20160808165143559-1480072093.jpg">
-<meta property="og:image" content="https://images2015.cnblogs.com/blog/880287/201608/880287-20160808170634231-352538082.jpg">
-<meta property="og:updated_time" content="2019-01-31T09:24:40.226Z">
+<meta property="og:image" content="http://yoursite.com/Java设计模式：创建型模式/简单工厂.jpg">
+<meta property="og:image" content="http://yoursite.com/Java设计模式：创建型模式/工厂方法.jpg">
+<meta property="og:image" content="http://yoursite.com/Java设计模式：创建型模式/抽象工厂.jpg">
+<meta property="og:updated_time" content="2019-01-31T09:33:24.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java设计模式：创建型模式">
 <meta name="twitter:description" content="设计模式及其分类设计模式设计模式（Design pattern）是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。 1994 年，Erich Gamma、Richard Helm、Ralph Johnson 和 John Vlissides 四人合著出版了一本《Design Patterns - Elements of">
@@ -376,13 +376,13 @@
 <h2 id="创建者模式"><a href="#创建者模式" class="headerlink" title="创建者模式"></a>创建者模式</h2><h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>创建对象时不暴露创建逻辑，通过使用共同的接口来指向新创建的对象。</p>
 <p>工厂模式可分为简单工厂、工厂方法、抽象工厂。</p>
 <h4 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h4><p>工厂类（SimpleFactory）拥有一个工厂方法（create），接受了一个参数，通过不同的参数实例化不同的产品类。</p>
-<p><img src="https://images2015.cnblogs.com/blog/880287/201608/880287-20160808164046371-1731195742.jpg" alt=""></p>
+<p><img src="/Java设计模式：创建型模式/简单工厂.jpg" alt="简单工厂"></p>
 <p>简单工厂简单粗暴，但是其缺点也很明显，一是当产品种类繁多时代码量提高，二是增加新产品时，需要修改工厂实现，违背开闭原则（对拓展开放，对修改关闭）。工厂方法正好可以解决简单工厂的这两个缺点。</p>
 <h4 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h4><p>工厂方法针对每一种产品提供一个工厂类，通过不同的工厂实例，创建不同的产品实例。</p>
-<p><img src="https://images2015.cnblogs.com/blog/880287/201608/880287-20160808165143559-1480072093.jpg" alt=""></p>
+<p><img src="/Java设计模式：创建型模式/工厂方法.jpg" alt="工厂方法"></p>
 <p>从图中可以看到，在工厂方法中，增加产品种类并不需要修改工厂类，只需要添加相应的工厂即可，符合开放-封闭原则。其缺点在于，对于某些可以形成产品族的情况，处理起来比较复杂，这一问题使用抽象工厂解决。</p>
 <h4 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h4><p>工厂方法模式是一种极端情况的抽象工厂模式（即只生产一种产品的抽象工厂模式），而抽象工厂模式可以看成是工厂方法模式的一种推广，其面对产品族。</p>
-<p><img src="https://images2015.cnblogs.com/blog/880287/201608/880287-20160808170634231-352538082.jpg" alt=""></p>
+<p><img src="/Java设计模式：创建型模式/抽象工厂.jpg" alt="抽象工厂"></p>
 <p>以上介绍的三种工厂方法各有优缺点</p>
 <blockquote>
 <p>简单工厂： 用来生产同一等级结构中的任意产品。（不支持拓展增加产品） <br>工厂方法：用来生产同一等级结构中的固定产品。（支持拓展增加产品）<br>  抽象工厂：用来生产不同产品族的全部产品。（不支持拓展增加产品；支持增加产品族）<br>  </p>
