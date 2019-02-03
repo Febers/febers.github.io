@@ -134,6 +134,17 @@ npm install hexo-deployer-git
 ```
 现在就可以在该文件夹进行博客的操作了，如果多终端同时工作时，记得使用pull命令更新本地文件，且分支始终为hexo。
 
+如果在拉取过程中提示本地分支与远程仓库冲突，可以使用`git reset --hard`命令重置之后再次pull。如果提示
+> The following untracked working tree files would be overwritten by merge
+
+可以使用`git clean -d -fx`，关于该命令
+
+> $ git clean -f -n       //选项-n将显示执行下一步时将会移除哪些文件。
+$ git clean -f            //该命令会移除所有上一条命令中显示的文件。
+$ git clean -fd           //移除文件夹，使用选项-d。
+$ git clean -fX           //只想移除已被忽略的文件，使用选项-X。
+$ git clean -fx           //想移除已被忽略和未被忽略的文件，使用选项-x。
+
 ## Hexo各文件（夹）说明
 
 - _config.yml：站点的配置文件，备份过程中需要拷贝；
