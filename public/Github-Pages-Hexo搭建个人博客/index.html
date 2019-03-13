@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="ReBE">
 <meta property="og:description" content="引言&amp;emsp;&amp;emsp;上一个博客是使用WordPress搭建在云服务器上的，郁闷的是这个位于美国的服务器ip被墙了，无奈放弃。正好最近抽出时间，又迫切地想记录点东西，选择了基本不会被墙的Github Pages，搭配Hexo框架，构建了一个轻量级的博客，在此将其过程记录下来。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-31T07:13:42.550Z">
+<meta property="og:updated_time" content="2019-03-12T01:35:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Github Pages+Hexo搭建个人博客">
 <meta name="twitter:description" content="引言&amp;emsp;&amp;emsp;上一个博客是使用WordPress搭建在云服务器上的，郁闷的是这个位于美国的服务器ip被墙了，无奈放弃。正好最近抽出时间，又迫切地想记录点东西，选择了基本不会被墙的Github Pages，搭配Hexo框架，构建了一个轻量级的博客，在此将其过程记录下来。">
@@ -376,6 +376,14 @@
 </li>
 </ul>
 <p>现在就可以在该文件夹进行博客的操作了，如果多终端同时工作时，记得使用pull命令更新本地文件，且分支始终为hexo。</p>
+<p>如果在拉取过程中提示本地分支与远程仓库冲突，可以使用<code>git reset --hard</code>命令重置之后再次pull。如果提示</p>
+<blockquote>
+<p>The following untracked working tree files would be overwritten by merge</p>
+</blockquote>
+<p>可以使用<code>git clean -d -fx</code>，关于该命令</p>
+<blockquote>
+<p>$ git clean -f -n       //选项-n将显示执行下一步时将会移除哪些文件。<br>$ git clean -f            //该命令会移除所有上一条命令中显示的文件。<br>$ git clean -fd           //移除文件夹，使用选项-d。<br>$ git clean -fX           //只想移除已被忽略的文件，使用选项-X。<br>$ git clean -fx           //想移除已被忽略和未被忽略的文件，使用选项-x。</p>
+</blockquote>
 <h2 id="Hexo各文件（夹）说明"><a href="#Hexo各文件（夹）说明" class="headerlink" title="Hexo各文件（夹）说明"></a>Hexo各文件（夹）说明</h2><ul>
 <li>_config.yml：站点的配置文件，备份过程中需要拷贝；</li>
 <li>themes/：主题文件夹，需要拷贝；</li>
@@ -504,7 +512,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -515,7 +523,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
