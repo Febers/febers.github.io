@@ -142,11 +142,11 @@ npm install hexo-deployer-git
 
 可以使用`git clean -d -fx`，关于该命令
 
-> $ git clean -f -n       //选项-n将显示执行下一步时将会移除哪些文件。
-$ git clean -f            //该命令会移除所有上一条命令中显示的文件。
-$ git clean -fd           //移除文件夹，使用选项-d。
-$ git clean -fX           //只想移除已被忽略的文件，使用选项-X。
-$ git clean -fx           //想移除已被忽略和未被忽略的文件，使用选项-x。
+> git clean -f -n       //选项-n将显示执行下一步时将会移除哪些文件。
+ git clean -f            //该命令会移除所有上一条命令中显示的文件。
+ git clean -fd           //移除文件夹，使用选项-d。
+ git clean -fX           //只想移除已被忽略的文件，使用选项-X。
+ git clean -fx           //想移除已被忽略和未被忽略的文件，使用选项-x。
 
 ## Hexo各文件（夹）说明
 

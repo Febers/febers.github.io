@@ -422,4 +422,4 @@ public static int bSearchWithoutRecursion(int a[], int key) {
 实现较简单，略过
 
 ### 二叉树查找
-$可以通过构建一个二叉搜索树实现$
+可以通过构建一个二叉搜索树实现
