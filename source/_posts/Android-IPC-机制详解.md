@@ -1,6 +1,9 @@
 ---
 title: Android IPC 机制详解
 date: 2019-02-23 19:12:35
+tags:
+- Android
+- 多进程通信
 categories:
 - Android
 ---

@@ -1,6 +1,9 @@
 ---
 title: Android 动画详解
 date: 2019-02-18 19:12:22
+tags:
+- Android
+- 动画开发
 categories:
 - Android
 ---

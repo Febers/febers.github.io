@@ -1,6 +1,9 @@
 ---
 title: Java设计模式：创建型模式
 date: 2019-01-21 00:58:21
+tags:
+- 设计模式
+- Java
 categories: 
 - Java
 ---

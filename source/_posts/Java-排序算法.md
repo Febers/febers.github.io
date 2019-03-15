@@ -2,8 +2,10 @@
 title: Java 排序算法
 date: 2019-03-15 18:36:47
 mathjax: true
-categories:
+tags:
+- 算法
 - Java
+categories:
 - 算法
 ---
 
@@ -315,7 +317,7 @@ public static void quickSort(int[] a, int start, int end) {
 通过二叉树的中序遍历实现。如果二叉排序树是平衡的，则时间复杂度为 $O(\log_2 n)$
 近似于折半查找。
 
-如果二叉排序树完全不平衡，则时间复杂度为`O(n)`
+如果二叉排序树完全不平衡，则时间复杂度为 $O(n)$
 ```Java
 public class BinarySortTree {
     static class Node {

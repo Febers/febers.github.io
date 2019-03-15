@@ -1,6 +1,9 @@
 ---
 title: 翻越GFW记
 date: 2019-01-12 23:31:31
+tags:
+- 翻墙
+- 互联网
 categories:
 - 互联网
 ---

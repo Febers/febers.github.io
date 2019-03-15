@@ -1,6 +1,9 @@
 ---
 title: Github Pages+Hexo搭建个人博客
 date: 2019-01-11 23:22:07
+tags:
+- GitHub
+- Hexo
 categories: 
 - 互联网
 ---
