@@ -299,6 +299,35 @@ new Thread("Thread2") {
 
 ## 总结
 
+Handler 机制是如此重要，开发中我们总会显式或隐式的用到它，比如 Activity 的`runOnUiThread`
+
+```Java
+public final void runOnUiThread(Runnable action) { 
+	if (Thread.currentThread() != mUiThread) { 
+		mHandler.post(action); 
+	} else { 
+		action.run(); 
+	} 
+	...... 
+}
+```
+
+比如 View 的`post`
+
+```Java
+public boolean post(Runnable action) {
+	final AttachInfo attachInfo = mAttachInfo;
+    	if (attachInfo != null) {
+            return attachInfo.mHandler.post(action);         ①
+        }
+        // Assume that post will succeed later
+        ViewRootImpl.getRunQueue().post(action);        ②
+        return true;
+    }
+```
+
+
+
 最后用一张图来结束本文
 
 ![流程图](Android-消息机制详解\消息流程图.jpg)
