@@ -112,13 +112,32 @@ public class Apple {
 > 忽略修饰符，强制调用
 > public void setAccessible(boolean flag)
 
+#### 类注解的获取
+
+> 获取类的"annotationClass"类型的注解，包括父类
+> public Annotation<A>    getAnnotation(Class annotationClass)
+>
+> // 获取类的全部注解 ，包括父类
+> public Annotation[]    getAnnotations()
+>
+> // 获取类自身声明的全部注解 ，忽略修饰符
+> public Annotation[]    getDeclaredAnnotations()
+
+#### 类父类的获取
+
+> 获取实现的全部接口
+> public Type[]    getGenericInterfaces()
+>
+> 获取父类
+> public Type    getGenericSuperclass()
+
 ## 原理
 
 ### RTTI和Class对象
 
 RTTI，即 Run-Time Type Identification，运行时类型识别。RTTI 能在运行时就能够自动识别每个编译时已知的类型。
 
-很多时候需要进行向上转型，比如 Fruit 类派生出 Apple 类，但是现有的方法只需要将 Fruit 作为参数，如果这时传入其派生类的引用，那么 RTTI 就会起作用。通过 RTTI 识别出 Apple 类是 Fruit 的派生类，然后向上转型。特备是在用接口类型作为参数的时候，向上转型更是被频繁使用。
+很多时候需要进行向上转型，比如 Fruit 类派生出 Apple 类，当现有的方法将 Fruit 作为参数时，如果我们传入其派生类的引用，那么 RTTI 就会起作用。通过 RTTI 识别出 Apple 类是 Fruit 的派生类，然后向上转型。特别是在用接口类型作为参数的时候，这一特性更是被频繁使用。
 
 而这些类型信息是通过一个特殊对象**Class（java.lang.Class）**实现的，它包含跟类相关的信息。
 
@@ -130,12 +149,25 @@ RTTI，即 Run-Time Type Identification，运行时类型识别。RTTI 能在运
   - 准备 负责为类的静态成员分配内存，并设置默认初始化值
   - 解析 将类的二进制数据中的符号引用替换为直接引用
 
-- 初始化 
+- 初始化：如果该类有超类，则对其初始化，执行静态域和静态初始化块。
 
 获取 Class 对象的方式有三种
 
-- Object 类的 getClass() 方法
+1. Object 类的 getClass() 方法，执行静态块和动态构造块
 
-- 数据类型的静态属性 class 
+2. 数据类型的静态属性 class ，不会初始化该类
 
-- Class类中的静态方法`public static Class forName(String className)`
+3. Class类中的静态方法`public static Class forName(String className)`，执行静态块，不执行动态构造块
+
+### RTTI和反射
+
+Java 有两种 RTTI 方式，一种是传统的，假设在编译时已经知道了所有的类型；还有一种，是利用反射机制，在运行时再尝试确定类型信息。
+
+RTTI和反射之间的真正区别只在于：
+
+> RTTI：编译器在编译时打开和检查.class文件
+> 反射：运行时打开和检查.class文件
+
+严格的说，反射也是一种形式的RTTI，不过，一般的文档资料中把RTTI和反射分开，因为一般的，大家认为 RTTI指的是传统的 RTTI，通过继承和多态来实现，在运行时通过调用超类的方法来实现具体的功能
+
+未完待续

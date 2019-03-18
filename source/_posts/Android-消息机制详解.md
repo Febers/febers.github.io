@@ -12,7 +12,7 @@ categories:
 Android 的消息机制，主要是指 Handler 的运行机制。<!--more-->
 
 ## ANR
-Application Not Responding，即应用程序无响应，在介绍多线程的相关知识之前先了解 ANR。
+Application Not Responding，即应用程序无响应，在介绍消息机制的相关知识之前先了解 ANR。
 
 ### 原因 
 Android系统中，ActivityManagerService(AMS) 和 WindowManagerService(WMS) 会检测 App 的响应时间，如果App在特定时间无法响应屏幕触摸或键盘输入事件，或者特定事件没有处理完毕，就会出现ANR。

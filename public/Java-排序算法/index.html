@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="ReBE">
 <meta property="og:description" content="引言排序算法一直是程序员开发和面试的重点，本文将重点讲解几种常用的排序算法。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-15T15:23:18.000Z">
+<meta property="og:updated_time" content="2019-03-15T15:53:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 排序算法">
 <meta name="twitter:description" content="引言排序算法一直是程序员开发和面试的重点，本文将重点讲解几种常用的排序算法。">
@@ -417,7 +417,7 @@
 <p>调用如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] a = &#123;<span class="number">12</span>,<span class="number">0</span>,<span class="number">34</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">8</span>,<span class="number">456</span>&#125;;</span><br><span class="line">    BinarySortTree tree = <span class="keyword">new</span> BinarySortTree();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i : a) &#123;            </span><br><span class="line">        tree.add(i);</span><br><span class="line">    &#125;</span><br><span class="line">    tree.print();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="查找算法"><a href="#查找算法" class="headerlink" title="查找算法"></a>查找算法</h2><h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>只能对有序序列进行查找<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span> low, <span class="keyword">int</span> high, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (low &gt; high) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> mid = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (array[mid] &gt; target)</span><br><span class="line">        <span class="keyword">return</span> binarySearch(array, low, mid - <span class="number">1</span>, target);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (array[mid] &lt; target)</span><br><span class="line">        <span class="keyword">return</span> binarySearch(array, mid + <span class="number">1</span>, high, target);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> mid;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">bSearchWithoutRecursion</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> high = a.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (a[mid] &gt; key)</span><br><span class="line">            high = mid - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a[mid] &lt; key)</span><br><span class="line">            low = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h3><p>实现较简单，略过</p>
-<h3 id="二叉树查找"><a href="#二叉树查找" class="headerlink" title="二叉树查找"></a>二叉树查找</h3><p>$可以通过构建一个二叉搜索树实现$</p>
+<h3 id="二叉树查找"><a href="#二叉树查找" class="headerlink" title="二叉树查找"></a>二叉树查找</h3><p>可以通过构建一个二叉搜索树实现</p>
 
       
     </div>
@@ -450,8 +450,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Android-线程和线程池详解/" rel="next" title="Android 线程和线程池详解">
-                <i class="fa fa-chevron-left"></i> Android 线程和线程池详解
+              <a href="/Android-View-的工作原理/" rel="next" title="Android View 的工作原理">
+                <i class="fa fa-chevron-left"></i> Android View 的工作原理
               </a>
             
           </div>
@@ -459,6 +459,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Android-消息机制详解/" rel="prev" title="Android 消息机制详解">
+                Android 消息机制详解 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -537,7 +541,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -559,7 +563,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -583,6 +587,12 @@
                     <a href="https://github.com/Febers" target="_blank" title="GitHub">
                       
                         <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:febers418@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
                 
             </div>
