@@ -17,7 +17,7 @@ categories:
 
 <!--more-->
 
-## Java 多线程
+## Java 线程
 
 ### 线程和进程
 
@@ -47,10 +47,13 @@ categories:
 ### 线程的状态
 图一
 
-![](https://images2015.cnblogs.com/blog/677054/201704/677054-20170401135928086-1745189627.jpg)
+
+
+![](Java-线程和线程池详解/线程状态1.png)
+
 图二
 
-![](https://images0.cnblogs.com/blog/288799/201409/061045374695226.jpg)
+![](Java-线程和线程池详解/线程状态2.png)
 
 ### 分类
 Java 中的线程可以分为用户线程（User Thread）和守护线程（Daemon Thread）。
@@ -84,7 +87,7 @@ public interface Runnable {
 ```
 其中只定义了一个`run`方法
 
-Thread 是实现了 Runnable 方法的类，所有新建 Thread 实例的方法最后都会调用到内部的`init`
+Thread 是实现了 Runnable 接口的类，所有新建 Thread 实例的方法最后都会调用到内部的`init`
 ```
 private void init(ThreadGroup g, Runnable target, String name,
                       long stackSize, AccessControlContext acc,
@@ -135,24 +138,6 @@ public synchronized void start() {
 ### 多线程 API
 #### Object
 实际上除了 Thread，Java 的基类 Object 中也定义了一些关于多线程操作的方法
-<!--
-<html>
-table {
-    width: 100%; /*表格宽度*/
-    max-width: 65em; /*表格最大宽度，避免表格过宽*/
-    border: 1px solid #dedede; /*表格外边框设置*/
-    margin: 15px auto; /*外边距*/
-    border-collapse: collapse; /*使用单一线条的边框*/
-    empty-cells: show; /*单元格无内容依旧绘制边框*/
-}
-table th,
-table td {
-  height: 35px; /*统一每一行的默认高度*/
-  border: 1px solid #dedede; /*内部边框样式*/
-  padding: 0 10px; /*内边距*/
-}
-</html>
--->
 
 | 方法            | 描述                                                         |
 | --------------- | ------------------------------------------------------------ |
@@ -196,6 +181,39 @@ current Thread info in Main: Thread[main,5,main]
 //等待两秒
 current Thread info in A: Thread[main,5,main]
 ```
+**为什么需要在 synchronized 中？**
+> wait和notify用于线程间通信。
+> 以生产者消费者模式举例，生产者和消费者通过队列进行通信，对于队列的操作要保证线程安全性
+>
+> 一般对队列的操作如下:
+> while(queue.size() == MAX_SIZE){ wait() }
+>
+> 假如不对这段代码加锁，就会出现问题。模拟一个生产者线程t1和一个消费者线程t2
+>
+> - t1判断队列满，需要 wait 阻塞线程。
+>
+> - 但是就在t1还没有调用 wait 的时候，消费者t2消费了一个产品，导致队列非满。
+>
+> - 这时候生产者线程t1调用 wait 阻塞，造成的情况就是队列非满，但是生产者线程阻塞了。
+>
+> - 假如此时消费者不消费了，那么生产者则会一直阻塞下去。
+>
+> - 所以在调用 wait、notify 以及 notifyAll 等方法时一定要进行同步处理。
+
+**为什么定义在 Object 中？**
+> Object 中的`wait()`, `notify()`等方法，和 synchronized 一样，会对“对象的同步锁”进行操作。
+>
+> `wait()`会使“当前线程”等待。进入等待状态时，线程应该释放它锁持有的“同步锁”，否则其它线程获取不到该“同步锁”将无法运行！
+> 当线程释放它持有的“同步锁”之后变成等待线程，可以被`notify()`或`notifyAll()`唤醒。那么，`notify()`依据什么唤醒等待线程的？或者说，`wait()`等待线程和`notify()`之间通过什么关联起来？答案是：依据“对象的同步锁”。
+>
+> 负责唤醒等待线程的那个线程(“唤醒线程”)，只有在获取“该对象的同步锁”(这里的同步锁必须和等待线程的同步锁是同一个)，并且调用`notify()`或`notifyAll()`方法之后，才能唤醒等待线程。此时因为唤醒线程还持有“该对象的同步锁”，所以必须等到唤醒线程释放了“对象的同步锁”之后，等待线程才能获取到“对象的同步锁”进而继续运行。
+>
+> 总之，`notify()`, `wait()`依赖于“同步锁”，而“同步锁”是对象锁持有，并且每个对象有且仅有一个！
+>
+> 这就是`notify()`, `wait()`等函数定义在 Object 类，而不是 Thread 类中的原因。
+>
+> 来自 [JAVA 线程状态及转化](https://www.cnblogs.com/happy-coder/p/6587092.html)
+
 #### Thread 
 | 方法                      | 描述                                                         |
 | ------------------------- | ------------------------------------------------------------ |
@@ -223,9 +241,9 @@ current Thread info in A: Thread[main,5,main]
 ### 线程池
 Java 中关于线程池的继承关系如下
 
-![](S:\Work\GitBlog\febers.github.io\source\_posts\Java-线程和线程池详解\继承图.png)
+![](Java-线程和线程池详解/继承图.png)
 
-Executor 是一个顶层接口，其中只声明了一个方法`execute(Runnable)`，用来执行传进去的任务的
+Executor 是一个顶层接口，其中只声明了一个方法`execute(Runnable)`，用来执行传进去的任务
 
 ExecutorService 接口继承了 Executor 接口，并声明了一些方法：`submit`、`invokeAll`、`invokeAny`以及`shutDown` 等
 
@@ -361,4 +379,196 @@ Thread[main,5,main]
 Thread[pool-1-thread-1,5,main]
 ```
 #### 工作原理
-未完待续
+观察 ThreadPoolExecutor 中的`execute`方法
+```Java
+public void execute(Runnable command) {
+        if (command == null)
+            throw new NullPointerException();
+  
+        /**
+         * 一、判断当前活跃线程数是否小于 corePoolSize，如果小于，调用 addWorker 创建线程执行任务
+         * 二、如果大于 corePoolSize，将任务添加到 workQueue 队列。
+         * 三、如果加入 workQueue 失败，则创建线程执行任务，
+         *     如果创建线程失败(当前线程数大于maximumPoolSize)，就会调用reject(内部用handler)处理拒绝任务。
+         */
+        int c = ctl.get();
+        if (workerCountOf(c) < corePoolSize) {
+            if (addWorker(command, true))
+                return;
+            c = ctl.get();
+        }
+        if (isRunning(c) && workQueue.offer(command)) {
+            int recheck = ctl.get();
+            if (! isRunning(recheck) && remove(command))
+                reject(command);
+            else if (workerCountOf(recheck) == 0)
+                addWorker(null, false);
+        }
+        else if (!addWorker(command, false))
+            reject(command);
+    }
+```
+
+跟踪`addWorker`方法
+```Java
+private boolean addWorker(Runnable firstTask, boolean core) {
+    retry:
+    for (int c = ctl.get();;) {
+        // Check if queue empty only if necessary.
+        if (runStateAtLeast(c, SHUTDOWN)
+            && (runStateAtLeast(c, STOP)
+                || firstTask != null
+                || workQueue.isEmpty()))
+            return false;
+        for (;;) {
+            /*
+             *在创建非核心线程，即core等于false时。判断当前线程数是否大于等于maximumPoolSize，
+             *如果大于等于则返回false，即上边说的第三步中创建线程失败的情况
+             */
+            if (workerCountOf(c)
+                >= ((core ? corePoolSize : maximumPoolSize) & COUNT_MASK))
+                return false;
+            if (compareAndIncrementWorkerCount(c))
+                break retry;
+            c = ctl.get();  // Re-read ctl
+            if (runStateAtLeast(c, SHUTDOWN))
+                continue retry;
+            // else CAS failed due to workerCount change; retry inner loop
+        }
+    }
+        
+    boolean workerStarted = false;
+    boolean workerAdded = false;
+    Worker w = null;
+    try {
+        /*
+         * 创建Worker时会调用threadFactory来创建一个线程。
+         * 上边的第二步中中启动一个线程会触发Worker的run方法被线程调用。
+         */
+        w = new Worker(firstTask);
+        final Thread t = w.thread;
+        if (t != null) {
+            final ReentrantLock mainLock = this.mainLock;
+            mainLock.lock();
+            try {
+                int c = ctl.get();
+                
+                if (isRunning(c) ||
+                    (runStateLessThan(c, STOP) && firstTask == null)) {
+                    if (t.isAlive()) // precheck that t is startable
+                        throw new IllegalThreadStateException();
+                    workers.add(w);
+                    int s = workers.size();
+                    if (s > largestPoolSize)
+                        largestPoolSize = s;
+                    workerAdded = true;
+                }
+            } finally {
+                mainLock.unlock();
+            }
+            if (workerAdded) {
+                t.start();
+                workerStarted = true;
+            }
+        }
+    } finally {
+        if (! workerStarted)
+            addWorkerFailed(w);
+    }
+    return workerStarted;
+}
+```
+新建 Work ，同时也会利用工厂类实例化一个线程
+```Java
+Worker(Runnable firstTask) {
+    setState(-1); // inhibit interrupts until runWorker
+    this.firstTask = firstTask;
+    this.thread = getThreadFactory().newThread(this);
+}
+```
+如果 workerAdded，调用`t.start()`
+```Java
+public void run() {
+    runWorker(this);
+}
+```
+跟踪`runWorker`
+```Java
+final void runWorker(Worker w) {
+    Thread wt = Thread.currentThread();
+    Runnable task = w.firstTask;
+    w.firstTask = null;
+    w.unlock(); // allow interrupts
+    boolean completedAbruptly = true;
+    try {
+        while (task != null || (task = getTask()) != null) {
+            if ((runStateAtLeast(ctl.get(), STOP) ||
+                 (Thread.interrupted() &&
+                  runStateAtLeast(ctl.get(), STOP))) &&
+                !wt.isInterrupted())
+                wt.interrupt();
+            try {
+                beforeExecute(wt, task);
+                try {
+                    task.run();
+                    afterExecute(task, null);
+                } catch (Throwable ex) {
+                    afterExecute(task, ex);
+                    throw ex;
+                }
+            } finally {
+                task = null;
+                w.completedTasks++;
+                w.unlock();
+            }
+        }
+        completedAbruptly = false;
+    } finally {
+        processWorkerExit(w, completedAbruptly);
+    }
+}
+```
+可以看到`getTask`方法不断从 workerQueue 中读取任务然后执行。只要`getTask`方法不返回 null，循环就不会退出。
+```Java
+private Runnable getTask() {
+    boolean timedOut = false; // Did the last poll() time out?
+    for (;;) {
+        int c = ctl.get();
+        if (runStateAtLeast(c, SHUTDOWN)
+            && (runStateAtLeast(c, STOP) || workQueue.isEmpty())) {
+            decrementWorkerCount();
+            return null;
+        }
+        int wc = workerCountOf(c);
+
+        //是判断当前线程数是否大于 corePoolSize
+        boolean timed = allowCoreThreadTimeOut || wc > corePoolSize;
+
+        if ((wc > maximumPoolSize || (timed && timedOut))
+            && (wc > 1 || workQueue.isEmpty())) {
+            if (compareAndDecrementWorkerCount(c))
+                return null;
+            continue;
+        }
+        
+        /*
+         * 如果当前线程数大于 corePoolSize，调用 workQueue 的poll方法获取任务
+         * 超时时间为 keepAliveTime。如果超时，poll返回了null，上边的while循序就会退出
+         * 如果当前线程数小于 corePoolSize，调用 workQueue 的take方法阻塞当前
+         */
+        try {
+            Runnable r = timed ?
+                workQueue.poll(keepAliveTime, TimeUnit.NANOSECONDS) :
+                workQueue.take();
+            if (r != null)
+                return r;
+            timedOut = true;
+        } catch (InterruptedException retry) {
+            timedOut = false;
+        }
+    }
+}
+```
+最后用一张图总结上述过程
+
+![](Java-线程和线程池详解/线程池流程.png)
