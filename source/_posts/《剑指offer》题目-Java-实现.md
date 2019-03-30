@@ -426,89 +426,209 @@ static boolean isEven(int i) {
 ```
 
 ### Problem13：链表中倒数第K个结点
+输入一个链表，输出该链表中倒数第K个结点。为了符合大多数人的习 惯，从1开始计数，即链表的尾结点是倒数第一个结点。
 
-### Problem4：翻转链表
+例如一个链表有6个结点，从头结点开始它们的值依次是`1、2、3、4、5、6`。这个链表的倒数第三个结点是值为4的结点。
 
-### Problem4：合并两个排序的链表
+```Java
+    /**
+     * 使用两个指针解决，第一个指针从链表的头指针开始遍历向前走k-1，第二个指针保持不动
+     * 从第k步开始，第二个指针也开始从链表的头指针开始遍历
+     * 由于两个指针的距离保持在k-1，当第一个指针到达链表的尾结点时，第二个指针刚好在倒数第k个结点上
+     * 
+     * @param head 头结点
+     * @param k 倒数第k个节点
+     */
+    public static int find(ListNode head, int k){
+        if (head == null) {
+            return 0;
+        }
+        ListNode first = head;
+        ListNode second = head;
+        for (int i = 1; i < k; i++) {
+            if (first.next != null) {
+                first = first.next;
+            } else {
+                return 0;
+            }
+        }
+        System.out.println(first.val);
+        while (first.next != null) {
+            first = first.next;
+            second = second.next;
+        }
+        System.out.println(first.val);
+        return second.val;
+    }
 
-### Problem4：树的子结构判断
+    static class ListNode {
+        int val;
+        ListNode next;
 
-### Problem4：二叉树的镜像
+        public ListNode(int val) {
+            this.val = val;
+        }
+    }
+```
+### Problem14：翻转链表
+定义一个函数，输入一个链表的头结点，反转该链表并输出反转后链表的头结点
 
-### Problem4：顺时针打印矩阵
 
-### Problem4：包含min函数的栈
 
-### Problem4：栈的压入、弹出序列
+![](《剑指offer》题目-Java-实现/翻转链表.png)
 
-### Problem4：从上往下打印二叉树
+```Java
+    /**
+     * 翻转单链表
+     * 
+     * @param head 原链表的头节点
+     * @return 翻转之后的头节点
+     */
+    public static ListNode getReversedListHead(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        //current节点是head的下一个节点
+        ListNode current = head.next;
+        //当前的head变为链表的尾，所以next为空
+        head.next = null;
+        
+        while (current != null) {
+            //currentNext节点是current的下一个节点。
+            ListNode currentNext = current.next;
+            //current.next反方向指向以前的节点
+            current.next = head;
+            
+            //移动head和current指针，到后面head重新成为头节点
+            head = current;
+            current = currentNext;
+        }
+        return head;
+    }
 
-### Problem4：二叉搜索树的后序遍历
+    /**
+     * 翻转单链表的递归实现
+     *
+     * @param head 原链表的头节点
+     * @return 翻转之后的头节点
+     */
+    public static ListNode reverseListByRecursion(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode newList = reverseListByRecursion(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newList;
+    }
+```
 
-### Problem4：二叉树中和为某一值的路径
+### Problem15：合并两个排序的链表
 
-### Problem4：字符串的排列
+输入两个递增排序的链表，合并这两个链表并使新链表中的结点仍然是按照递增排序的。
 
-### Problem4：数组中出现次数超过一半的数字
+```java
+    public static ListNode merge(ListNode n1, ListNode n2) {
+        if (n1 == null) {
+            return n2;
+        }
+        if (n2 == null) {
+            return n1;
+        }
+        ListNode mergeNode = null;
+        if (n1.val < n2.val) {
+            mergeNode = n1;
+            mergeNode.next = merge(n1.next, n2);
+        } else {
+            mergeNode = n2;
+            mergeNode.next = merge(n1, n2.next);
+        }
+        return mergeNode;
+    }
+```
 
-### Problem4：连续子数组的最大和
 
-### Problem4：整数中1出现的次数
 
-### Problem4：把数组排成最小的数
+### Problem16：树的子结构判断
 
-### Problem4：丑数
 
-### Problem4：第一个只出现一次的字符
 
-### Problem4：数组中的逆序对
+### Problem17：二叉树的镜像
 
-### Problem4：两个链表的第一个公共节点
+### Problem18：顺时针打印矩阵
 
-### Problem4：二叉树的深度&&平衡二叉树判断
+### Problem19：包含min函数的栈
 
-### Problem4：数字在排序数组中出现的次数
+### Problem20：栈的压入、弹出序列
 
-### Problem4：数组中只出现一次的数字
+### Problem21：从上往下打印二叉树
 
-### Problem4：和为S的两个数字 
+### Problem22：二叉搜索树的后序遍历
 
-### Problem4：和为S的连续正数序列
+### Problem23：二叉树中和为某一值的路径
 
-### Problem4：翻转单词的顺序
+### Problem24：字符串的排列
 
-### Problem4：扑克牌的顺子
+### Problem25：数组中出现次数超过一半的数字
 
-### Problem4：y圆圈中最后剩下的数字（约瑟夫环问题）
+### Problem26：连续子数组的最大和
 
-### Problem4：计算1+2+3+ ··· + n
+### Problem27：整数中1出现的次数
 
-### Problem4：不用加减乘除做加法
+### Problem28：把数组排成最小的数
 
-### Problem4：把字符串转换为整数
+### Problem29：丑数
 
-### Problem4：数组中重复的数字
+### Problem30：第一个只出现一次的字符
 
-### Problem4：构建乘积数组
+### Problem31：数组中的逆序对
 
-### Problem4：正则表达式匹配
+### Problem32：两个链表的第一个公共节点
 
-### Problem4：表示数值的字符串
+### Problem33：二叉树的深度&&平衡二叉树判断
 
-### Problem4：字符流中第一个不重复的字符
+### Problem34：数字在排序数组中出现的次数
 
-### Problem4：链表中环的入口结点
+### Problem35：数组中只出现一次的数字
 
-### Problem4：删除链表中欧冠重复的节点
+### Problem36：和为S的两个数字 
 
-### Problem4：二叉树的下一个节点
+### Problem37：和为S的连续正数序列
 
-### Problem4：把二叉树打印成多行
+### Problem38：翻转单词的顺序
 
-### Problem4：按之字形顺序打印二叉树
+### Problem39：扑克牌的顺子
 
-### Problem：序列化二叉树
+### Problem40：y圆圈中最后剩下的数字（约瑟夫环问题）
 
-### Problem：二叉搜索树的第K个节点
+### Problem41：计算1+2+3+ ··· + n
 
-### Problem：滑动窗口的最大值
+### Problem42：不用加减乘除做加法
+
+### Problem43：把字符串转换为整数
+
+### Problem44：数组中重复的数字
+
+### Problem45：构建乘积数组
+
+### Problem46：正则表达式匹配
+
+### Problem47：表示数值的字符串
+
+### Problem48：字符流中第一个不重复的字符
+
+### Problem49：链表中环的入口结点
+
+### Problem50：删除链表中欧冠重复的节点
+
+### Problem51：二叉树的下一个节点
+
+### Problem52：把二叉树打印成多行
+
+### Problem53：按之字形顺序打印二叉树
+
+### Problem54：序列化二叉树
+
+### Problem55：二叉搜索树的第K个节点
+
+### Problem56：滑动窗口的最大值大值

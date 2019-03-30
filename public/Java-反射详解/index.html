@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="ReBE">
 <meta property="og:description" content="引言反射是一种计算机处理方式，是程序可以访问、检测和修改它本身状态或行为的一种能力。Java 反射使得我们可以在程序运行时动态加载一个类，动态获取类的属性、方法、构造函数等信息。反射使 Java 这一静态语言有了动态的特性。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-16T15:57:30.000Z">
+<meta property="og:updated_time" content="2019-03-17T02:47:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 反射详解">
 <meta name="twitter:description" content="引言反射是一种计算机处理方式，是程序可以访问、检测和修改它本身状态或行为的一种能力。Java 反射使得我们可以在程序运行时动态加载一个类，动态获取类的属性、方法、构造函数等信息。反射使 Java 这一静态语言有了动态的特性。">
@@ -392,8 +392,17 @@
 <p>方法调用，Method.class<br>//obj为类实例化对象，如果为静态方法obj为Null<br>invoke(Object obj, Object… args)</p>
 <p>忽略修饰符，强制调用<br>public void setAccessible(boolean flag)</p>
 </blockquote>
+<h4 id="类注解的获取"><a href="#类注解的获取" class="headerlink" title="类注解的获取"></a>类注解的获取</h4><blockquote>
+<p>获取类的”annotationClass”类型的注解，包括父类<br>public Annotation<a>    getAnnotation(Class annotationClass)</a></p>
+<p>// 获取类的全部注解 ，包括父类<br>public Annotation[]    getAnnotations()</p>
+<p>// 获取类自身声明的全部注解 ，忽略修饰符<br>public Annotation[]    getDeclaredAnnotations()</p>
+</blockquote>
+<h4 id="类父类的获取"><a href="#类父类的获取" class="headerlink" title="类父类的获取"></a>类父类的获取</h4><blockquote>
+<p>获取实现的全部接口<br>public Type[]    getGenericInterfaces()</p>
+<p>获取父类<br>public Type    getGenericSuperclass()</p>
+</blockquote>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="RTTI和Class对象"><a href="#RTTI和Class对象" class="headerlink" title="RTTI和Class对象"></a>RTTI和Class对象</h3><p>RTTI，即 Run-Time Type Identification，运行时类型识别。RTTI 能在运行时就能够自动识别每个编译时已知的类型。</p>
-<p>很多时候需要进行向上转型，比如 Fruit 类派生出 Apple 类，但是现有的方法只需要将 Fruit 作为参数，如果这时传入其派生类的引用，那么 RTTI 就会起作用。通过 RTTI 识别出 Apple 类是 Fruit 的派生类，然后向上转型。特备是在用接口类型作为参数的时候，向上转型更是被频繁使用。</p>
+<p>很多时候需要进行向上转型，比如 Fruit 类派生出 Apple 类，当现有的方法将 Fruit 作为参数时，如果我们传入其派生类的引用，那么 RTTI 就会起作用。通过 RTTI 识别出 Apple 类是 Fruit 的派生类，然后向上转型。特别是在用接口类型作为参数的时候，这一特性更是被频繁使用。</p>
 <p>而这些类型信息是通过一个特殊对象<strong>Class（java.lang.Class）</strong>实现的，它包含跟类相关的信息。</p>
 <p>当程序要使用某个类时，如果该类还未被加载到内存中，则系统会通过加载、连接、初始化三步来实现对这个类进行初始化。</p>
 <ul>
@@ -405,18 +414,25 @@
 <li>解析 将类的二进制数据中的符号引用替换为直接引用</li>
 </ul>
 </li>
-<li><p>初始化 </p>
+<li><p>初始化：如果该类有超类，则对其初始化，执行静态域和静态初始化块。</p>
 </li>
 </ul>
 <p>获取 Class 对象的方式有三种</p>
-<ul>
-<li><p>Object 类的 getClass() 方法</p>
+<ol>
+<li><p>Object 类的 getClass() 方法，执行静态块和动态构造块</p>
 </li>
-<li><p>数据类型的静态属性 class </p>
+<li><p>数据类型的静态属性 class ，不会初始化该类</p>
 </li>
-<li><p>Class类中的静态方法<code>public static Class forName(String className)</code></p>
+<li><p>Class类中的静态方法<code>public static Class forName(String className)</code>，执行静态块，不执行动态构造块</p>
 </li>
-</ul>
+</ol>
+<h3 id="RTTI和反射"><a href="#RTTI和反射" class="headerlink" title="RTTI和反射"></a>RTTI和反射</h3><p>Java 有两种 RTTI 方式，一种是传统的，假设在编译时已经知道了所有的类型；还有一种，是利用反射机制，在运行时再尝试确定类型信息。</p>
+<p>RTTI和反射之间的真正区别只在于：</p>
+<blockquote>
+<p>RTTI：编译器在编译时打开和检查.class文件<br>反射：运行时打开和检查.class文件</p>
+</blockquote>
+<p>严格的说，反射也是一种形式的RTTI，不过，一般的文档资料中把RTTI和反射分开，因为一般的，大家认为 RTTI指的是传统的 RTTI，通过继承和多态来实现，在运行时通过调用超类的方法来实现具体的功能</p>
+<p>未完待续</p>
 
       
     </div>
@@ -458,6 +474,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Android-LruCache-缓存详解/" rel="prev" title="Android LruCache 缓存详解">
+                Android LruCache 缓存详解 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -536,7 +556,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -558,7 +578,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -614,7 +634,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">2.1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API"><span class="nav-number">2.2.</span> <span class="nav-text">API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类的实例化和构造函数"><span class="nav-number">2.2.1.</span> <span class="nav-text">类的实例化和构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类成员变量的获取"><span class="nav-number">2.2.2.</span> <span class="nav-text">类成员变量的获取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类方法的获取"><span class="nav-number">2.2.3.</span> <span class="nav-text">类方法的获取</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RTTI和Class对象"><span class="nav-number">3.1.</span> <span class="nav-text">RTTI和Class对象</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">2.1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API"><span class="nav-number">2.2.</span> <span class="nav-text">API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类的实例化和构造函数"><span class="nav-number">2.2.1.</span> <span class="nav-text">类的实例化和构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类成员变量的获取"><span class="nav-number">2.2.2.</span> <span class="nav-text">类成员变量的获取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类方法的获取"><span class="nav-number">2.2.3.</span> <span class="nav-text">类方法的获取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类注解的获取"><span class="nav-number">2.2.4.</span> <span class="nav-text">类注解的获取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类父类的获取"><span class="nav-number">2.2.5.</span> <span class="nav-text">类父类的获取</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RTTI和Class对象"><span class="nav-number">3.1.</span> <span class="nav-text">RTTI和Class对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTTI和反射"><span class="nav-number">3.2.</span> <span class="nav-text">RTTI和反射</span></a></li></ol></li></ol></div>
             
 
           </div>

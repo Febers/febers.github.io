@@ -238,7 +238,8 @@ current Thread info in A: Thread[main,5,main]
 - suspend：线程在暂停的时候仍然占有该资源，导致需要该资源的线程产生环路等待，从而造成死锁。
 - resume：用来回复被挂起的线程，跟 suspend 对应。
 
-### 线程池
+## 线程池
+
 Java 中关于线程池的继承关系如下
 
 ![](Java-线程和线程池详解/继承图.png)
