@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Android,View,">
+  <meta name="keywords" content="Hello">
 
 
 
@@ -81,18 +81,14 @@
 
 
 
-<meta name="description" content="引言">
-<meta name="keywords" content="Android,View">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android View 的工作原理">
-<meta property="og:url" content="http://yoursite.com/Android-View-的工作原理/index.html">
+<meta property="og:title" content="Android Binder 源码解析">
+<meta property="og:url" content="http://yoursite.com/Android-Binder-源码解析/index.html">
 <meta property="og:site_name" content="ReBE">
-<meta property="og:description" content="引言">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-16T06:22:16.000Z">
+<meta property="og:updated_time" content="2019-03-23T04:18:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android View 的工作原理">
-<meta name="twitter:description" content="引言">
+<meta name="twitter:title" content="Android Binder 源码解析">
 
 
 
@@ -122,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/Android-View-的工作原理/">
+  <link rel="canonical" href="http://yoursite.com/Android-Binder-源码解析/">
 
 
 
 
 
-  <title>Android View 的工作原理 | ReBE</title>
+  <title>Android Binder 源码解析 | ReBE</title>
   
 
 
@@ -277,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Android-View-的工作原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Android-Binder-源码解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
@@ -294,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android View 的工作原理</h1>
+          <h1 class="post-title" itemprop="name headline">Android Binder 源码解析</h1>
         
 
         <div class="post-meta">
@@ -306,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T13:10:14+08:00">
-                2019-03-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T12:18:53+08:00">
+                2019-03-23
               </time>
             
 
@@ -316,28 +312,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -366,8 +340,7 @@
       
 
       
-        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><a id="more"></a>
-<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><h2 id="ViewRoot-和-DecorView"><a href="#ViewRoot-和-DecorView" class="headerlink" title="ViewRoot 和 DecorView"></a>ViewRoot 和 DecorView</h2><h2 id="MeasureSpec"><a href="#MeasureSpec" class="headerlink" title="MeasureSpec"></a>MeasureSpec</h2><h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><h3 id="measure-过程"><a href="#measure-过程" class="headerlink" title="measure 过程"></a>measure 过程</h3><h3 id="layout-过程"><a href="#layout-过程" class="headerlink" title="layout 过程"></a>layout 过程</h3><h3 id="draw-过程"><a href="#draw-过程" class="headerlink" title="draw 过程"></a>draw 过程</h3><h2 id="自定义-View"><a href="#自定义-View" class="headerlink" title="自定义 View"></a>自定义 View</h2>
+        
       
     </div>
     
@@ -382,14 +355,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Android/" rel="tag"># Android</a>
-          
-            <a href="/tags/View/" rel="tag"># View</a>
-          
-        </div>
-      
 
       
       
@@ -399,8 +364,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Android-IPC-机制详解/" rel="next" title="Android IPC 机制详解">
-                <i class="fa fa-chevron-left"></i> Android IPC 机制详解
+              <a href="/Java-线程和线程池详解/" rel="next" title="Java 线程和线程池详解">
+                <i class="fa fa-chevron-left"></i> Java 线程和线程池详解
               </a>
             
           </div>
@@ -409,8 +374,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Java-排序算法/" rel="prev" title="Java 排序算法">
-                Java 排序算法 <i class="fa fa-chevron-right"></i>
+              <a href="/清明/" rel="prev" title="清明">
+                清明 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -463,17 +428,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -558,22 +514,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作原理"><span class="nav-number">2.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ViewRoot-和-DecorView"><span class="nav-number">3.</span> <span class="nav-text">ViewRoot 和 DecorView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MeasureSpec"><span class="nav-number">4.</span> <span class="nav-text">MeasureSpec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作流程"><span class="nav-number">5.</span> <span class="nav-text">工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#measure-过程"><span class="nav-number">5.1.</span> <span class="nav-text">measure 过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#layout-过程"><span class="nav-number">5.2.</span> <span class="nav-text">layout 过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#draw-过程"><span class="nav-number">5.3.</span> <span class="nav-text">draw 过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义-View"><span class="nav-number">6.</span> <span class="nav-text">自定义 View</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

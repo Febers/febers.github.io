@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="ReBE">
 <meta property="og:description" content="引言IPC（Inter-Process Communication），进程间通信或者跨进程通信，指不同的进程之间进行数据交换的过程。按照操作系统的描述，进程是指一个执行单元，在 PC 或移动设备上指一个程序/应用。容易混淆的另一个概念是线程，线程是 CPU 调度的最小单元，属于有限的系统资源。一个进程可以包含多个线程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-15T15:29:22.000Z">
+<meta property="og:updated_time" content="2019-03-23T04:53:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android IPC 机制详解">
 <meta name="twitter:description" content="引言IPC（Inter-Process Communication），进程间通信或者跨进程通信，指不同的进程之间进行数据交换的过程。按照操作系统的描述，进程是指一个执行单元，在 PC 或移动设备上指一个程序/应用。容易混淆的另一个概念是线程，线程是 CPU 调度的最小单元，属于有限的系统资源。一个进程可以包含多个线程。">
@@ -402,17 +402,19 @@
 <h3 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h3><p>Socket也称为“套接字”，是网络通信中的概念，它分为流式套接字和用户数据套接字两种，分别应于网络的传输控制层中的TCP和UDP协议。</p>
 <h3 id="AIDL"><a href="#AIDL" class="headerlink" title="AIDL"></a>AIDL</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>Android Interface Definition Language，Android 接口定义语言。</p>
 <ul>
-<li>数据类型：作为一门“语言”，它有一些与 Java 不同的地方。除了基本数据类型、String 和 CharSequence 之外，使用其他的数据类型都需要显式导入，无论 aidl 接口是否与目标类在同一个包中。其支持的数据类型如下</li>
-</ul>
+<li><p>数据类型：作为一门“语言”，它有一些与 Java 不同的地方。除了基本数据类型、String 和 CharSequence 之外，使用其他的数据类型都需要显式导入，无论 aidl 接口是否与目标类在同一个包中。其支持的数据类型如下</p>
 <blockquote>
-<p>Java 中的八种基本数据类型、String、CharSequence。<br><br>List类型：其中的元素必须是AIDL支持的类型之一，或者是一个其他AIDL生成的接口，或者是定义的 Parcelable 类型。List可以使用泛型。<br><br>Map类型：其中的元素必须是AIDL支持的类型之一，或者是一个其他AIDL生成的接口，或者是定义的parcelable。Map不支持泛型。</p>
+<p>Java 中的八种基本数据类型、String、CharSequence。<br></p>
+<p>List类型：其中的元素必须是AIDL支持的类型之一，或者是一个其他AIDL生成的接口，或者是定义的 Parcelable 类型。List可以使用泛型。<br></p>
+<p>Map类型：其中的元素必须是AIDL支持的类型之一，或者是一个其他AIDL生成的接口，或者是定义的parcelable。Map不支持泛型。<br></p>
 </blockquote>
-<ul>
-<li>定向tag：AIDLv中的定向 tag 表示了在跨进程通信中数据的流向，其中 in 表示数据只能由客户端流向服务端， out 表示数据只能由服务端流向客户端，而 inout 则表示数据可在服务端与客户端之间双向流通。其中，数据流向是针对在客户端中的那个传入方法的对象而言的。</li>
-</ul>
+</li>
+<li><p>定向tag：AIDL 中的定向 tag 表示了在跨进程通信中数据的流向，其中 in 表示数据只能由客户端流向服务端， out 表示数据只能由服务端流向客户端，而 inout 则表示数据可在服务端与客户端之间双向流通。其中，数据流向是针对在客户端中的那个传入方法的对象而言的。</p>
 <blockquote>
 <p>in 为定向 tag 时，表现为服务端将会接收到一个对象的完整数据，但是客户端的对象不会因为服务端对传参的修改而发生变动；<br>out 为定向 tag 时，表现为服务端将会接收到对象的的空对象，但是在服务端对接收到的空对象有任何修改之后，客户端将会同步变动；<br>inout 为定向 tag 时，服务端将会接收到客户端传来对象的完整信息，并且客户端将会同步服务端对该对象的任何变动。</p>
 </blockquote>
+</li>
+</ul>
 <p>关于更多：<a href="https://blog.csdn.net/luoyanglizi/article/details/51958091" target="_blank" rel="noopener">你真的理解AIDL中的in，out，inout么?</a></p>
 <ul>
 <li>两种类型：所有的 AIDL 文件可分为两类。一类定义 Parcelable 对象，以供其他 AIDL 文件使用非默认支持的数据类型。一类定义方法接口，以供系统完成跨进程通信。<br>可以看到，两类文件都是在“定义”，而不涉及具体的实现，这就是为什么它叫做“Android 接口定义语言”。<br>注：所有的非默认支持数据类型必须通过第一类 AIDL 文件定义才能被使用。</li>
@@ -565,7 +567,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
