@@ -1,10 +1,11 @@
 ---
-title: Dart笔记（一）：基本语法和数据类型
+title: Dart 基础入门
 date: 2019-04-22 14:27:18
 categories:
 - Dart
 tags: 
 - Dart
+
 ---
 
 ## 引言
@@ -23,13 +24,13 @@ void main() {
 
 Dart 的 SDK 下载可能需要梯子。作者使用的开发环境是 Intellij IDEA，首先下载 Dart 的 Plugin，重启 IDEA 之后创建一个 Dart Project，当然首先需要确认 SDK 的路径。
 
-![](Dart 笔记之基本语法和数据类型/idea_create.png)
+![](Dart 基础入门\idea_create.png)
 
 
 
 创建之后的文件窗口如下，右键 DartDemo 文件夹，新建一个 dart 文件，和 C/C++ 类似，Dart 语言以文件中的`main`函数作为运行的入口。在`run`之前需要`edit configuration`，很简单，只要指定对应的文件即可。
 
-![](Dart 笔记之基本语法和数据类型/idea_category.png)
+![](Dart 基础入门\idea_category.png)
 
 
 
@@ -52,7 +53,7 @@ void main() {
 
 通过查看官方库的`core`包，可以大概看出其结构
 
-![dart_core](Dart 笔记之基本语法和数据类型/dart_core.png)
+![dart_core](Dart 基础入门\dart_core.png)
 
 ## 数据类型
 
@@ -162,6 +163,7 @@ printElement(x) {	//方法签名写成 void printElement(int x) 更直观
 }
 
 list.forEach(printElement);
+
 ```
 
 `forEach`的函数定义如下
@@ -170,6 +172,7 @@ list.forEach(printElement);
 void forEach(void f(E element)) {
   for (E element in this) f(element);
 }
+
 ```
 
 下面的例子直观展示将函数作为变量传递的思想
@@ -189,6 +192,7 @@ Function makeAdder_(num n) {
 
 var adder2 = makeAdder(2);
 print(adder2(3));
+
 ```
 
 控制台将输出 5
@@ -205,6 +209,7 @@ print(adder2(3));
 
 ```dart
 external bool identical(Object a, Object b);
+
 ```
 
 ### 除法

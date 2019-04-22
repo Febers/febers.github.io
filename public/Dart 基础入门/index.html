@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Dart,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ReBE" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="引言终于开始 Flutter 的具体学习，一切从 Dart 语言开始。 123void main() &amp;#123;    print(&amp;apos;hello world&amp;apos;);&amp;#125;">
+<meta name="keywords" content="Dart">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dart 基础入门">
+<meta property="og:url" content="http://yoursite.com/Dart 基础入门/index.html">
+<meta property="og:site_name" content="ReBE">
+<meta property="og:description" content="引言终于开始 Flutter 的具体学习，一切从 Dart 语言开始。 123void main() &amp;#123;    print(&amp;apos;hello world&amp;apos;);&amp;#125;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Dart%20基础入门/idea_create.png">
+<meta property="og:image" content="http://yoursite.com/Dart%20基础入门/idea_category.png">
+<meta property="og:image" content="http://yoursite.com/Dart%20基础入门/dart_core.png">
+<meta property="og:updated_time" content="2019-04-22T12:01:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dart 基础入门">
+<meta name="twitter:description" content="引言终于开始 Flutter 的具体学习，一切从 Dart 语言开始。 123void main() &amp;#123;    print(&amp;apos;hello world&amp;apos;);&amp;#125;">
+<meta name="twitter:image" content="http://yoursite.com/Dart%20基础入门/idea_create.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: false,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Dart 基础入门/">
+
+
+
+
+
+  <title>Dart 基础入门 | ReBE</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ReBE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Febers的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Dart 基础入门/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Febers">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ReBE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Dart 基础入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T14:27:18+08:00">
+                2019-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dart/" itemprop="url" rel="index">
+                    <span itemprop="name">Dart</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>终于开始 Flutter 的具体学习，一切从 Dart 语言开始。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void main() &#123;</span><br><span class="line">    print(&apos;hello world&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>Dart 的 SDK 下载可能需要梯子。作者使用的开发环境是 Intellij IDEA，首先下载 Dart 的 Plugin，重启 IDEA 之后创建一个 Dart Project，当然首先需要确认 SDK 的路径。</p>
+<p><img src="/Dart 基础入门/idea_create.png" alt=""></p>
+<p>创建之后的文件窗口如下，右键 DartDemo 文件夹，新建一个 dart 文件，和 C/C++ 类似，Dart 语言以文件中的<code>main</code>函数作为运行的入口。在<code>run</code>之前需要<code>edit configuration</code>，很简单，只要指定对应的文件即可。</p>
+<p><img src="/Dart 基础入门/idea_category.png" alt=""></p>
+<h2 id="声明变量"><a href="#声明变量" class="headerlink" title="声明变量"></a>声明变量</h2><p>Dart 是一门完全面向对象的语言，包括基本数据类型、函数都是对象，继承自 Object。声明一个对象可以初始化，否则其值为<code>null</code>。可以使用具体的类型声明，也可以使用<code>var</code>、<code>dynamic</code>、<code>const</code>、<code>final</code>等关键字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">void main() &#123;</span><br><span class="line">  var i = 0;</span><br><span class="line">  var d = 2.0;</span><br><span class="line">  var s = &apos;hello&apos;;</span><br><span class="line">  var b = true;</span><br><span class="line">  var l = [1, 2, 3];</span><br><span class="line">  var m = &#123;0: &apos;a&apos;, 1: &apos;b&apos;&#125;;</span><br><span class="line">  </span><br><span class="line">  print(main is Function);  //true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过查看官方库的<code>core</code>包，可以大概看出其结构</p>
+<p><img src="/Dart 基础入门/dart_core.png" alt="dart_core"></p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="Numbers"><a href="#Numbers" class="headerlink" title="Numbers"></a>Numbers</h3><p>包括 int 和 double，分别代表整形和浮点型。</p>
+<p>int 的数值范围不超过2的64位，具体与平台有关，一般为 -2^53 to 2^53。double 则属于64位的双精度浮点型数据。</p>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><p>在 Dart 中，可以使用单引号或者双引号定义一个字符串变量，或者使用三引号定义格式字符串。Dart 的字符串使用 UTF-16 编码</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="string">"hello"</span>;</span><br><span class="line"><span class="keyword">var</span> s2 = <span class="string">'world'</span>;</span><br><span class="line"><span class="keyword">var</span> s3 = <span class="string">'hello'</span> + <span class="string">'world'</span>;</span><br><span class="line"><span class="keyword">var</span> s4 = <span class="string">'hello'</span> <span class="string">'world'</span>;</span><br><span class="line"><span class="keyword">var</span> s5 = <span class="string">"""hello </span></span><br><span class="line"><span class="string">              world"""</span>;</span><br></pre></td></tr></table></figure>
+<p>如果要使用 UTF-32 编码，则要通过 Runes（符号文字），它可以把文字转换成符号表情或者特定文字。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> clapping = <span class="string">'\u&#123;1f44f&#125;'</span>;</span><br><span class="line"><span class="built_in">print</span>(clapping);</span><br><span class="line"></span><br><span class="line">Runes runes = <span class="keyword">new</span> Runes(<span class="string">'\u&#123;1f44d&#125;'</span>);</span><br><span class="line"><span class="built_in">print</span>(<span class="keyword">new</span> <span class="built_in">String</span>.fromCharCode(runes.first));</span><br></pre></td></tr></table></figure>
+<p>上面的输出为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">👏</span><br><span class="line">👍</span><br></pre></td></tr></table></figure>
+<h3 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h3><p>提供 bool 用来声明布尔型变量，默认为 false。</p>
+<h3 id="List-和-Map"><a href="#List-和-Map" class="headerlink" title="List 和 Map"></a>List 和 Map</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">List</span>&lt;<span class="built_in">int</span>&gt; l = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">l.forEach((x) =&gt; <span class="built_in">print</span>(x)); <span class="comment">//forEach的参数为 Function</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> x <span class="keyword">in</span> l) &#123; <span class="comment">//使用for-in</span></span><br><span class="line">  <span class="built_in">print</span>(x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Map</span>&lt;<span class="built_in">int</span>, <span class="built_in">String</span>&gt; map = &#123;<span class="number">0</span>: <span class="string">"a"</span>, <span class="number">1</span>: <span class="string">"b"</span>&#125;;</span><br><span class="line">map[<span class="number">0</span>] = <span class="string">"c"</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h2><h3 id="普通Function"><a href="#普通Function" class="headerlink" title="普通Function"></a>普通Function</h3><p>函数或者方法。和Java 不同，Dart 中方法是有类型的，属于 Function。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  single1(<span class="string">'Tom'</span>, <span class="number">20</span>);</span><br><span class="line">  single2(<span class="string">'Tom'</span>, <span class="number">20</span>);</span><br><span class="line">  single3(<span class="string">'Tom'</span>, <span class="number">20</span>, weight: <span class="number">30</span>); <span class="comment">//由于没有位置约束，必须指定形参名称</span></span><br><span class="line">  single4(<span class="string">'Tom'</span>, <span class="number">20</span>, <span class="number">20</span>, <span class="number">30</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">bool</span> single1(<span class="built_in">String</span> name, <span class="built_in">int</span> age) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//返回类型和参数类型可省略，支持返回表达式</span></span><br><span class="line">single2(name, age) =&gt; <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//可选命名参数，调用时没有顺序要求，同时可选参数可以指定默认值</span></span><br><span class="line"><span class="built_in">bool</span> single3(<span class="built_in">String</span> name, <span class="built_in">int</span> age, &#123;<span class="built_in">int</span> weight = <span class="number">60</span>, <span class="built_in">int</span> height&#125;) =&gt; <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//可选位置参数，通过位置来确定参数值，要想指定 height 必须先指定 weight</span></span><br><span class="line"><span class="built_in">bool</span> single4(<span class="built_in">String</span> name, <span class="built_in">int</span> age, [<span class="built_in">int</span> weight, <span class="built_in">int</span> height]) =&gt; <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
+<p>对于<code>main</code>方法来说，可以定义其为一个有参的方法，同样可以作为入口方法。在 Flutter 项目中的入口方法为：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyApp());</span><br></pre></td></tr></table></figure>
+<h3 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h3><p>在 Lambda 表达式中，函数可以“没有名字”，同样，也可以像 kotlin 一样，定义一个函数变量</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f = (c) &#123;</span><br><span class="line">  <span class="built_in">print</span>(c);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">f(<span class="string">'hello'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">printElement(x) &#123;	<span class="comment">//方法签名写成 void printElement(int x) 更直观</span></span><br><span class="line">  <span class="built_in">print</span>(x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">list.forEach(printElement);</span><br></pre></td></tr></table></figure>
+<p><code>forEach</code>的函数定义如下</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> forEach(<span class="keyword">void</span> f(E element)) &#123;</span><br><span class="line">  <span class="keyword">for</span> (E element <span class="keyword">in</span> <span class="keyword">this</span>) f(element);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面的例子直观展示将函数作为变量传递的思想</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span> makeAdder(<span class="built_in">num</span> n) &#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="built_in">num</span> i) =&gt; n + i;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="comment">//更明晰的写法</span></span><br><span class="line"><span class="built_in">Function</span> makeAdder_(<span class="built_in">num</span> n) &#123;</span><br><span class="line">  <span class="built_in">Function</span> add = (<span class="built_in">num</span> i) &#123;</span><br><span class="line">    <span class="keyword">return</span> i + n;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> add;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> adder2 = makeAdder(<span class="number">2</span>);</span><br><span class="line"><span class="built_in">print</span>(adder2(<span class="number">3</span>));</span><br></pre></td></tr></table></figure>
+<p>控制台将输出 5</p>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h3 id="赋值操作符"><a href="#赋值操作符" class="headerlink" title="赋值操作符"></a>赋值操作符</h3><p>除了<code>=</code>，还有<code>??=</code>，表示如果左边的变量为 null，则将右边的值赋予它，否则左边值不变。</p>
+<h3 id="相等"><a href="#相等" class="headerlink" title="相等"></a>相等</h3><p><code>==</code>将比较两个对象的属性是否相等，判断是否为同一对象使用的是预定义的<code>identical</code>方法</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">external</span> <span class="built_in">bool</span> identical(<span class="built_in">Object</span> a, <span class="built_in">Object</span> b);</span><br></pre></td></tr></table></figure>
+<h3 id="除法"><a href="#除法" class="headerlink" title="除法"></a>除法</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">操作符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/</td>
+<td>除，比如 5/2 = 2.5</td>
+</tr>
+<tr>
+<td style="text-align:center">~/</td>
+<td>整除， 5/2 = 2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">操作符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">is</td>
+<td>对象属于指定类型则返回true</td>
+</tr>
+<tr>
+<td style="text-align:center">is!</td>
+<td>对象不属于指定类型返回true</td>
+</tr>
+<tr>
+<td style="text-align:center">as</td>
+<td>类型转换</td>
+</tr>
+</tbody>
+</table>
+<h3 id="条件表达式"><a href="#条件表达式" class="headerlink" title="条件表达式"></a>条件表达式</h3><p>分为两种</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">condition ? expr1 : expr2	<span class="comment">//通用表达式</span></span><br><span class="line">expr1 ?? expr2	<span class="comment">//如果 expr1 非空，返回其值，否则返回 expr2</span></span><br></pre></td></tr></table></figure>
+<h3 id="级联调用与非空调用"><a href="#级联调用与非空调用" class="headerlink" title="级联调用与非空调用"></a>级联调用与非空调用</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//常规写法</span></span><br><span class="line"><span class="keyword">var</span> button = <span class="built_in">querySelector</span>(<span class="string">'#button'</span>);</span><br><span class="line">button.text = <span class="string">'Confirm'</span>;</span><br><span class="line">button.classes.add(<span class="string">'important'</span>);</span><br><span class="line">button.onClick.listen((e) =&gt; <span class="built_in">window</span>.alert(<span class="string">'Confirmed!'</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用级联表达式</span></span><br><span class="line"><span class="built_in">querySelector</span>(<span class="string">'#button'</span>) <span class="comment">// Get an object.</span></span><br><span class="line">  ..text = <span class="string">'Confirm'</span>   <span class="comment">// Use its members.</span></span><br><span class="line">  ..classes.add(<span class="string">'important'</span>)</span><br><span class="line">  ..onClick.listen((e) =&gt; <span class="built_in">window</span>.alert(<span class="string">'Confirmed!'</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//非空调用</span></span><br><span class="line"><span class="built_in">print</span>(button?.text);</span><br></pre></td></tr></table></figure>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>Dart 语言在比如 <code>if/else</code>、<code>[do、]while</code>、<code>for</code>、<code>switch/case</code>等语句上跟 Java 类似，不再赘述。</p>
+<p>异常处理的做法如下</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//抛出异常</span></span><br><span class="line"><span class="keyword">throw</span> <span class="string">'x should be less than 10'</span>;	</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> FormatException(<span class="string">'Expected at least 1 section'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//捕获异常</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  breedMoreLlamas();</span><br><span class="line">&#125; on OutOfLlamasException &#123;</span><br><span class="line">  buyMoreLlamas();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line"> <span class="comment">//...</span></span><br><span class="line">&#125; on Exception <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'Unknown exception: <span class="subst">$e<span class="string">');</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">&#125; catch (e, s) &#123;	</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">  print('</span></span>Exception details:\n <span class="subst">$e<span class="string">');</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">  print('</span></span>Stack trace:\n <span class="subst">$s<span class="string">');</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">&#125;</span></span></span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Dart/" rel="tag"># Dart</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Android-Binder-源码解析/" rel="next" title="Android Binder 源码解析">
+                <i class="fa fa-chevron-left"></i> Android Binder 源码解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4" alt="Febers">
+            
+              <p class="site-author-name" itemprop="name">Febers</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Febers" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:febers418@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境搭建"><span class="nav-number">2.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明变量"><span class="nav-number">3.</span> <span class="nav-text">声明变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型"><span class="nav-number">4.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Numbers"><span class="nav-number">4.1.</span> <span class="nav-text">Numbers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String"><span class="nav-number">4.2.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Boolean"><span class="nav-number">4.3.</span> <span class="nav-text">Boolean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List-和-Map"><span class="nav-number">4.4.</span> <span class="nav-text">List 和 Map</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Function"><span class="nav-number">5.</span> <span class="nav-text">Function</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通Function"><span class="nav-number">5.1.</span> <span class="nav-text">普通Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambda表达式"><span class="nav-number">5.2.</span> <span class="nav-text">Lambda表达式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">6.</span> <span class="nav-text">运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#赋值操作符"><span class="nav-number">6.1.</span> <span class="nav-text">赋值操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相等"><span class="nav-number">6.2.</span> <span class="nav-text">相等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#除法"><span class="nav-number">6.3.</span> <span class="nav-text">除法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型判断"><span class="nav-number">6.4.</span> <span class="nav-text">类型判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件表达式"><span class="nav-number">6.5.</span> <span class="nav-text">条件表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#级联调用与非空调用"><span class="nav-number">6.6.</span> <span class="nav-text">级联调用与非空调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">7.</span> <span class="nav-text">其他</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Febers</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
