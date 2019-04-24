@@ -196,9 +196,126 @@ class Sparrow extends Bird {
 | 语言   |                           解决方案                           |
 | ------ | :----------------------------------------------------------: |
 | C++    | 需要显式地声明要使用的特性是从哪个父类调用的(如：`Worker::Human.Age`)。C++不支持显式的重复继承，因为无法限定要使用哪个父类 |
-| Java 8 | Java 8 在接口上引入默认方法。如果`A、B、C`是接口，`B、C`可以为`A`的抽象方法提供不同的实现，从而导致`菱形问题`。`D`类必须重新实现该方法，否则发生编译错误。（Java 8 之前不支持多重继承，不受钻石问题风险的影响） |
+| Java 8 | Java 8 在接口上引入默认方法。如果`A、B、C`是接口，`B、C`可以为`A`的抽象方法提供不同的实现，从而导致`菱形问题`。`D`类必须重新实现该方法，否则发生编译错误。（Java 8 之前不支持多重继承、没有默认方法） |
 
-Dart 和 Python、Scala 等语言类似，使用 Mixin 机制解决该方法，或者写作“mix-in（混入）”更容易理解。
+Dart 使用 Mixin 机制解决该方法，或者写作“mix-in（混入）”更容易理解。
 
 ### Mixin
 
+在 Java8 之前，由于单继承机制以及接口没有默认方法，避免了继承歧义，而 Dart 虽然也使用了单继承机制，但是没有`interface`这一概念 —— 实际上，Dart 中的每一个类都可以被`implements` —— 所以使用了基于线性逻辑的`Mixin`解决该问题。
+
+`Mixin`即为混入：`Mixins are a way of reusing a class’s code in multiple class hierarchies`。
+
+通过一个例子理解
+
+```dart
+class A {
+  var s = 'A';
+  get() => 'A';
+}
+
+class B {
+  var s = 'B';
+  get() => 'B';
+}
+
+class P {
+  var s = 'P';
+  get() => 'P';
+}
+
+class AB extends P with A, B {
+  var s = 'AB';
+}
+
+class BA extends P with B, A {}
+
+void main() {
+  AB ab = AB();
+  print(ab.get());
+  print(ab.s);
+
+  BA ba = BA();
+  print(ba.get());
+}
+```
+
+控制台输出为：
+
+> B
+> AB
+> A
+
+这是因为下面的代码
+
+```dart
+class AB extends P with A, B {}
+
+class BA extends P with B, A {}
+```
+
+相当于
+
+```dart
+class PA = P with A;
+class PAB = PA with B;
+
+class AB extends PAB {}
+
+class PB = P with B;
+class PBA = PB with A;
+
+class BA extends PBA {}
+```
+
+继承图如下
+
+![ABP继承图](Dart-面向对象\ABP继承图.png)
+
+
+
+有意思的是，当我们将上面的代码中的`with`换成`implements`时，输出的结果将为
+
+> P
+> AB
+> P
+
+### extends、with、implements
+
+在 Dart 中，类声明必须严格按照 extends -> with -> implements 的顺序
+
+- extends 的用法类似于 Java，唯一的不同在于子类可以完全访问父类的属性和函数，因为在 Dart 中并没有私有、公有的概念，下划线`_`的仅仅是一种约定。
+
+- 除了上面的内容，`with`还可以与之搭配关键字`on`，表示要进行 mixin 的类必须先 “implements” 被 mixin 的类声明中 on 关键字后面的类，否则编译失败
+
+  ```dart
+  abstract class D {
+    void fromD();
+  }
+  
+  mixin C on D {
+    fromC() => 'C';
+  }
+  
+  /*
+    下面的代码将编译失败，因为 F 要 mixin C 必须先“implements” D
+    但是 implements 关键字又必须在 with 的后面，所以只能定义一个新的类 E
+    使 E implements D，F 再 extends E，才能 mixin C
+   */
+  class F with C { }	
+  ```
+
+  正确的做法
+
+  ```dart
+  class E implements D {
+    @override
+    void fromD() => 'E';
+  }
+  
+  class F extends E with C { }
+  ```
+
+- Dart 中每个类都是一个隐式地接口。`implements`一个类之后，必须`override`所有的方法和成员变量
+
+  
