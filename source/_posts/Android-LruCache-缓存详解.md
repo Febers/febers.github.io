@@ -9,8 +9,9 @@ categories:
 - Android 
 ---
 
-![](https://upload-images.jianshu.io/upload_images/3392635-584d9b129fd4132c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
+![](Android-LruCache-缓存详解\LruCache.png)
 <!--more-->
+
 ## Android 缓存策略
 一般来说，缓存策略主要包含缓存的添加、获取和删除。如何添加和获取缓存这个比较好理解，那为什么还要删除缓存呢？这是因为不管是内存缓存还是硬盘缓存，它们的缓存大小都是有限的。当缓存满了之后，再向其添加缓存，就需要先删除旧的缓存。因此 LRU 缓存算法应运而生。
 
@@ -112,10 +113,10 @@ public LruCache(int maxSize) {
     this.maxSize = maxSize;
     this.map = new LinkedHashMap<K, V>(0, 0.75f, true);
 }
-```
+​```
 `put`方法
 
-```Java
+​```Java
 public final V put(K key, V value) {
     if (key == null || value == null) {
         throw new NullPointerException("key == null || value == null");
@@ -144,12 +145,12 @@ public final V put(K key, V value) {
     trimToSize(maxSize);
     return previous;
 }
-```
+​```
 可以看到，添加过缓存对象后会调用`trimToSize`方法，来判断缓存是否已满，如果满了就删除近期最少使用的对象
 
 `trimToSize`方法
 
-```Java
+​```Java
 public void trimToSize(int maxSize) {
     //死循环
     while (true) {
@@ -179,14 +180,14 @@ public void trimToSize(int maxSize) {
         entryRemoved(true, key, value, null);
     }
 }
-```
+​```
 该方法不断地删除 LinkedHashMap 中队尾的元素，直到缓存大小小于最大值。
 
 当调用 LruCache 的`get`方法获取集合中的缓存对象时，就代表访问了一次该元素，队列将会更新，保持其按照访问顺序的排序的规则。这个更新过程是在 LinkedHashMap 中的`get`方法中完成的。
 
 先看 LruCache 的`get`方法
 
-```Java
+​```Java
 public final V get(K key) {
     //key为空抛出异常
     if (key == null) {
@@ -205,12 +206,12 @@ public final V get(K key) {
         missCount++;
     }
 }
-```
+​```
 
 
 LinkedHashMap 的`get`方法如下：
 
-```Java
+​```Java
 public V get(Object key) {
     LinkedHashMapEntry<K,V> e = (LinkedHashMapEntry<K,V>)getEntry(key);
     if (e == null)
@@ -219,9 +220,9 @@ public V get(Object key) {
     e.recordAccess(this);
     return e.value;
 }
-```
+​```
 
-```Java
+​```Java
  void recordAccess(HashMap<K,V> m) {
     LinkedHashMap<K,V> lm = (LinkedHashMap<K,V>)m;
     //判断是否是访问排序
@@ -233,7 +234,7 @@ public V get(Object key) {
         addBefore(lm.header);
     }
 }
-```
+​```
 
 
 
@@ -242,3 +243,4 @@ public V get(Object key) {
 以上便是 LruCache 实现的原理，理解了 LinkedHashMap 的数据结构就能理解整个原理。
 
 本文转自 [彻底解析Android缓存机制——LruCache](https://www.jianshu.com/p/b49a111147ee)
+````
