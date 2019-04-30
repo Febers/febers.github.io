@@ -34,7 +34,7 @@ void main() {
 
 可以在构造函数的参数前加 this 关键字直接赋值
 
-```
+```dart
 class Point {
     num x;
     num y;
