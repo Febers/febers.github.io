@@ -40,11 +40,11 @@ Dart 属于单线程编程语言，在进行 I/O 操作或者其他耗时操作�
 `dart:async`定义了一个顶级函数`scheduleMicrotask`，使用其让代码以微任务的方式异步执行
 
 ```dart
-import 'dart:async';	//下文不再显示导入
+import 'dart:async';	//下文不再显式导入
 
 void main() {
   print('开始');
-  scheduleMicrotask((){
+  scheduleMicrotask(() {
     print('这是一个微任务');
   });
   print("结束");
@@ -65,15 +65,13 @@ void main() {
 void main() {
   print('开始');
 
-  Timer.run((){
+  Timer.run(() {
     print('这是一个事件');
   });
 
-  scheduleMicrotask((){print('这是微任务0');});
-  scheduleMicrotask((){print('这是微任务1');});
-  scheduleMicrotask((){print('这是微任务2');});
-  scheduleMicrotask((){print('这是微任务3');});
-  scheduleMicrotask((){print('这是微任务4');});
+  scheduleMicrotask((){ print('这是微任务0'); });
+  scheduleMicrotask((){ print('这是微任务1'); });
+  scheduleMicrotask((){ print('这是微任务2'); });
   
   print("结束");
 }
@@ -86,8 +84,6 @@ void main() {
 > 这是微任务0
 > 这是微任务1
 > 这是微任务2
-> 这是微任务3
-> 这是微任务4
 > 这是一个事件
 
 同时可以看出和 Java 使用`new Thread（Runnable r）`不同，在 Dart 中，微任务的执行顺序是有序的。
@@ -95,7 +91,7 @@ void main() {
 考虑下面的代码，会输出`这是一个事件`吗？
 
 ```dart
-  Timer.run((){
+  Timer.run(() {
     print('这是一个事件');
   });
   
@@ -146,7 +142,7 @@ void main() {
       .then((b) => print('then中的代码1'))
       .then((c) { throw '抛出then中的错误'; })
       .catchError((error) => print('捕获Error $error'))
-      .whenComplete((){print('then任务完成');});
+      .whenComplete(() {print('then任务完成');});
 }
 ```
 
@@ -301,7 +297,7 @@ get naturals async* {
   }
 }
 
-void main() {
+void main() async {
   await for (var i in naturals) {
     print('get a natural $i');
   }
@@ -333,10 +329,10 @@ Iterable naturalsTo(n) sync* {
 
 通过一个混合编程的例子来体会两者的区别
 
-```dart
+```javascript
 Iterable nSync(n) sync* {
   int k = 0;
-  while (k < n) {
+  while (k < n)  {
     print('sync before k++ and k is $k');
     yield k++;
     print('sync after k++ and k is $k');
@@ -345,7 +341,7 @@ Iterable nSync(n) sync* {
 
 Stream nAsync(n) async* {
   int k = 0;
-  while (k < n) {
+  while (k < n)  {
     print('async before k++ and k is $k');
     yield await k++;
     print('async after k++ and k is $k');
