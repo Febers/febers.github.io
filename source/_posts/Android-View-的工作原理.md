@@ -43,7 +43,7 @@ View 的绘制流程是从 ViewRoot 的 `performTraversals` 开始的，经过`m
 
 如图所示，`performTraversals`会依次调用`performMeasure`、`performLayout`、`performDraw`，然后这三个方法分别完成顶级 View 的三大流程。而后，`measure`又会调用`onMeasure`，在其中对所有子元素进行 measure 过程，此时 measure 流程就从父容器传递到子元素了，接着子元素重复上述过程。如此完成整个 View 树的遍历。
 
-measure 过程决定了 View 的宽高，可以通过`getMeasureWidth`和`getMeasureHeight`获得 View 测量后的宽高，在几乎所有情况下都可以得到 View 最终的数值。
+measure 过程决定了 View 的宽高，可以通过`getMeasuredWidth`和`getMeasuredHeight`获得 View 测量后的宽高，在几乎所有情况下都可以得到 View 最终的数值。
 
 layout 过程决定了 View 的四个顶点的坐标和实际的 View 的宽高，可以通过`getTop`、`getBottom`、`getLeft`、`getRight`拿到四个顶点的位置，通过`getWidth`、`getHeight`获得 View 的最终宽高。只有 draw 过程完成之后才能呈现 View。
 
@@ -258,8 +258,92 @@ ViewGroup 并没有测量的具体过程，而是交给其子类实现，比如 
 - view.measure(int widthMeasureSpec, int heightMeasureSpec)，手动 measure，较为复杂，不再赘述。
 
 ### layout 过程
+
+View / ViewGroup 使用`layout`过程确定自身位置，然后在`onLayout`中遍历所有的子元素并调用其`layout`方法，重复上述过程。
+
+View 中的`layout`方法
+
+```java
+public void layout(int l, int t, int r, int b) {
+        ......
+        int oldL = mLeft;
+        int oldT = mTop;
+        int oldB = mBottom;
+        int oldR = mRight;
+
+        boolean changed = isLayoutModeOptical(mParent) ?
+                setOpticalFrame(l, t, r, b) : setFrame(l, t, r, b);
+
+        if (changed || (mPrivateFlags & PFLAG_LAYOUT_REQUIRED) == PFLAG_LAYOUT_REQUIRED) {
+            onLayout(changed, l, t, r, b);
+            ......
+            mPrivateFlags &= ~PFLAG_LAYOUT_REQUIRED;
+
+            ListenerInfo li = mListenerInfo;
+            if (li != null && li.mOnLayoutChangeListeners != null) {
+                ArrayList<OnLayoutChangeListener> listenersCopy =
+                        (ArrayList<OnLayoutChangeListener>)li.mOnLayoutChangeListeners.clone();
+                int numListeners = listenersCopy.size();
+                for (int i = 0; i < numListeners; ++i) {
+                    listenersCopy.get(i).onLayoutChange(this, l, t, r, b, oldL, oldT, oldR, oldB);
+                }
+            }
+        }
+    ......
+}
+```
+
+首先通过`setFrame`设定 View 的四个顶点（mLeft、mTop、mBottom、mRight）的值，以此确定 View 在父容器中的位置。接着调用`onLayout`确定子元素的位置，和`onMeasure`类似，View / ViewGroup 都没有提供该方法的实现，而是交给具体的布局。
+
+在 **ViewRoot 和 DecorView** 小节，提及了在 View 的 layout 之后通过`getWidth`、`getHeight`获得 View 的“最终宽高”，那么`getMeasuredWidth`和`getWidth`的区别到底是什么？
+
+```java
+    public final int getWidth() {
+        return mRight - mLeft;
+    }
+    
+    public final int getHeight() {
+        return mBottom - mTop;
+    }
+```
+
+从上面的代码可以看出，`getWidth`的返回值刚好就是 View 的测量宽度，也就是说，View 的测量宽高等于最终宽高，只不过测量宽高形成与 measure 过程，而最终宽高形成与 layout 过程 —— 赋值时机不同。但是如果重写 View 的`layout`方法，改变了`super`的参数值，比如
+
+```java
+public void layout(int l, int t, int r, int b) {
+    super.layout(l, t, r + 100, b + 100);
+}
+```
+
+就会导致 View 的最终宽高总是比测量宽高大 100px。
+
 ### draw 过程
 
+将 View 绘制到屏幕上，具体步骤
 
+- 绘制背景 background.draw(canvas)
+- 绘制自身 onDraw
+- 绘制子元素 dispatchDraw
+- 绘制装饰 onDrawScrollBars
+
+
+
+## 其他
+
+Android 提供了一些 API 供开发调用，实现对 View 绘制过程的操纵
+
+- `requestLayout`
+
+  调用此方法会导致 View 树调用 layout 和 measure 过程，但不会触发 draw 流程
+
+- `invalidate`
+
+  请求重绘 View 树，即 draw 过程。在子线程中可以通过`postInvalidate`实现
+
+当开发者调用 View 的`setVisibility`方法实现 VISIBLE / INVISIBLE -> GONE 时，相当于间接调用 `requestLayout` 和 `invalidate`。 
+
+当开发者调用 View 的`setVisibility`方法实现  INVISIBLE -> VISIBLE 时，相当于间接调用 `invalidate`。 
+
+---
 
 *本文主要参考了《Android 开发艺术探索》——任玉刚 著*
