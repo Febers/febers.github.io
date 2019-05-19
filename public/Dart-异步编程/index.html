@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Dart,异步,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ReBE" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="引言Dart 属于单线程编程语言，在进行 I/O 操作或者其他耗时操作的时候，程序会进入阻塞状态。异步是 Dart 并发方案的基础。">
+<meta name="keywords" content="Dart,异步">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dart 异步编程">
+<meta property="og:url" content="http://yoursite.com/Dart-异步编程/index.html">
+<meta property="og:site_name" content="ReBE">
+<meta property="og:description" content="引言Dart 属于单线程编程语言，在进行 I/O 操作或者其他耗时操作的时候，程序会进入阻塞状态。异步是 Dart 并发方案的基础。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Dart-异步编程/事件循环.png.jpg">
+<meta property="og:updated_time" content="2019-04-30T14:17:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dart 异步编程">
+<meta name="twitter:description" content="引言Dart 属于单线程编程语言，在进行 I/O 操作或者其他耗时操作的时候，程序会进入阻塞状态。异步是 Dart 并发方案的基础。">
+<meta name="twitter:image" content="http://yoursite.com/Dart-异步编程/事件循环.png.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: false,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Dart-异步编程/">
+
+
+
+
+
+  <title>Dart 异步编程 | ReBE</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ReBE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Febers的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Dart-异步编程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Febers">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ReBE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Dart 异步编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-30T08:21:26+08:00">
+                2019-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dart/" itemprop="url" rel="index">
+                    <span itemprop="name">Dart</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Dart 属于单线程编程语言，在进行 I/O 操作或者其他耗时操作的时候，程序会进入阻塞状态。异步是 Dart 并发方案的基础。</p>
+<a id="more"></a>
+<h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>作为一个事件驱动语言，Dart 同样拥有事件循环（Event Loop，类似于 Android 中的Looper/Handler）。Dart 有两个队列，一个是微任务队列（MicroTask Queue），一个是事件队列（Event Queue）</p>
+<ul>
+<li>微任务队列包含 Dart 内部的微任务，主要通过<code>scheduleMicrotask</code>调度</li>
+<li>事件队列包含外部事件，如 I/O、Timer、绘制事件等</li>
+</ul>
+<p><img src="/Dart-异步编程/事件循环.png.jpg" alt=""></p>
+<p>从上图可以看出，Dart 处理事件循环的逻辑</p>
+<ul>
+<li>首先处理所有微任务队列里的微任务</li>
+<li>处理完所有微任务之后，处理事件队列里的一个事件</li>
+<li>回到微任务队列继续循环</li>
+</ul>
+<p>对于微任务队列，一次性全部处理，对于事件队列，一次只处理一个。</p>
+<h2 id="微任务和事件"><a href="#微任务和事件" class="headerlink" title="微任务和事件"></a>微任务和事件</h2><h3 id="微任务"><a href="#微任务" class="headerlink" title="微任务"></a>微任务</h3><p><code>dart:async</code>定义了一个顶级函数<code>scheduleMicrotask</code>，使用其让代码以微任务的方式异步执行</p>
+<figure class="highlight dart"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'dart:async'</span>;	<span class="comment">//下文不再显式导入</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() {</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'开始'</span>);</span><br><span class="line">  scheduleMicrotask(() {</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'这是一个微任务'</span>);</span><br><span class="line">  });</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"结束"</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>控制台输出</p>
+<blockquote>
+<p>开始<br>结束<br>这是一个微任务</p>
+</blockquote>
+<h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><p>使用<code>Timer.run(callback)</code>让代码以事件的方式异步执行</p>
+<figure class="highlight dart"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() {</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'开始'</span>);</span><br><span class="line"></span><br><span class="line">  Timer.run(() {</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'这是一个事件'</span>);</span><br><span class="line">  });</span><br><span class="line"></span><br><span class="line">  scheduleMicrotask((){ <span class="built_in">print</span>(<span class="string">'这是微任务0'</span>); });</span><br><span class="line">  scheduleMicrotask((){ <span class="built_in">print</span>(<span class="string">'这是微任务1'</span>); });</span><br><span class="line">  scheduleMicrotask((){ <span class="built_in">print</span>(<span class="string">'这是微任务2'</span>); });</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"结束"</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>控制台输出</p>
+<blockquote>
+<p>开始<br>结束<br>这是微任务0<br>这是微任务1<br>这是微任务2<br>这是一个事件</p>
+</blockquote>
+<p>同时可以看出和 Java 使用<code>new Thread（Runnable r）</code>不同，在 Dart 中，微任务的执行顺序是有序的。</p>
+<p>考虑下面的代码，会输出<code>这是一个事件</code>吗？</p>
+<figure class="highlight dart"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Timer.run(() {</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'这是一个事件'</span>);</span><br><span class="line">});</span><br><span class="line"></span><br><span class="line">foo() {</span><br><span class="line">  scheduleMicrotask(foo);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">foo();</span><br></pre></td></tr></tbody></table></figure>
+<p>根据上面 Dart 处理事件循环的逻辑图，<code>Timer.run</code>永远不会被执行，因为<code>scheduleMicrotask</code>永远在执行。</p>
+<p>仅仅使用回调函数实现异步很容易陷入“回调地狱（Callback hell）”，为此 Dart 引入了<code>Future</code></p>
+<h2 id="Future"><a href="#Future" class="headerlink" title="Future"></a>Future</h2><p>Future 封装了一系列静态函数完成异步操作，其内部通过<code>scheduleMicrotask</code>和<code>Timer</code>实现。此外还有一个<code>then</code>方法，接收一个名为<code>onValue</code>的闭包作为参数，该闭包在 Future 成功完成时被调用</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Future(FutureOr<t> computation())</t></td>
+<td>创建事件任务</td>
+</tr>
+<tr>
+<td>microtask(FutureOr<t> computation())</t></td>
+<td>创建microtask任务</td>
+</tr>
+<tr>
+<td>sync(FutureOr<t> computation())</t></td>
+<td>创建同步任务</td>
+</tr>
+<tr>
+<td>delayed(Duration duration, [FutureOr<t> computation()])</t></td>
+<td>创建延迟任务</td>
+</tr>
+</tbody>
+</table>
+<p>通过代码理解</p>
+<figure class="highlight dart"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() {</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'开始'</span>);</span><br><span class="line"></span><br><span class="line">  Timer.run(() => <span class="built_in">print</span>(<span class="string">'这是一个事件'</span>));</span><br><span class="line"></span><br><span class="line">  scheduleMicrotask((){<span class="built_in">print</span>(<span class="string">'这是微任务0'</span>);});</span><br><span class="line">  scheduleMicrotask((){<span class="built_in">print</span>(<span class="string">'这是微任务1'</span>);});</span><br><span class="line">  scheduleMicrotask((){<span class="built_in">print</span>(<span class="string">'这是微任务2'</span>);});</span><br><span class="line"></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"结束"</span>);</span><br><span class="line"></span><br><span class="line">  Future(() => <span class="built_in">print</span>(<span class="string">'普通Future，通过Timer实现'</span>));</span><br><span class="line"></span><br><span class="line">  Future.delayed(<span class="keyword">const</span> <span class="built_in">Duration</span>(seconds: <span class="number">2</span>), () => <span class="built_in">print</span>(<span class="string">'延迟Future，通过Timer实现'</span>));</span><br><span class="line"></span><br><span class="line">  Future.microtask(() => <span class="built_in">print</span>(<span class="string">'Future创建微任务，通过scheduleMicrotask实现'</span>));</span><br><span class="line"></span><br><span class="line">  Future.<span class="keyword">sync</span>(() => <span class="built_in">print</span>(<span class="string">'同步Future，执行同步代码'</span>))</span><br><span class="line">      .then((a) => <span class="built_in">print</span>(<span class="string">'then中的代码0'</span>))</span><br><span class="line">      .then((b) => <span class="built_in">print</span>(<span class="string">'then中的代码1'</span>))</span><br><span class="line">      .then((c) { <span class="keyword">throw</span> <span class="string">'抛出then中的错误'</span>; })</span><br><span class="line">      .catchError((error) => <span class="built_in">print</span>(<span class="string">'捕获Error <span class="subst">$error<span class="string">'))</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">      .whenComplete(() {print('</span></span>then任务完成'</span>);});</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>输出结果</p>
+<blockquote>
+<p>开始<br>结束<br>同步Future，执行同步代码<br>这是微任务0<br>这是微任务1<br>这是微任务2<br>Future创建微任务，通过scheduleMicrotask实现<br>then中的代码0<br>then中的代码1<br>捕获Error 抛出then中的错误<br>then任务完成<br>这是一个事件<br>普通Future，通过Timer实现</p>
+<p>//延迟2s</p>
+<p>延迟Future，通过Timer实现</p>
+</blockquote>
+<hr>
+<p>在<code>dart:async</code>中，除了 Future，还有 Completer，用来将具体的 Future 流程控制权交给开发者</p>
+<figure class="highlight dart"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> completer = Completer();</span><br><span class="line"><span class="keyword">var</span> future = completer.future;</span><br><span class="line">future.then((d) => <span class="string">'返回的字符串'</span>)</span><br><span class="line">    .then((e) => <span class="built_in">print</span>(<span class="string">'获得Completer中的future <span class="subst">$e<span class="string">'));</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">completer.complete((e) => print('</span></span>设为完成状态'</span>));</span><br></pre></td></tr></tbody></table></figure>
+<p>控制台输出</p>
+<blockquote>
+<p>获得Completer中的future 返回的字符串</p>
+</blockquote>
+<p>虽然 Future 缓解了回调地狱的问题，但如果串太多的<code>then</code>代码，可读性仍然会非常差，特别是各种 Future 嵌套的时候。与 JavaScript 类似，Dart 引入了<code>async/await</code>。</p>
+<h2 id="async-和-await"><a href="#async-和-await" class="headerlink" title="async 和 await"></a>async 和 await</h2><p>async 关键字修饰的函数与传统函数并无区别，只是将返回值类型使用 Future 进行了封装。</p>
+<p>通过代码具体理解</p>
+<figure class="highlight dart"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() <span class="keyword">async</span> {</span><br><span class="line">  getInt().then((i) => <span class="built_in">print</span>(<span class="string">'getInt: <span class="subst">$i<span class="string">'));</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">  getString().then((s) => print('</span></span>getString: <span class="subst">$s<span class="string">'));</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">  print('</span></span>main'</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">getInt() <span class="keyword">async</span> => <span class="number">2333</span>;</span><br><span class="line">getString() <span class="keyword">async</span> => <span class="string">'hello'</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>控制台输出</p>
+<blockquote>
+<p>main<br>getInt: 2333<br>getString: hello</p>
+</blockquote>
+<p>可以看到，调用<code>async</code>方法的代码转换成了异步任务。要想使之变成同步顺序，使用<code>await</code>关键字。不过需要注意的是，该关键字必须要在<code>async</code>函数中使用</p>
+<figure class="highlight dart"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() <span class="keyword">async</span> {</span><br><span class="line">  <span class="keyword">var</span> i = <span class="keyword">await</span> getInt();</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'getInt: <span class="subst">$i<span class="string">');</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">  </span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">  var s = await getString();</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">  print('</span></span>getString: <span class="subst">$s<span class="string">');</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">  </span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">  print('</span></span>main'</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>控制台输出</p>
+<blockquote>
+<p>getInt: 2333<br>getString: hello<br>main</p>
+</blockquote>
+<p>继续下面的例子</p>
+<figure class="highlight dart"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> main() {</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'main 0'</span>);</span><br><span class="line">  foo();</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'main 1'</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">foo() <span class="keyword">async</span> {</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'Foo'</span>);</span><br><span class="line">  <span class="keyword">var</span> s = <span class="keyword">await</span> bar();</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'from bar: <span class="subst">$s<span class="string">');</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">}</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string"></span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">bar() {</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">  print('</span></span>Bar'</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'hello'</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>控制台输出为</p>
+<blockquote>
+<p>main 0<br>Foo<br>Bar<br>main 1<br>from bar: hello</p>
+</blockquote>
+<p>也就是说，在<code>foo</code>中，除了第一行代码以及<code>bar()</code>这一函数调用之外的其他代码均为异步执行。当使用<code>await</code>的时候，其右边会马上返回一个 Future 对象，下面的代码则会以<code>then</code>的形式运行。</p>
+<p>上面的代码转换成 Future 风格</p>
+<figure class="highlight dart"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo() {</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'Foo'</span>);</span><br><span class="line">  <span class="keyword">return</span> Future.<span class="keyword">sync</span>(bar).then((s) => <span class="built_in">print</span>(<span class="string">'from bar: <span class="subst">$s<span class="string">'));</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">}</span></span></span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h2><h3 id="stream"><a href="#stream" class="headerlink" title="stream"></a>stream</h3><p>stream 是 Dart 中一个长度不确定的值列表，可以是有限的或者无限的，重要的是我们不知道 stream 何时结束或已经结束。随时间改变的鼠标位置、所有素数的列表或者网络上的视频流，都可以看做一个 stream。</p>
+<p>可以通过为 stream 注册一个或多个回调函数的方式，对其进行订阅监听。</p>
+<h3 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h3><p>yield 语句被用于生成器函数内，目的是给生成的集合添加新的结果。yield 语句总是使它的表达式被求值，通常情况下，求值结果会被追加到外层生成器所关联的集合中。如果生成器是同步的，则关联的集合是一个 iterable；如果是异步的，则关联的集合是一个 stream。</p>
+<p>此外，yield 也会因外层的生成器是否同步产生不同的行为：同步时 yield 会暂停外层生成器，直至调用<code>moveNext</code>且返回值为 true，异步时生成器的执行会继续。</p>
+<h3 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h3><p>一个函数体标记有<code>async*</code>修饰符的函数，将作为 stream 的生成函数。下面的函数生成一个包含自然数序列的 stream</p>
+<figure class="highlight dart"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">get</span> naturals <span class="keyword">async</span>* {</span><br><span class="line">  <span class="built_in">int</span> k = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (k < <span class="number">3</span>) {</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">await</span> k++;</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() <span class="keyword">async</span> {</span><br><span class="line">  <span class="keyword">await</span> <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> naturals) {</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'get a natural <span class="subst">$i<span class="string">');</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">  }</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">}</span></span></span></span><br></pre></td></tr></tbody></table></figure>
+<p>运行<code>main</code>函数，控制台将输出</p>
+<blockquote>
+<p>get a natural 0<br>get a natural 1<br>get a natural 2</p>
+</blockquote>
+<p>当 naturals 被调用时，立即返回一个新的 stream，一旦 stream 被监听，函数体将运行，以便生成值来填充 stream。每一次迭代执行一次 yield 语句，k 将自增（由于 await 的存在，函数会有短暂停止），然后函数将继续执行并使用新的 k 值，该值将被 yield 追加到 stream 中。</p>
+<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p>上述函数的同步形式</p>
+<figure class="highlight dart"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Iterable</span> naturalsTo(n) <span class="keyword">sync</span>* {</span><br><span class="line">  <span class="built_in">int</span> k = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(k < n) {</span><br><span class="line">    <span class="keyword">yield</span> k++;</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<hr>
+<p>通过一个混合编程的例子来体会两者的区别</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Iterable nSync(n) sync* {</span><br><span class="line">  int k = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (k < n)  {</span><br><span class="line">    print(<span class="string">'sync before k++ and k is $k'</span>);</span><br><span class="line">    <span class="keyword">yield</span> k++;</span><br><span class="line">    print(<span class="string">'sync after k++ and k is $k'</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">Stream nAsync(n) <span class="keyword">async</span>* {</span><br><span class="line">  int k = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (k < n)  {</span><br><span class="line">    print(<span class="string">'async before k++ and k is $k'</span>);</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">await</span> k++;</span><br><span class="line">    print(<span class="string">'async after k++ and k is $k'</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() {</span><br><span class="line">  nAsync(<span class="number">2</span>).last;</span><br><span class="line">  nSync(<span class="number">2</span>).last;</span><br><span class="line">  print(<span class="string">'main'</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>控制台输出为</p>
+<blockquote>
+<p>sync before k++ and k is 0<br>sync after k++ and k is 1<br>sync before k++ and k is 1<br>sync after k++ and k is 2<br>main<br>async before k++ and k is 0<br>async after k++ and k is 1<br>async before k++ and k is 1<br>async after k++ and k is 2</p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Dart/" rel="tag"># Dart</a>
+          
+            <a href="/tags/异步/" rel="tag"># 异步</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/《红楼梦》读书笔记/" rel="next" title="《红楼梦》读书笔记">
+                <i class="fa fa-chevron-left"></i> 《红楼梦》读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Android-自定义-View-详解/" rel="prev" title="Android 自定义 View 详解">
+                Android 自定义 View 详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4" alt="Febers">
+            
+              <p class="site-author-name" itemprop="name">Febers</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Febers" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:febers418@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件循环"><span class="nav-number">2.</span> <span class="nav-text">事件循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微任务和事件"><span class="nav-number">3.</span> <span class="nav-text">微任务和事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#微任务"><span class="nav-number">3.1.</span> <span class="nav-text">微任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件"><span class="nav-number">3.2.</span> <span class="nav-text">事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Future"><span class="nav-number">4.</span> <span class="nav-text">Future</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#async-和-await"><span class="nav-number">5.</span> <span class="nav-text">async 和 await</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generator"><span class="nav-number">6.</span> <span class="nav-text">Generator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#stream"><span class="nav-number">6.1.</span> <span class="nav-text">stream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yield"><span class="nav-number">6.2.</span> <span class="nav-text">yield</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步"><span class="nav-number">6.3.</span> <span class="nav-text">异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步"><span class="nav-number">6.4.</span> <span class="nav-text">同步</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Febers</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -143,6 +143,8 @@ edgeSizeField.setInt(leftDragger, displaySize.x)
 
 ## DrawerLayout 长按弹出
 
+[引言](#引言)
+
 在 DrawerLayout 中，用户在非侧滑界面的 mEdgeSize 范围内长按，侧滑界面将弹出。当我们修改 mEdgeSize 为屏幕宽度之后，用户所有的长按动作都将触发原来的弹出逻辑，而且触发范围为屏幕宽度，侧滑菜单将过度右移，造成左侧边缘有空白。
 
 原来是 DrawerLayout 的私有内部类 ViewDragCallback 重写了`onEdgeTouched`方法

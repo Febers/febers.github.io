@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next mist" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -105,7 +103,7 @@
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: false,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -367,10 +365,10 @@
 
       
         <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>反射是一种计算机处理方式，是程序可以访问、检测和修改它本身状态或行为的一种能力。Java 反射使得我们可以在程序运行时动态加载一个类，动态获取类的属性、方法、构造函数等信息。反射使 Java 这一静态语言有了动态的特性。<a id="more"></a></p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> price;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">(<span class="keyword">int</span> price)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPrice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPrice</span><span class="params">(<span class="keyword">int</span> price)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, </span></span><br><span class="line"><span class="function">            NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException </span>&#123;</span><br><span class="line">        <span class="comment">//正常调用</span></span><br><span class="line">        Apple apple = <span class="keyword">new</span> Apple();</span><br><span class="line">        apple.setPrice(<span class="number">10</span>);</span><br><span class="line">        System.out.println(<span class="string">"Price is "</span> + apple.getPrice());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//反射调用</span></span><br><span class="line">        Class clazz = Class.forName(<span class="string">"Apple"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用 getFields() 无法获取私有属性</span></span><br><span class="line">        Field[] fields = clazz.getDeclaredFields();</span><br><span class="line">        <span class="keyword">for</span> (Field field: fields) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Field is "</span> + field.getName());</span><br><span class="line">        &#125;</span><br><span class="line">        Method setPriceMethod = clazz.getMethod(<span class="string">"setPrice"</span>, <span class="keyword">int</span>.class);</span><br><span class="line"></span><br><span class="line">        Constructor appleConstructor = clazz.getConstructor();</span><br><span class="line">        Object appleObj = appleConstructor.newInstance();</span><br><span class="line">        <span class="comment">//Constructor appleConstructor = clazz.getConstructor(int.class);   //获得有参构造器</span></span><br><span class="line">        <span class="comment">//Object appleObj = appleConstructor.newInstance(int.class)     //调用有参构造器</span></span><br><span class="line"></span><br><span class="line">        setPriceMethod.invoke(appleObj, <span class="number">12</span>);</span><br><span class="line"></span><br><span class="line">        Method getPriceMethod = clazz.getMethod(<span class="string">"getPrice"</span>);</span><br><span class="line">        System.out.println(<span class="string">"Price is "</span> + getPriceMethod.invoke(appleObj));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> price;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">()</span></span>{}</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">(<span class="keyword">int</span> price)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.price = price;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPrice</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> price;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPrice</span><span class="params">(<span class="keyword">int</span> price)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.price = price;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, </span></span><br><span class="line"><span class="function">            NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException </span>{</span><br><span class="line">        <span class="comment">//正常调用</span></span><br><span class="line">        Apple apple = <span class="keyword">new</span> Apple();</span><br><span class="line">        apple.setPrice(<span class="number">10</span>);</span><br><span class="line">        System.out.println(<span class="string">"Price is "</span> + apple.getPrice());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//反射调用</span></span><br><span class="line">        Class clazz = Class.forName(<span class="string">"Apple"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用 getFields() 无法获取私有属性</span></span><br><span class="line">        Field[] fields = clazz.getDeclaredFields();</span><br><span class="line">        <span class="keyword">for</span> (Field field: fields) {</span><br><span class="line">            System.out.println(<span class="string">"Field is "</span> + field.getName());</span><br><span class="line">        }</span><br><span class="line">        Method setPriceMethod = clazz.getMethod(<span class="string">"setPrice"</span>, <span class="keyword">int</span>.class);</span><br><span class="line"></span><br><span class="line">        Constructor appleConstructor = clazz.getConstructor();</span><br><span class="line">        Object appleObj = appleConstructor.newInstance();</span><br><span class="line">        <span class="comment">//Constructor appleConstructor = clazz.getConstructor(int.class);   //获得有参构造器</span></span><br><span class="line">        <span class="comment">//Object appleObj = appleConstructor.newInstance(int.class)     //调用有参构造器</span></span><br><span class="line"></span><br><span class="line">        setPriceMethod.invoke(appleObj, <span class="number">12</span>);</span><br><span class="line"></span><br><span class="line">        Method getPriceMethod = clazz.getMethod(<span class="string">"getPrice"</span>);</span><br><span class="line">        System.out.println(<span class="string">"Price is "</span> + getPriceMethod.invoke(appleObj));</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><h4 id="类的实例化和构造函数"><a href="#类的实例化和构造函数" class="headerlink" title="类的实例化和构造函数"></a>类的实例化和构造函数</h4><blockquote>
-<p>获取公有构造函数，不包括父类，Class.class<br>public Constructor&lt;?&gt;[] getConstructors()<br>public Constructor<t> getConstructor(Class&lt;?&gt;… parameterTypes)</t></p>
-<p>获取当前类构造函数，忽略修饰符<br>public Constructor&lt;?&gt;[] getDeclaredConstructors()<br>public Constructor<t> getDeclaredConstructor(Class&lt;?&gt;… parameterTypes)</t></p>
+<p>获取公有构造函数，不包括父类，Class.class<br>public Constructor<?>[] getConstructors()<br>public Constructor<t> getConstructor(Class<?>… parameterTypes)</t></p>
+<p>获取当前类构造函数，忽略修饰符<br>public Constructor<?>[] getDeclaredConstructors()<br>public Constructor<t> getDeclaredConstructor(Class<?>… parameterTypes)</t></p>
 </blockquote>
 <blockquote>
 <p>构造函数调用，Constructor.class<br>public T newInstance(Object… initargs)</p>
@@ -385,8 +383,8 @@
 <p>忽略修饰符，强制调用<br>public void setAccessible(boolean flag)</p>
 </blockquote>
 <h4 id="类方法的获取"><a href="#类方法的获取" class="headerlink" title="类方法的获取"></a>类方法的获取</h4><blockquote>
-<p>获取公有方法，包括父类，Class.class<br>public Method[] getMethods()<br>public Method getMethod(String name, Class&lt;?&gt;… parameterTypes)</p>
-<p>获取当前类方法，忽略修饰符<br>public Method[] getDeclaredMethods()<br>public Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes)</p>
+<p>获取公有方法，包括父类，Class.class<br>public Method[] getMethods()<br>public Method getMethod(String name, Class<?>… parameterTypes)</p>
+<p>获取当前类方法，忽略修饰符<br>public Method[] getDeclaredMethods()<br>public Method getDeclaredMethod(String name, Class<?>… parameterTypes)</p>
 </blockquote>
 <blockquote>
 <p>方法调用，Method.class<br>//obj为类实例化对象，如果为静态方法obj为Null<br>invoke(Object obj, Object… args)</p>
@@ -433,7 +431,25 @@
 </blockquote>
 <p>严格的说，反射也是一种形式的RTTI，不过，一般的文档资料中把RTTI和反射分开，因为一般的，大家认为 RTTI指的是传统的 RTTI，通过继承和多态来实现，在运行时通过调用超类的方法来实现具体的功能</p>
 <p>未完待续</p>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
       
     </div>
     
@@ -556,7 +572,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -567,7 +583,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -578,7 +594,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

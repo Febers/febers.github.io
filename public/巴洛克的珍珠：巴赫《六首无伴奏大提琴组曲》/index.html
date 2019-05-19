@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next mist" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -105,7 +103,7 @@
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: false,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -386,7 +384,25 @@
 <p>俄罗斯大提琴家沙夫兰（Danil Shafran）的版本最动人也最有想象力。他的音符无比连贯通透，延绵如土地，不息如河流。对于巴赫这样崎岖的多声部织体，不知道他是如何做到如履平地，歌唱得如此酣畅热情。这一版本也是我听过的最富有歌唱性的演奏，要知道，这部乐曲本身是不太能歌唱的。当然沙夫兰的演奏也最不像巴洛克风格，他发挥了其中的浪漫气质。</p>
 <p>法国大提琴学派也对这部乐曲作出贡献。詹德龙（Maurice Gendron）、富尼埃（Pierre Fournier）、托特里耶（Paul Tortelier）和纳瓦拉（Andre Navarra）被称为法国大提琴四骑士。他们的演奏没有德奥音乐家那种强硬，而是温暖流畅、关注细节的，带着妙曼的巴黎沙龙气息。富尼埃的版本最有古典气质，他真是一位天生的贵族，乐句无比优雅，音色如光滑的丝绸，却十分自然，如温暖善感的独白；詹德龙冷静轻盈一些，一派典雅的古典风范；托特里耶有激情，甚至灼痛感，可以听见音乐中催人奋起的力量。每个人个性迥异，他们的个人魅力丰满了巴赫的作品，与之互相成就。</p>
 <p>只是杜普雷的版本略有逊色。这也是意料之中，巴赫不是她的菜</p>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
       
     </div>
     
@@ -511,7 +527,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -522,7 +538,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -533,7 +549,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
