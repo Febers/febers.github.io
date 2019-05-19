@@ -125,11 +125,11 @@ ___
 
 ### 链接
 
-链接分为文字链接和图片链接B
+链接分为文字链接和图片链接
 
 #### 文字链接
 
-`[ReBe](https://febers.github.io "鼠标悬停显示")`：[ReBe
+`[ReBe](https://febers.github.io "鼠标悬停显示")`：[ReBe](https://febers.github.io "鼠标悬停显示")
 
 支持使用标识符标志地址，将真正的URL地址放在文末，比如
 
@@ -234,19 +234,15 @@ Hexo 默认的渲染引擎 Marked 不支持 TODO list，可以更换为 markdown
 
 #### 高亮
 
-使用单个反引号实现单行文本高亮，三个反引号实现代码块高亮。可以在第一个```后添加语言名称实现不同的语法高亮
+使用单个反引号实现单行文本高亮，三个反引号实现代码块高亮。可以在第一个三反引号后添加语言名称实现不同的语法高亮
 
 ```markdown
 PHP是`最好的`语言
-
-​```Kotlin
-fun main(args: Array<String>) {
-    print("hello")
-}
-​```
 ```
 
 PHP是`最好的`语言
+
+![](Markdown-语法详解\kotlin.png)
 
 ```Kotlin
 fun main(args: Array<String>) {
@@ -387,4 +383,4 @@ note right of 大三: 大三面临毕业
 
 
 
-Hexo 默认同样不支持时序图，使用`[hexo-filter-sequence](https://github.com/bubkoo/hexo-filter-sequence)。具体的做法参考 [为 Hexo 增加时序图解析功能](http://wewelove.github.io/fcoder/2017/09/06/markdown-sequence/)
+Hexo 默认同样不支持时序图，使用 [hexo-filter-sequence](https://github.com/bubkoo/hexo-filter-sequence)。具体的做法参考 [为 Hexo 增加时序图解析功能](http://wewelove.github.io/fcoder/2017/09/06/markdown-sequence/)

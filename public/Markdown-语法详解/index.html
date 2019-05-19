@@ -91,7 +91,8 @@
 <meta property="og:image" content="http://yoursite.com/Markdown-语法详解/编辑器.png">
 <meta property="og:image" content="https://camo.githubusercontent.com/abf9d87ce112444bca1ddfffaa2063f02a2c26d0/68747470733a2f2f7261772e6769746875622e636f6d2f6164616d2d702f6d61726b646f776e2d686572652f6d61737465722f73746f72652d6173736574732f646f732d65717569732d4d44482e6a7067">
 <meta property="og:image" content="http://yoursite.com/Markdown-语法详解/todo-list.png">
-<meta property="og:updated_time" content="2019-05-19T13:13:38.000Z">
+<meta property="og:image" content="http://yoursite.com/Markdown-语法详解/kotlin.png">
+<meta property="og:updated_time" content="2019-05-19T16:22:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markdown 语法详解">
 <meta name="twitter:description" content="引言这篇文章本应该在搭建博客之后就发布，一开始觉得 Markdown  的语法足够简单，熟能生巧，无需花费篇幅去记录；近来无事，反省了一下自己的错误认识，除去一些高级用法，了解这门用途广泛的标记语言的由来与发展，回顾它的基础语法如何将排版变成一件充满乐趣的事，完全值得专门写一篇文章。">
@@ -445,8 +446,8 @@
 <hr>
 <hr>
 <hr>
-<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>链接分为文字链接和图片链接B</p>
-<h4 id="文字链接"><a href="#文字链接" class="headerlink" title="文字链接"></a>文字链接</h4><p><code>[ReBe](https://febers.github.io "鼠标悬停显示")</code>：[ReBe</p>
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>链接分为文字链接和图片链接</p>
+<h4 id="文字链接"><a href="#文字链接" class="headerlink" title="文字链接"></a>文字链接</h4><p><code>[ReBe](https://febers.github.io "鼠标悬停显示")</code>：<a href="https://febers.github.io" title="鼠标悬停显示" target="_blank" rel="noopener">ReBe</a></p>
 <p>支持使用标识符标志地址，将真正的URL地址放在文末，比如</p>
 <figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">Github</span>][<span class="symbol">Github URL</span>]</span><br><span class="line">[<span class="symbol">Github URL</span>]:<span class="link">https://github.com/Febers</span></span><br></pre></td></tr></tbody></table></figure>
 <p>效果如下:</p>
@@ -505,8 +506,11 @@
 <blockquote>
 <p>一语未了，只听后院中有人笑声，说：“我来迟了，不曾迎接远客！”黛玉纳罕道：“这些人个个皆敛声屏气，恭肃严整如此，这来者系谁，这样放诞无礼？”心下想时，只见一群媳妇丫鬟围拥着一个人从后房门进来。这个人打扮与众姑娘不同，彩绣辉煌，恍若神妃仙子：头上戴着金丝八宝攒珠髻，绾着朝阳五凤挂珠钗；项上戴着赤金盘螭璎珞圈，裙边系着豆绿宫绦，双衡比目玫瑰佩；身上穿着缕金百蝶穿花大红洋缎窄褃袄，外罩五彩刻丝石青银鼠褂；下着翡翠撒花洋绉裙。一双丹凤三角眼，两弯柳叶吊梢眉，身量苗条，体格风骚，粉面含春威不露，丹唇未起笑先闻。黛玉连忙起身接见。</p>
 </blockquote>
-<h4 id="高亮"><a href="#高亮" class="headerlink" title="高亮"></a>高亮</h4><p>使用单个反引号实现单行文本高亮，三个反引号实现代码块高亮。可以在第一个</p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```markdown</span><br><span class="line">PHP是`最好的`语言</span><br><span class="line"></span><br><span class="line">​```Kotlin</span><br><span class="line">fun main(args: Array<string>) {</string></span><br><span class="line">    print("hello")</span><br><span class="line">}</span><br><span class="line">​</span><br></pre></td></tr></tbody></table></figure><p></p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">PHP是`最好的`语言</span><br><span class="line"></span><br><span class="line">```Kotlin</span><br><span class="line">fun main(args: Array<string>) {</string></span><br><span class="line">    print("hello")</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="高亮"><a href="#高亮" class="headerlink" title="高亮"></a>高亮</h4><p>使用单个反引号实现单行文本高亮，三个反引号实现代码块高亮。可以在第一个三反引号后添加语言名称实现不同的语法高亮</p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PHP是<span class="code">`最好的`</span>语言</span><br></pre></td></tr></tbody></table></figure>
+<p>PHP是<code>最好的</code>语言</p>
+<p><img src="/Markdown-语法详解/kotlin.png" alt=""></p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span><<span class="type">String</span>>)</span></span> {</span><br><span class="line">    print(<span class="string">"hello"</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="高级进阶"><a href="#高级进阶" class="headerlink" title="高级进阶"></a>高级进阶</h2><p>在不同的 Markdown 版本中实现可能不同</p>
 <h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 序号 | 列名1 | 列名2 |</span><br><span class="line">| - | - | - |</span><br><span class="line">| 0 | 一一  | 一二  |</span><br><span class="line">| 1 | 二一  | 二二  |</span><br></pre></td></tr></tbody></table></figure>
 <table>
@@ -608,7 +612,7 @@
 
 
 
-<p>Hexo 默认同样不支持时序图，使用`<a href="https://github.com/bubkoo/hexo-filter-sequence" target="_blank" rel="noopener">hexo-filter-sequence</a>。具体的做法参考 <a href="http://wewelove.github.io/fcoder/2017/09/06/markdown-sequence/" target="_blank" rel="noopener">为 Hexo 增加时序图解析功能</a><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 开始:>https://www.markdown-syntax.com
+<p>Hexo 默认同样不支持时序图，使用 <a href="https://github.com/bubkoo/hexo-filter-sequence" target="_blank" rel="noopener">hexo-filter-sequence</a>。具体的做法参考 <a href="http://wewelove.github.io/fcoder/2017/09/06/markdown-sequence/" target="_blank" rel="noopener">为 Hexo 增加时序图解析功能</a><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 开始:>https://www.markdown-syntax.com
 io=>inputoutput: 输入或输出
 op=>operation: 操作
 cond=>condition: Yes or No?
