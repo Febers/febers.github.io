@@ -1,6 +1,7 @@
 title: Markdown 语法详解
 date: 2019-05-19 15:36:02
 tags: 
+
 - Markdown
 categories: 
 - Markdown
@@ -20,11 +21,9 @@ Markdown 是一门轻量级的标记语言，由美国工程师 John Gruber 于2
 
 Markdown 所谓的**易读**并不是指排版之后呈现的结果易读，而是指原始格式下的文件依然拥有优秀的可读性，不会像阅读原始 HTML 代码一样，满眼都是尖括号（可以通过 右键浏览器页面 -> 查看源代码 体验）。Markdown 的**易写**则体现在其语法足够简单，学习曲线平缓，并且在写作中基本可以脱离鼠标操作。
 
-Markdown 的轻量级是相对于 LaTeX 来说的，这种基于 Tex 的排版系统广泛运用在高质量书籍印刷和复杂公式论文中。不过使用 Markdown 仍然可以使用一些基本的数学公式，比如`$ E = mc^2 $`、`$ \int_0^xf(x)dx $`
+Markdown 的轻量级是相对于 LaTeX 来说的，这种基于 Tex 的排版系统广泛运用在高质量书籍印刷和复杂公式论文中。不过使用 Markdown 仍然可以使用一些基本的数学公式，比如`$ E = mc^2 $`、`$ \int_0^xf(x)dx $`，单个`$`用于行内公式，`$$`用于单行公式
 
-$ E = mc^2 $
-
-$ \int_0^xf(x)dx $
+比如 $ E = mc^2 $、$ \int_0^xf(x)dx $ 
 
 这需要不同平台上的 Markdown 数学公式插件的支持，本博客使用`Hexo` + `Github Pages`搭建，可以通过安装 [MathJax](https://www.mathjax.org) 实现。
 
@@ -95,7 +94,7 @@ GFM 语法支持添加 emoji 表情，输入不同的符号码（两个冒号包
 
 :ghost: :dog: :poop: :fire: :bow:
 
-:interrobang: :rowboat: :watermelon: :swimmer: :fallen_leaf:
+:smile: :rowboat: :watermelon: :swimmer: :fallen_leaf:
 
 可以在此找到不同表情对应的符号码：[Emoji cheat sheet for GitHub, Basecamp, Slack & more](https://www.webfx.com/tools/emoji-cheat-sheet/)
 
@@ -231,6 +230,63 @@ Hexo 默认的渲染引擎 Marked 不支持 TODO list，可以更换为 markdown
 > 一语未了，只听后院中有人笑声，说：“我来迟了，不曾迎接远客！”黛玉纳罕道：“这些人个个皆敛声屏气，恭肃严整如此，这来者系谁，这样放诞无礼？”心下想时，只见一群媳妇丫鬟围拥着一个人从后房门进来。这个人打扮与众姑娘不同，彩绣辉煌，恍若神妃仙子：头上戴着金丝八宝攒珠髻，绾着朝阳五凤挂珠钗；项上戴着赤金盘螭璎珞圈，裙边系着豆绿宫绦，双衡比目玫瑰佩；身上穿着缕金百蝶穿花大红洋缎窄褃袄，外罩五彩刻丝石青银鼠褂；下着翡翠撒花洋绉裙。一双丹凤三角眼，两弯柳叶吊梢眉，身量苗条，体格风骚，粉面含春威不露，丹唇未起笑先闻。黛玉连忙起身接见。
 
 
+
+#### 居中
+
+Markdown 中标准引用是 `>` 符号后面加上引用内容，可以嵌套，或者搭配其他 Markdown 语法结合一起使用。但样式未免单一，不够美观，可以直接使用 HTML 语言插入，如下，使用 `class="blockquote-center"`
+
+```HTML
+<blockquote class="blockquote-center">勇者愤怒，抽刃向更强者；怯者愤怒，却抽刃向更弱者。
+    
+    鲁迅</blockquote>
+```
+
+<blockquote class="blockquote-center">勇者愤怒，抽刃向更强者；怯者愤怒，却抽刃向更弱者。
+
+    鲁迅</blockquote>
+
+也可以使用标签的方式`centerquote`（或者其别名`cq`）
+
+```js
+{% centerquote %}盛年不重来，一日难再晨。及时当勉励，岁月不待人。
+
+陶渊明 {% endcenterquote %}
+```
+
+{% centerquote %}盛年不重来，一日难再晨。及时当勉励，岁月不待人。
+
+陶渊明 {% endcenterquote %}
+
+
+
+#### Note
+
+使用前端框架 Bootstrap Callout 的语法，Hexo 提供了对其的支持，Content 可以搭配 Markdown 语法
+
+```javascript
+{% note class_name %} Content (md partial supported) {% endnote %}
+```
+
+实现类似笔记的引用效果，其中`class_name`可以为
+
+- `default`
+- `primary`
+- `success`
+- `info`
+- `warning`
+- `danger`
+
+{% note default %} This is a default note {% endnote %}
+
+{% note primary %} This is a  primary note {% endnote %}
+
+{% note success %} This is a success note {% endnote %}
+
+{% note info %} This is a info note {% endnote %}
+
+{% note warning %} This is a warning note {% endnote %}
+
+{% note danger %} This is a danger note {% endnote %}
 
 #### 高亮
 
