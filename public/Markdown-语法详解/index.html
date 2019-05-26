@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://camo.githubusercontent.com/abf9d87ce112444bca1ddfffaa2063f02a2c26d0/68747470733a2f2f7261772e6769746875622e636f6d2f6164616d2d702f6d61726b646f776e2d686572652f6d61737465722f73746f72652d6173736574732f646f732d65717569732d4d44482e6a7067">
 <meta property="og:image" content="http://yoursite.com/Markdown-语法详解/todo-list.png">
 <meta property="og:image" content="http://yoursite.com/Markdown-语法详解/kotlin.png">
-<meta property="og:updated_time" content="2019-05-19T16:22:14.000Z">
+<meta property="og:updated_time" content="2019-05-26T07:39:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markdown 语法详解">
 <meta name="twitter:description" content="引言这篇文章本应该在搭建博客之后就发布，一开始觉得 Markdown  的语法足够简单，熟能生巧，无需花费篇幅去记录；近来无事，反省了一下自己的错误认识，除去一些高级用法，了解这门用途广泛的标记语言的由来与发展，回顾它的基础语法如何将排版变成一件充满乐趣的事，完全值得专门写一篇文章。">
@@ -354,6 +354,25 @@
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
 
           
 
@@ -375,9 +394,8 @@
 <a id="more"></a>
 <h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><p>Markdown 是一门轻量级的标记语言，由美国工程师 John Gruber 于2004年创造。这门语言的目的是让人们<code>使用易于阅读、易于撰写的纯文字格式，并选择性地转换成有效的 XHTML（或是 HTML）</code>。</p>
 <p>Markdown 所谓的<strong>易读</strong>并不是指排版之后呈现的结果易读，而是指原始格式下的文件依然拥有优秀的可读性，不会像阅读原始 HTML 代码一样，满眼都是尖括号（可以通过 右键浏览器页面 -> 查看源代码 体验）。Markdown 的<strong>易写</strong>则体现在其语法足够简单，学习曲线平缓，并且在写作中基本可以脱离鼠标操作。</p>
-<p>Markdown 的轻量级是相对于 LaTeX 来说的，这种基于 Tex 的排版系统广泛运用在高质量书籍印刷和复杂公式论文中。不过使用 Markdown 仍然可以使用一些基本的数学公式，比如<code>$ E = mc^2 $</code>、<code>$ \int_0^xf(x)dx $</code></p>
-<p>$ E = mc^2 $</p>
-<p>$ \int_0^xf(x)dx $</p>
+<p>Markdown 的轻量级是相对于 LaTeX 来说的，这种基于 Tex 的排版系统广泛运用在高质量书籍印刷和复杂公式论文中。不过使用 Markdown 仍然可以使用一些基本的数学公式，比如<code>$ E = mc^2 $</code>、<code>$ \int_0^xf(x)dx $</code>，单个<code>$</code>用于行内公式，<code>$$</code>用于单行公式</p>
+<p>比如 $ E = mc^2 $、$ \int_0^xf(x)dx $ </p>
 <p>这需要不同平台上的 Markdown 数学公式插件的支持，本博客使用<code>Hexo</code> + <code>Github Pages</code>搭建，可以通过安装 <a href="https://www.mathjax.org" target="_blank" rel="noopener">MathJax</a> 实现。</p>
 <h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>跟早期的 HTML 类似，Markdown 在发展的过程中衍生出了不同的版本，它们的基本语法上相通，但是在诸如表格、锚点、时序图等实现上出现了不一致。在关于语法规范化的讨论中，作者 John Gruber 认为，<code>不同的网站（和人们）有不同的需求，没有一种语法可以让所有人满意</code>。</p>
 <p>现今 Markdown 的主要分类如下</p>
@@ -438,7 +456,7 @@
 </table>
 <h3 id="表情"><a href="#表情" class="headerlink" title="表情"></a>表情</h3><p>GFM 语法支持添加 emoji 表情，输入不同的符号码（两个冒号包围的字符）可以显示出不同的表情。比如<code>:stuck_out_tongue_winking_eye:</code>：<span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f61c.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f61c.png?v8">😜</span></p>
 <p><span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f47b.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f47b.png?v8">👻</span> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f436.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f436.png?v8">🐶</span> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a9.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a9.png?v8">💩</span> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f525.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f525.png?v8">🔥</span> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f647.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f647.png?v8">🙇</span></p>
-<p><span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/2049.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2049.png?v8">⁉</span> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f6a3.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f6a3.png?v8">🚣</span> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f349.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f349.png?v8">🍉</span> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f3ca.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f3ca.png?v8">🏊</span> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f342.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f342.png?v8">🍂</span></p>
+<p><span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png?v8">😄</span> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f6a3.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f6a3.png?v8">🚣</span> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f349.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f349.png?v8">🍉</span> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f3ca.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f3ca.png?v8">🏊</span> <span class="github-emoji" style="color: transparent;background:no-repeat url(https://assets-cdn.github.com/images/icons/emoji/unicode/1f342.png?v8) center/contain" data-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f342.png?v8">🍂</span></p>
 <p>可以在此找到不同表情对应的符号码：<a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank" rel="noopener">Emoji cheat sheet for GitHub, Basecamp, Slack & more</a></p>
 <p>Hexo 默认不支持 emoji 表情，可以通过安装 <a href="https://github.com/crimx/hexo-filter-github-emojis" target="_blank" rel="noopener">hexo-filter-github-emojis</a> 实现</p>
 <h3 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h3><p>使用三个（或多个连续）的<code>-</code>、<code>*</code>、<code>-</code>实现分割线效果</p>
@@ -506,6 +524,35 @@
 <blockquote>
 <p>一语未了，只听后院中有人笑声，说：“我来迟了，不曾迎接远客！”黛玉纳罕道：“这些人个个皆敛声屏气，恭肃严整如此，这来者系谁，这样放诞无礼？”心下想时，只见一群媳妇丫鬟围拥着一个人从后房门进来。这个人打扮与众姑娘不同，彩绣辉煌，恍若神妃仙子：头上戴着金丝八宝攒珠髻，绾着朝阳五凤挂珠钗；项上戴着赤金盘螭璎珞圈，裙边系着豆绿宫绦，双衡比目玫瑰佩；身上穿着缕金百蝶穿花大红洋缎窄褃袄，外罩五彩刻丝石青银鼠褂；下着翡翠撒花洋绉裙。一双丹凤三角眼，两弯柳叶吊梢眉，身量苗条，体格风骚，粉面含春威不露，丹唇未起笑先闻。黛玉连忙起身接见。</p>
 </blockquote>
+<h4 id="居中"><a href="#居中" class="headerlink" title="居中"></a>居中</h4><p>Markdown 中标准引用是 <code>></code> 符号后面加上引用内容，可以嵌套，或者搭配其他 Markdown 语法结合一起使用。但样式未免单一，不够美观，可以直接使用 HTML 语言插入，如下，使用 <code>class="blockquote-center"</code></p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag"><<span class="name">blockquote</span> <span class="attr">class</span>=<span class="string">"blockquote-center"</span>></span>勇者愤怒，抽刃向更强者；怯者愤怒，却抽刃向更弱者。</span><br><span class="line">    </span><br><span class="line">    鲁迅<span class="tag">blockquote</span>></span><br></pre></td></tr></tbody></table></figure>
+<blockquote class="blockquote-center">勇者愤怒，抽刃向更强者；怯者愤怒，却抽刃向更弱者。<br><br>    鲁迅</blockquote>
+
+<p>也可以使用标签的方式<code>centerquote</code>（或者其别名<code>cq</code>）</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">{% centerquote %}盛年不重来，一日难再晨。及时当勉励，岁月不待人。</span><br><span class="line"></span><br><span class="line">陶渊明 {% endcenterquote %}</span><br></pre></td></tr></tbody></table></figure>
+<blockquote class="blockquote-center"><p>盛年不重来，一日难再晨。及时当勉励，岁月不待人。</p>
+<p>陶渊明 </p>
+</blockquote>
+<h4 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h4><p>使用前端框架 Bootstrap Callout 的语法，Hexo 提供了对其的支持，Content 可以搭配 Markdown 语法</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">{% note class_name %} Content (md partial supported) {% endnote %}</span><br></pre></td></tr></tbody></table></figure>
+<p>实现类似笔记的引用效果，其中<code>class_name</code>可以为</p>
+<ul>
+<li><code>default</code></li>
+<li><code>primary</code></li>
+<li><code>success</code></li>
+<li><code>info</code></li>
+<li><code>warning</code></li>
+<li><code>danger</code></li>
+</ul>
+<div class="note default"><p>This is a default note </p></div>
+
+<div class="note primary"><p>This is a  primary note </p></div>
+<div class="note success"><p>This is a success note </p></div>
+
+<div class="note info"><p>This is a info note </p></div>
+<div class="note warning"><p>This is a warning note </p></div>
+
+<div class="note danger"><p>This is a danger note </p></div>
 <h4 id="高亮"><a href="#高亮" class="headerlink" title="高亮"></a>高亮</h4><p>使用单个反引号实现单行文本高亮，三个反引号实现代码块高亮。可以在第一个三反引号后添加语言名称实现不同的语法高亮</p>
 <figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PHP是<span class="code">`最好的`</span>语言</span><br></pre></td></tr></tbody></table></figure>
 <p>PHP是<code>最好的</code>语言</p>
@@ -693,6 +740,10 @@ note right of 大三: 大三面临毕业
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/Dart-反射初识/" rel="prev" title="Dart 反射初识">
+                Dart 反射初识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -770,7 +821,7 @@ note right of 大三: 大三面临毕业
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -781,7 +832,7 @@ note right of 大三: 大三面临毕业
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -792,7 +843,7 @@ note right of 大三: 大三面临毕业
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -848,7 +899,7 @@ note right of 大三: 大三面临毕业
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于"><span class="nav-number">2.</span> <span class="nav-text">关于</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分类"><span class="nav-number">2.1.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑器"><span class="nav-number">2.2.</span> <span class="nav-text">编辑器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初级语法"><span class="nav-number">3.</span> <span class="nav-text">初级语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标题"><span class="nav-number">3.1.</span> <span class="nav-text">标题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三级标题"><span class="nav-number">3.2.</span> <span class="nav-text">三级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#四级标题"><span class="nav-number">3.2.1.</span> <span class="nav-text">四级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#五级标题"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">五级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#六级标题"><span class="nav-number">3.2.1.1.1.</span> <span class="nav-text">六级标题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文字"><span class="nav-number">3.3.</span> <span class="nav-text">文字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表情"><span class="nav-number">3.4.</span> <span class="nav-text">表情</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分割线"><span class="nav-number">3.5.</span> <span class="nav-text">分割线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接"><span class="nav-number">3.6.</span> <span class="nav-text">链接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文字链接"><span class="nav-number">3.6.1.</span> <span class="nav-text">文字链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图片链接"><span class="nav-number">3.6.2.</span> <span class="nav-text">图片链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表"><span class="nav-number">3.7.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有序列表"><span class="nav-number">3.7.1.</span> <span class="nav-text">有序列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无序列表"><span class="nav-number">3.7.2.</span> <span class="nav-text">无序列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复选框列表"><span class="nav-number">3.7.3.</span> <span class="nav-text">复选框列表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用与高亮"><span class="nav-number">3.8.</span> <span class="nav-text">引用与高亮</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引用"><span class="nav-number">3.8.1.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高亮"><span class="nav-number">3.8.2.</span> <span class="nav-text">高亮</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级进阶"><span class="nav-number">4.</span> <span class="nav-text">高级进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#表格"><span class="nav-number">4.1.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程图"><span class="nav-number">4.2.</span> <span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时序图"><span class="nav-number">4.3.</span> <span class="nav-text">时序图</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于"><span class="nav-number">2.</span> <span class="nav-text">关于</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分类"><span class="nav-number">2.1.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑器"><span class="nav-number">2.2.</span> <span class="nav-text">编辑器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初级语法"><span class="nav-number">3.</span> <span class="nav-text">初级语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标题"><span class="nav-number">3.1.</span> <span class="nav-text">标题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三级标题"><span class="nav-number">3.2.</span> <span class="nav-text">三级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#四级标题"><span class="nav-number">3.2.1.</span> <span class="nav-text">四级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#五级标题"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">五级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#六级标题"><span class="nav-number">3.2.1.1.1.</span> <span class="nav-text">六级标题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文字"><span class="nav-number">3.3.</span> <span class="nav-text">文字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表情"><span class="nav-number">3.4.</span> <span class="nav-text">表情</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分割线"><span class="nav-number">3.5.</span> <span class="nav-text">分割线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接"><span class="nav-number">3.6.</span> <span class="nav-text">链接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文字链接"><span class="nav-number">3.6.1.</span> <span class="nav-text">文字链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图片链接"><span class="nav-number">3.6.2.</span> <span class="nav-text">图片链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表"><span class="nav-number">3.7.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有序列表"><span class="nav-number">3.7.1.</span> <span class="nav-text">有序列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无序列表"><span class="nav-number">3.7.2.</span> <span class="nav-text">无序列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复选框列表"><span class="nav-number">3.7.3.</span> <span class="nav-text">复选框列表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用与高亮"><span class="nav-number">3.8.</span> <span class="nav-text">引用与高亮</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引用"><span class="nav-number">3.8.1.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#居中"><span class="nav-number">3.8.2.</span> <span class="nav-text">居中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Note"><span class="nav-number">3.8.3.</span> <span class="nav-text">Note</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高亮"><span class="nav-number">3.8.4.</span> <span class="nav-text">高亮</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级进阶"><span class="nav-number">4.</span> <span class="nav-text">高级进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#表格"><span class="nav-number">4.1.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程图"><span class="nav-number">4.2.</span> <span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时序图"><span class="nav-number">4.3.</span> <span class="nav-text">时序图</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -874,6 +925,17 @@ note right of 大三: 大三面临毕业
   </span>
   <span class="author" itemprop="copyrightHolder">Febers</span>
 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+
+    
+      <span class="post-meta-item-text">博客总字数&#58;</span>
+    
+
+    <span title="Site words total count">57.9k</span>
   
 </div>
 
