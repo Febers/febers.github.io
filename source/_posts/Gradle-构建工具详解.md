@@ -44,9 +44,9 @@ For more details see https://docs.gradle.org/5.4.1/release-notes.html
 
 ```groovy
 task hello {
-	doLast {
-		println 'Hello World!'
-	}
+  doLast {
+    println 'Hello World!'
+  }
 }
 ```
 
@@ -90,28 +90,28 @@ task 和 action 是 Gradle 的重要元素，前者代表一个独立的原子�
 
 ```groovy
 task hello {
-	doLast {
-		println 'Hello World!'
-	}
+  doLast {
+    println 'Hello World!'
+  }
 }
 
 //直接用任务名称
 def Task helloo = task(helloo)
 helloo.doLast {
-	println 'Helloo World!'
+  println 'Helloo World!'
 }
 
 //声明任务配置
 def Task hellooo = task(hellooo, group: BasePlugin.BUILD_GROUP)
 hellooo.doLast {
-	println 'Hellooo World!'
+  println 'Hellooo World!'
 }
 
 //使用 TaskContainer 的 create 方法创建，以上三种方式最终都会调用该方法
 tasks.create(name: 'helloooo') {
-	doLast {
-		println 'helloooo World!'
-	}
+  doLast {
+    println 'helloooo World!'
+  }
 }
 ```
 
@@ -130,30 +130,30 @@ helloooo World!
 
 ```groovy
 task hello {
-    println 'hello'
+  println 'hello'
     
-	doFirst {
-		println 'hello first'
-	}
-	doLast {
-		println 'Hello last'
-	}
+  doFirst {
+    println 'hello first'
+  }
+  doLast {
+    println 'Hello last'
+  }
 }
 
 task go(dependsOn: hello) {
-	println 'go'
+  println 'go'
 
-	doLast {
-		println 'go last 0'
-	} 
+  doLast {
+    println 'go last 0'
+  } 
 
-	doFirst {
-		println 'go first'
-	}
+  doFirst {
+    println 'go first'
+  }
 
-	doLast {
-		println 'go last 1'
-	}
+  doLast {
+    println 'go last 1'
+  }
 }
 ```
 
@@ -189,11 +189,11 @@ BUILD SUCCESSFUL in 1s
 
 ```groovy
 3.times {
-	count -> task "task$count" {
-		doLast {
-			println "task $count"
-		}
-	}
+  count -> task "task$count" {
+    doLast {
+      println "task $count"
+    }
+  }
 }
 ```
 
@@ -206,17 +206,17 @@ BUILD SUCCESSFUL in 1s
 
 ```groovy
 task hello {
-	group = 'group0'
-	description = 'description'
-	ext.myTitle = 'title'
-	ext.myId = 9527
+  group = 'group0'
+  description = 'description'
+  ext.myTitle = 'title'
+  ext.myId = 9527
 
-	doLast {
-		println "任务分组属性: $group"
-		println "任务描述:属性 $description"
-		println "自定义Title属性: $myTitle"
-		println "自定义Id属性: $myId"
-	}
+  doLast {
+    println "任务分组属性: $group"
+    println "任务描述:属性 $description"
+    println "自定义Title属性: $myTitle"
+    println "自定义Id属性: $myId"
+  }
 }
 ```
 
@@ -251,30 +251,30 @@ groovy.util.*
 
 ```groovy
 task t {
-	//定义变量，可以使用 def，也可以使用具体类型，或者两者结合
-	def a = 0
-	def int b = 1
+  //定义变量，可以使用 def，也可以使用具体类型，或者两者结合
+  def a = 0
+  def int b = 1
 	
-	//定义字符串，同 dart 
-	String s = "s"	
-	String ss = 'ss'
-	String sss = """first row
-	second row"""
+  //定义字符串，同 dart 
+  String s = "s"	
+  String ss = 'ss'
+  String sss = """first row
+  second row"""
 
-	println "95-27=${minus(95,27)}"
-	println "95+27=${add 95,27}"
+  println "95-27=${minus(95,27)}"
+  println "95+27=${add 95,27}"
 }
 
 //指定返回类型则 def 可省略，且参数类型可省略
 //不使用 return 则返回最后一行
 int minus(a, b) {
-	println "before return"
-	a - b
+  println "before return"
+  a - b
 }
 
 //定义方法
 def add(int a, int b) {
-	return a + b
+  return a + b
 }
 ```
 
@@ -292,25 +292,25 @@ Groovy 中的类与 Java 类似，不过由于没有访问修饰符，默认为`
 
 ```groovy
 task t {
-	def object = new ClassInGroovy()
-	object.name = "Jack"
-	println "${object.name}"
+  def object = new ClassInGroovy()
+  object.name = "Jack"
+  println "${object.name}"
 }
 
 public class ClassInJava {
-	public String name;
+  public String name;
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 }
 
 class ClassInGroovy {
-	String name
+  String name
 }
 ```
 
@@ -329,19 +329,19 @@ def closure = { [closureParameters -> ] statements }
 
 ```groovy
 task t {
-	def str = "hello"
-	def closure0 = {
-		println str  
-	}
+  def str = "hello"
+  def closure0 = {
+    println str  
+  }
 
-	def closure1 = { String name, int t -> 
-		println "before print"
-		println "$name call $t times"
-	}
+  def closure1 = { String name, int t -> 
+    println "before print"
+    println "$name call $t times"
+  }
 
-	//调用，call 可省略
-	closure0.call()	
-	closure1("Jack", 10)
+  //调用，call 可省略
+  closure0.call()	
+  closure1("Jack", 10)
 }
 ```
 
@@ -353,17 +353,17 @@ task t {
 
 ```groovy
 task t {
-	def path = "静夜思.txt"
-	def file = new File(path).eachLine { line ->
-		println line
-	}
-    //更简洁
-	println file.text
+  def path = "静夜思.txt"
+  def file = new File(path).eachLine { line ->
+    println line
+  }
+  //更简洁
+  println file.text
 	
-	//写入，该方法会打印并覆盖原来的内容
-	file.withPrintWriter {
-		it.println "表达了诗人对家乡的思念"
-	}
+  //写入，该方法会打印并覆盖原来的内容
+  file.withPrintWriter {
+    it.println "表达了诗人对家乡的思念"
+  }
 }
 ```
 
@@ -452,8 +452,8 @@ Gradle 中的插件可分为两类
 
 ```groovy
 ext {
-	otherVersion = '1.0'
-	otherUrl = 'https://febers.github.io'
+  otherVersion = '1.0'
+  otherUrl = 'https://febers.github.io'
 }
 ```
 
@@ -462,7 +462,7 @@ ext {
 ```groovy
 apply from: 'other.gradle'
 task t {
-	println "版本为: ${otherVersion},地址为: ${otherUrl}"
+  println "版本为: ${otherVersion},地址为: ${otherUrl}"
 }
 ```
 
@@ -498,12 +498,12 @@ apply plugin: 'cpp'    //Gradle 中含有大量插件
 
 ```groovy
 buildscript {
-    repositories {
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
-    }
+  repositories {
+    google()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:3.4.1'
+  }
 }
 apply plugin: 'com.android.application'
 ```
@@ -523,12 +523,12 @@ Plugin 接口中定义了一个`apply`方法，重写该方法，在其中通过
 
 ```groovy
 class MyPlugin implements Plugin {
-	@Override
-	void apply(Object o) {
-		o.task("myTask") {
-			println "This is a custom task in custom plugin"
-		}
-	}
+  @Override
+  void apply(Object o) {
+    o.task("myTask") {
+      println "This is a custom task in custom plugin"
+    }
+  }
 }
 apply plugin: MyPlugin
 ```
