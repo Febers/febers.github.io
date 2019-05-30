@@ -3,11 +3,20 @@
 
 
 
-<html class="theme-next mist" lang="zh-Hans">
+
+
+
+
+
+
+
+
+
+<html class="theme-next pisces" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
@@ -18,8 +27,6 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -35,74 +42,42 @@
 
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
 
 
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hello">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="ReBE" type="application/atom+xml">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
 
 
 
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="ReBE">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="ReBE">
-<meta property="og:locale" content="zh-Hans">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ReBE">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: false,
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
     motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -114,12 +89,36 @@
 </script>
 
 
+  
 
+
+
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="ReBE">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="ReBE">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ReBE">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ReBE" type="application/atom+xml">
+
+
+
+  
+  
   <link rel="canonical" href="http://yoursite.com/">
 
 
 
-
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>ReBE</title>
   
@@ -131,9 +130,38 @@
 
 
 
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -146,7 +174,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -156,13 +184,16 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <p class="site-subtitle">Febers的博客</p>
+        <h1 class="site-subtitle" itemprop="description">Febers的博客</h1>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -170,56 +201,102 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home menu-item-active">
 
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">43</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">12</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">33</span></a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -248,12 +325,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
@@ -266,6 +354,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -276,7 +366,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -288,13 +378,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Spring-学习笔记：基本理念和-Bean-装配/" itemprop="url">Spring 学习笔记：基本理念和 Bean 装配</a></h1>
+                
+                <a href="/Spring-学习笔记：基本理念和-Bean-装配/" class="post-title-link" itemprop="url">Spring 学习笔记：基本理念和 Bean 装配</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -302,13 +401,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-28T22:13:09+08:00">
-                2019-05-28
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-28 22:13:09" itemprop="dateCreated datePublished" datetime="2019-05-28T22:13:09+08:00">2019-05-28</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-31 01:26:26" itemprop="dateModified" datetime="2019-05-31T01:26:26+08:00">2019-05-31</time>
+              
             
           </span>
 
@@ -324,11 +440,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a></span>
 
                 
                 
@@ -338,6 +450,7 @@
 
           
             
+            
           
 
           
@@ -346,18 +459,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  2.4k
-                </span>
+                <span title="本文字数">8k</span>
               
 
               
@@ -382,24 +494,26 @@
 
       
         
-          <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>很早就接触 Java 后端开发，不过大都浅尝辄止，并没有深刻地理解和实践，时间一长倒也跟没学过差不了多少。由于职业规划是要从 Android 开发慢慢转到后端开发，拖到现在终于是要系统学习了。学习的路线初步定为，从 Spring 出发，不断回顾 Java Web 的知识，重点在 Spring Boot 项目，通过具体的项目实践掌握相关知识。这篇文章属于第一篇学习笔记，参考手上的《Spring 实战》和网络上的技术文章，主要记录 Spring 的基本知识、Bean  的装配。</p>
+          <p>很早就接触 Java 后端开发，不过大都浅尝辄止，并没有深刻地理解和实践，时间一长倒也跟没学过差不了多少。由于职业规划是要从 Android 开发慢慢转到后端开发，拖到现在终于是要系统学习了。学习的路线初步定为，从 Spring 出发，不断回顾 Java Web 的知识，重点在 Spring Boot 项目，通过具体的项目实践掌握相关知识。这篇文章属于第一篇学习笔记，参考手上的《Spring 实战》和网络上的技术文章，主要记录 Spring 的基本知识、Bean  的装配。</p>
 <p><img src="https://github.com/spring-projects/spring-framework/raw/master/src/docs/asciidoc/images/spring-framework.png" alt=""></p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Spring-学习笔记：基本理念和-Bean-装配/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -432,6 +546,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -442,7 +558,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -454,13 +570,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Gradle-构建工具详解/" itemprop="url">Gradle 构建工具详解</a></h1>
+                
+                <a href="/Gradle-构建工具详解/" class="post-title-link" itemprop="url">Gradle 构建工具详解</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -468,13 +593,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T22:37:41+08:00">
-                2019-05-25
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-25 22:37:41" itemprop="dateCreated datePublished" datetime="2019-05-25T22:37:41+08:00">2019-05-25</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-29 14:07:38" itemprop="dateModified" datetime="2019-05-29T14:07:38+08:00">2019-05-29</time>
+              
             
           </span>
 
@@ -490,11 +632,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Gradle/" itemprop="url" rel="index">
-                    <span itemprop="name">Gradle</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Gradle/" itemprop="url" rel="index"><span itemprop="name">Gradle</span></a></span>
 
                 
                 
@@ -504,6 +642,7 @@
 
           
             
+            
           
 
           
@@ -512,18 +651,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  3.7k
-                </span>
+                <span title="本文字数">12k</span>
               
 
               
@@ -551,21 +689,23 @@
           <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Gradle 是一个基于 JVM 的自动化构建工具，使用 Groovy  DSL 声明配置。现代软件开发包含众多步骤，包括编译、测试、打包等，如果需要手动重复每一过程，将会耗费大量时间、增加出错概率，项目自动化应运而生。在此之前，常见的 Java 构建工具包括 Ant、Gant 和 Maven 等，Gradle 结合了以上工具的优点，基于约定大于配置，通用灵活，是 Android 的官方构建工具。本文将介绍 Gradle 的基本知识、Groovy 基本语法以及 Android 开发中的 Gradle 知识。</p>
 <p><img src="https://plugins.gradle.org/shared-assets/shared/images/gradle-logo-horizontal.svg" alt=""></p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Gradle-构建工具详解/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -598,6 +738,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -608,7 +750,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -620,13 +762,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Kotlin-委托属性详解/" itemprop="url">Kotlin 委托属性详解</a></h1>
+                
+                <a href="/Kotlin-委托属性详解/" class="post-title-link" itemprop="url">Kotlin 委托属性详解</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -634,13 +785,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-21T16:52:14+08:00">
-                2019-05-21
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-21 16:52:14" itemprop="dateCreated datePublished" datetime="2019-05-21T16:52:14+08:00">2019-05-21</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-26 15:28:58" itemprop="dateModified" datetime="2019-05-26T15:28:58+08:00">2019-05-26</time>
+              
             
           </span>
 
@@ -656,11 +824,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kotlin/" itemprop="url" rel="index">
-                    <span itemprop="name">Kotlin</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Kotlin/" itemprop="url" rel="index"><span itemprop="name">Kotlin</span></a></span>
 
                 
                 
@@ -670,6 +834,7 @@
 
           
             
+            
           
 
           
@@ -678,18 +843,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  1.3k
-                </span>
+                <span title="本文字数">6.6k</span>
               
 
               
@@ -716,21 +880,23 @@
         
           <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>委托属性算是 Kotlin 语言中的高级特性，初次接触可能毫无头绪，再次接触还是一脸懵逼。只有在深入理解其语言特性和实现原理之后，才能对这一甜之又甜的“语法糖”有所认识，从而极大提高代码效率。在笔者的项目 <a href="https://github.com/Febers/UESTC_BBS" target="_blank" rel="noopener">UESTC_BBS</a> 中，对自带 SharedPreferences 的封装 <a href="https://github.com/Febers/UESTC_BBS/blob/master/app/src/main/java/com/febers/uestc_bbs/utils/PreferenceUtils.kt" target="_blank" rel="noopener">PreferenceUtils </a>就使用了委托属性，故一直想找机会写一篇笔记类型的文章将其记录下来。委托属性的基础是<strong>委托</strong>，一种设计模式，操作的对象不用自己执行，而是委托给另一个辅助对象。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Kotlin-委托属性详解/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -763,6 +929,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -773,7 +941,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -785,13 +953,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Dart-反射初识/" itemprop="url">Dart 反射初识</a></h1>
+                
+                <a href="/Dart-反射初识/" class="post-title-link" itemprop="url">Dart 反射初识</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -799,13 +976,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T10:16:44+08:00">
-                2019-05-20
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-20 10:16:44" itemprop="dateCreated datePublished" datetime="2019-05-20T10:16:44+08:00">2019-05-20</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-26 15:33:08" itemprop="dateModified" datetime="2019-05-26T15:33:08+08:00">2019-05-26</time>
+              
             
           </span>
 
@@ -821,11 +1015,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Dart/" itemprop="url" rel="index">
-                    <span itemprop="name">Dart</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Dart/" itemprop="url" rel="index"><span itemprop="name">Dart</span></a></span>
 
                 
                 
@@ -835,6 +1025,7 @@
 
           
             
+            
           
 
           
@@ -843,18 +1034,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  1.5k
-                </span>
+                <span title="本文字数">5.7k</span>
               
 
               
@@ -881,21 +1071,23 @@
         
           <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在 <a href="https://febers.github.io/Java-反射详解/" target="_blank" rel="noopener">Java 反射详解</a> 一文中，我们知道<code>反射是一种计算机处理方式，是程序可以访问、检测和修改它本身状态或行为的一种能力</code>。换一个角度说，反射可以细分为自省——程序在运行时决定自身结构的能力，以及自我修正——程序在运行时改变自身的能力。Dart 的反射基于 mirror 概念，它指的是反映其他对象的对象，并且目前只支持自省，不支持自我修改。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Dart-反射初识/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -928,6 +1120,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -938,7 +1132,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -950,13 +1144,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Markdown-语法详解/" itemprop="url">Markdown 语法详解</a></h1>
+                
+                <a href="/Markdown-语法详解/" class="post-title-link" itemprop="url">Markdown 语法详解</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -964,13 +1167,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-19T15:36:02+08:00">
-                2019-05-19
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-19 15:36:02" itemprop="dateCreated datePublished" datetime="2019-05-19T15:36:02+08:00">2019-05-19</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-31 00:51:16" itemprop="dateModified" datetime="2019-05-31T00:51:16+08:00">2019-05-31</time>
+              
             
           </span>
 
@@ -986,11 +1206,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Markdown/" itemprop="url" rel="index">
-                    <span itemprop="name">Markdown</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Markdown/" itemprop="url" rel="index"><span itemprop="name">Markdown</span></a></span>
 
                 
                 
@@ -1000,6 +1216,7 @@
 
           
             
+            
           
 
           
@@ -1008,18 +1225,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  2.8k
-                </span>
+                <span title="本文字数">6.6k</span>
               
 
               
@@ -1047,21 +1263,23 @@
           <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>这篇文章本应该在搭建博客之后就发布，一开始觉得 Markdown  的语法足够简单，熟能生巧，无需花费篇幅去记录；近来无事，反省了一下自己的错误认识，除去一些高级用法，了解这门用途广泛的标记语言的由来与发展，回顾它的基础语法如何将排版变成一件充满乐趣的事，完全值得专门写一篇文章。</p>
 <p><img src="/Markdown-语法详解/markdown.png" alt="logo"></p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Markdown-语法详解/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -1094,6 +1312,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -1104,7 +1324,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -1116,13 +1336,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/利用反射实现-DrawerLayout-全屏滑动/" itemprop="url">利用反射实现 DrawerLayout 全屏滑动</a></h1>
+                
+                <a href="/利用反射实现-DrawerLayout-全屏滑动/" class="post-title-link" itemprop="url">利用反射实现 DrawerLayout 全屏滑动</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1130,13 +1359,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-06T12:58:30+08:00">
-                2019-05-06
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-06 12:58:30" itemprop="dateCreated datePublished" datetime="2019-05-06T12:58:30+08:00">2019-05-06</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-19 15:32:52" itemprop="dateModified" datetime="2019-05-19T15:32:52+08:00">2019-05-19</time>
+              
             
           </span>
 
@@ -1152,11 +1398,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
 
                 
                 
@@ -1166,6 +1408,7 @@
 
           
             
+            
           
 
           
@@ -1174,18 +1417,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  1.6k
-                </span>
+                <span title="本文字数">8.4k</span>
               
 
               
@@ -1212,21 +1454,23 @@
         
           <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在一个项目中需要用到 DrawerLayout，但是其默认实现为边缘滑动打开侧滑界面，只能指定左边缘或者右边缘。想要实现全屏滑动，思路是通过反射的方式修改 DrawerLayout 的相应属性，涉及到枯燥的源码阅读。在完成全屏滑动之后，又发现其默认实现了长按弹出侧滑界面，在全屏滑动下，用户长按任何地方都会跳出侧滑菜单，而且还会出现留白问题。研究半天，还是利用反射的思路一并解决，特此记录。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/利用反射实现-DrawerLayout-全屏滑动/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -1259,6 +1503,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -1269,7 +1515,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -1281,13 +1527,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Android-自定义-View-详解/" itemprop="url">Android 自定义 View 详解</a></h1>
+                
+                <a href="/Android-自定义-View-详解/" class="post-title-link" itemprop="url">Android 自定义 View 详解</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1295,13 +1550,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-03T18:34:00+08:00">
-                2019-05-03
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-03 18:34:00" itemprop="dateCreated datePublished" datetime="2019-05-03T18:34:00+08:00">2019-05-03</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-19 15:25:08" itemprop="dateModified" datetime="2019-05-19T15:25:08+08:00">2019-05-19</time>
+              
             
           </span>
 
@@ -1317,11 +1589,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
 
                 
                 
@@ -1331,6 +1599,7 @@
 
           
             
+            
           
 
           
@@ -1339,18 +1608,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  133
-                </span>
+                <span title="本文字数">131</span>
               
 
               
@@ -1377,21 +1645,23 @@
         
           <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>开发者可以通过自定义 View 实现炫酷的效果，其过程涉及到 View 的层次结构、事件分发机制和 View 的工作原理等技术细节。本文将串联个知识点，通过代码揭开自定义 View 的面纱。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Android-自定义-View-详解/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -1424,6 +1694,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -1434,7 +1706,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -1446,13 +1718,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Dart-异步编程/" itemprop="url">Dart 异步编程</a></h1>
+                
+                <a href="/Dart-异步编程/" class="post-title-link" itemprop="url">Dart 异步编程</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1460,13 +1741,18 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-30T08:21:26+08:00">
-                2019-04-30
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-30 08:21:26 / 修改时间：22:17:28" itemprop="dateCreated datePublished" datetime="2019-04-30T08:21:26+08:00">2019-04-30</time>
             
 
             
+              
 
+              
             
           </span>
 
@@ -1482,11 +1768,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Dart/" itemprop="url" rel="index">
-                    <span itemprop="name">Dart</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Dart/" itemprop="url" rel="index"><span itemprop="name">Dart</span></a></span>
 
                 
                 
@@ -1496,6 +1778,7 @@
 
           
             
+            
           
 
           
@@ -1504,18 +1787,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  2k
-                </span>
+                <span title="本文字数">5.6k</span>
               
 
               
@@ -1542,21 +1824,23 @@
         
           <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Dart 属于单线程编程语言，在进行 I/O 操作或者其他耗时操作的时候，程序会进入阻塞状态。异步是 Dart 并发方案的基础。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Dart-异步编程/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -1589,6 +1873,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -1599,7 +1885,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -1611,13 +1897,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/《红楼梦》读书笔记/" itemprop="url">《红楼梦》读书笔记</a></h1>
+                
+                <a href="/《红楼梦》读书笔记/" class="post-title-link" itemprop="url">《红楼梦》读书笔记</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1625,13 +1920,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T11:35:40+08:00">
-                2019-04-24
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-24 11:35:40" itemprop="dateCreated datePublished" datetime="2019-04-24T11:35:40+08:00">2019-04-24</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-20 10:06:24" itemprop="dateModified" datetime="2019-05-20T10:06:24+08:00">2019-05-20</time>
+              
             
           </span>
 
@@ -1647,11 +1959,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/文学/" itemprop="url" rel="index">
-                    <span itemprop="name">文学</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/文学/" itemprop="url" rel="index"><span itemprop="name">文学</span></a></span>
 
                 
                 
@@ -1661,6 +1969,7 @@
 
           
             
+            
           
 
           
@@ -1669,18 +1978,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  1.1k
-                </span>
+                <span title="本文字数">1.2k</span>
               
 
               
@@ -1707,21 +2015,23 @@
         
           <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>完整认真地读完一遍《红楼梦》，应该是长久以来的念想。小学时 ，四叔寄给我一套中华书局出版的四大名著，从那时开始与之结缘。中学至今，书读得不少，但终究没有一次认真细致地拜读这一古典著作。这篇读书笔记，主要是记录章节概括和精彩之处，同时也是对自己的督促，不过更新周期可能会异常的漫长。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/《红楼梦》读书笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -1754,6 +2064,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -1764,7 +2076,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -1776,13 +2088,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Dart-面向对象/" itemprop="url">Dart 面向对象</a></h1>
+                
+                <a href="/Dart-面向对象/" class="post-title-link" itemprop="url">Dart 面向对象</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1790,13 +2111,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-23T09:10:53+08:00">
-                2019-04-23
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-23 09:10:53" itemprop="dateCreated datePublished" datetime="2019-04-23T09:10:53+08:00">2019-04-23</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-24 13:40:10" itemprop="dateModified" datetime="2019-04-24T13:40:10+08:00">2019-04-24</time>
+              
             
           </span>
 
@@ -1812,11 +2150,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Dart/" itemprop="url" rel="index">
-                    <span itemprop="name">Dart</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Dart/" itemprop="url" rel="index"><span itemprop="name">Dart</span></a></span>
 
                 
                 
@@ -1826,6 +2160,7 @@
 
           
             
+            
           
 
           
@@ -1834,18 +2169,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  1.7k
-                </span>
+                <span title="本文字数">5.2k</span>
               
 
               
@@ -1872,21 +2206,23 @@
         
           <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>作为一门面向对象的语言，Dart 在很多方面跟 Java 都很相似。Dart 中所有对象都是类的实例，所有类都属于 Object 的子类，类的继承则使用 Mixin 机制。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Dart-面向对象/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -1919,6 +2255,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -1929,7 +2267,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -1941,13 +2279,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Dart 基础入门/" itemprop="url">Dart 基础入门</a></h1>
+                
+                <a href="/Dart 基础入门/" class="post-title-link" itemprop="url">Dart 基础入门</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -1955,13 +2302,18 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T14:27:18+08:00">
-                2019-04-22
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-22 14:27:18 / 修改时间：20:01:14" itemprop="dateCreated datePublished" datetime="2019-04-22T14:27:18+08:00">2019-04-22</time>
             
 
             
+              
 
+              
             
           </span>
 
@@ -1977,11 +2329,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Dart/" itemprop="url" rel="index">
-                    <span itemprop="name">Dart</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Dart/" itemprop="url" rel="index"><span itemprop="name">Dart</span></a></span>
 
                 
                 
@@ -1991,6 +2339,7 @@
 
           
             
+            
           
 
           
@@ -1999,18 +2348,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  1.3k
-                </span>
+                <span title="本文字数">3.9k</span>
               
 
               
@@ -2038,21 +2386,23 @@
           <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>终于开始 Flutter 的具体学习，一切从 Dart 语言开始。</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void main() {</span><br><span class="line">    print('hello world');</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Dart 基础入门/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -2085,6 +2435,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -2095,7 +2447,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -2107,13 +2459,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Android-Binder-源码解析/" itemprop="url">Android Binder 源码解析</a></h1>
+                
+                <a href="/Android-Binder-源码解析/" class="post-title-link" itemprop="url">Android Binder 源码解析</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -2121,13 +2482,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T12:18:53+08:00">
-                2019-03-23
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-23 12:18:53" itemprop="dateCreated datePublished" datetime="2019-03-23T12:18:53+08:00">2019-03-23</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-24 13:31:52" itemprop="dateModified" datetime="2019-04-24T13:31:52+08:00">2019-04-24</time>
+              
             
           </span>
 
@@ -2143,11 +2521,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
 
                 
                 
@@ -2157,6 +2531,7 @@
 
           
             
+            
           
 
           
@@ -2165,18 +2540,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  53
-                </span>
+                <span title="本文字数">5</span>
               
 
               
@@ -2226,12 +2600,18 @@
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -2264,6 +2644,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -2274,7 +2656,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -2286,13 +2668,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Java-线程和线程池详解/" itemprop="url">Java 线程和线程池详解</a></h1>
+                
+                <a href="/Java-线程和线程池详解/" class="post-title-link" itemprop="url">Java 线程和线程池详解</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -2300,13 +2691,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T17:29:06+08:00">
-                2019-03-20
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-20 17:29:06" itemprop="dateCreated datePublished" datetime="2019-03-20T17:29:06+08:00">2019-03-20</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-21 18:02:08" itemprop="dateModified" datetime="2019-03-21T18:02:08+08:00">2019-03-21</time>
+              
             
           </span>
 
@@ -2322,11 +2730,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
 
                 
                 
@@ -2336,6 +2740,7 @@
 
           
             
+            
           
 
           
@@ -2344,18 +2749,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  3.6k
-                </span>
+                <span title="本文字数">17k</span>
               
 
               
@@ -2386,21 +2790,23 @@
 <p>线程的执行。</p>
 </blockquote>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Java-线程和线程池详解/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -2433,6 +2839,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -2443,7 +2851,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -2455,13 +2863,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Java-数据库知识整理/" itemprop="url">Java 数据库知识整理</a></h1>
+                
+                <a href="/Java-数据库知识整理/" class="post-title-link" itemprop="url">Java 数据库知识整理</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -2469,13 +2886,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T10:45:26+08:00">
-                2019-03-18
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-18 10:45:26" itemprop="dateCreated datePublished" datetime="2019-03-18T10:45:26+08:00">2019-03-18</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-24 13:32:46" itemprop="dateModified" datetime="2019-04-24T13:32:46+08:00">2019-04-24</time>
+              
             
           </span>
 
@@ -2491,11 +2925,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
 
                 
                 
@@ -2505,6 +2935,7 @@
 
           
             
+            
           
 
           
@@ -2513,18 +2944,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  53
-                </span>
+                <span title="本文字数">5</span>
               
 
               
@@ -2574,12 +3004,18 @@
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -2612,6 +3048,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -2622,7 +3060,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Febers">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -2634,13 +3072,22 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/《剑指offer》题目-Java-实现/" itemprop="url">《剑指offer》题目 Java 实现</a></h1>
+                
+                <a href="/《剑指offer》题目-Java-实现/" class="post-title-link" itemprop="url">《剑指offer》题目 Java 实现</a>
+              
+            
+          </h2>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -2648,13 +3095,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T10:42:29+08:00">
-                2019-03-18
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-18 10:42:29" itemprop="dateCreated datePublished" datetime="2019-03-18T10:42:29+08:00">2019-03-18</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-25 17:17:06" itemprop="dateModified" datetime="2019-03-25T17:17:06+08:00">2019-03-25</time>
+              
             
           </span>
 
@@ -2670,11 +3134,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
 
                 
                 
@@ -2684,6 +3144,7 @@
 
           
             
+            
           
 
           
@@ -2692,18 +3153,17 @@
           
 
           
-            <div class="post-wordcount">
+            <div class="post-symbolscount">
               
-                
+
+              
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">字数统计&#58;</span>
+                  <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="字数统计">
-                  3k
-                </span>
+                <span title="本文字数">12k</span>
               
 
               
@@ -2730,21 +3190,23 @@
         
           <h3 id="Problem1：单例模式实现"><a href="#Problem1：单例模式实现" class="headerlink" title="Problem1：单例模式实现"></a>Problem1：单例模式实现</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>{  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>{}  </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>{  </span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) {  </span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) {  </span><br><span class="line">                <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) {  </span><br><span class="line">                    singleton = <span class="keyword">new</span> Singleton();  </span><br><span class="line">                }  </span><br><span class="line">            }  </span><br><span class="line">        }  </span><br><span class="line">        <span class="keyword">return</span> singleton;  </span><br><span class="line">    }  </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/《剑指offer》题目-Java-实现/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
           <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -2773,15 +3235,12 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
 
           </div>
-          
-
-
           
 
         </div>
@@ -2797,59 +3256,178 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
     <div class="sidebar-inner">
 
       
 
       
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/26399388?s=460&v=4" alt="Febers">
-            
               <p class="site-author-name" itemprop="name">Febers</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <div class="site-description motion-element" itemprop="description"></div>
           </div>
 
-          <nav class="site-state motion-element">
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
 
-            
-              <div class="site-state-item site-state-posts">
               
-                <a href="/archives">
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
               
-                  <span class="site-state-item-count">33</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
 
-            
               
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
               
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
+            </nav>
+          
 
           
             <div class="feed-link motion-element">
@@ -2861,33 +3439,47 @@
           
 
           
+
+          
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/Febers" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:febers418@qq.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Febers" title="GitHub &rarr; https://github.com/Febers" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:febers418@qq.com" title="E-Mail &rarr; mailto:febers418@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
             </div>
           
 
           
-          
 
           
           
 
+          
+            
+          
           
 
         </div>
-      </section>
+      </div>
 
       
 
@@ -2895,6 +3487,7 @@
 
     </div>
   </aside>
+  
 
 
         
@@ -2904,8 +3497,8 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Febers</span>
 
@@ -2914,12 +3507,10 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-
     
-      <span class="post-meta-item-text">博客总字数&#58;</span>
-    
+    <span title="站点总字数">214k</span>
+  
 
-    <span title="Site words total count">60.3k</span>
   
 </div>
 
@@ -2932,6 +3523,17 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+
+  
+</div>
+
+
 
 
 
@@ -2952,11 +3554,14 @@
 
     
 
+    
+
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -2970,92 +3575,11 @@
 
 
 
-  
 
 
 
 
 
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -3069,8 +3593,54 @@
 
 
   
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
 
-  <script type="text/javascript">
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+  
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+  <script>
     // Popup Window;
     var isfetched = false;
     var isXml = true;
@@ -3119,6 +3689,8 @@
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -3152,8 +3724,9 @@
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
                 var indexOfTitle = [];
                 var indexOfContent = [];
                 // only match articles with not empty titles
@@ -3322,9 +3895,9 @@
               })
             };
             if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
             } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
@@ -3396,32 +3969,139 @@
   
 
   
-
-  
   
 
   
   
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
   
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
 
 
   

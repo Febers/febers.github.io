@@ -10,8 +10,6 @@ categories:
 - Spring
 ---
 
-## 引言
-
 很早就接触 Java 后端开发，不过大都浅尝辄止，并没有深刻地理解和实践，时间一长倒也跟没学过差不了多少。由于职业规划是要从 Android 开发慢慢转到后端开发，拖到现在终于是要系统学习了。学习的路线初步定为，从 Spring 出发，不断回顾 Java Web 的知识，重点在 Spring Boot 项目，通过具体的项目实践掌握相关知识。这篇文章属于第一篇学习笔记，参考手上的《Spring 实战》和网络上的技术文章，主要记录 Spring 的基本知识、Bean  的装配。
 
 ![](https://github.com/spring-projects/spring-framework/raw/master/src/docs/asciidoc/images/spring-framework.png)
@@ -112,13 +110,34 @@ class KnightMain {
 }
 ```
 
+XML 的配置文件为
+
+```xml
+//knight.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="knight" class="sia.knights.BraveKnight">
+    <constructor-arg ref="quest" />
+  </bean>
+
+  <bean id="quest" class="sia.knights.SlayDragonQuest">
+    <constructor-arg value="#{T(System).out}" />
+  </bean>
+
+</beans>
+```
+
+
+
 输出结果为
 
 ```bash
 Embarking on quest to slay the dragon!
 ```
-
-
 
 ### 面向切面编程
 
@@ -162,11 +181,7 @@ open class Minstrel(private val stream: PrintStream) {
 </aop:config>
 ```
 
-> 使用 IEDA 开发注意的点包括
->
-> - 默认缺少 org.aspectj.aspectjweaver，可以引入 maven，添加对应的依赖
-> - main 方法中使用  xml 装配  Bean 的方式，暂时不知道如何使用  Java 代码设置
-> - 要将 knight.xml 文件放置在 /resource 目录下，否则  ClassPathXmlApplicationContext 找不到文件
+*默认缺少 org.aspectj.aspectjweaver，可以引入 maven，添加对应的依赖*
 
 运行之后，控制台输出结果为
 

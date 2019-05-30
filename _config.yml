@@ -8,7 +8,7 @@ subtitle: Febers的博客
 description:
 keywords:
 author: Febers
-language: zh-Hans
+language: zh-CN
 timezone: 
 
 # URL
@@ -74,7 +74,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: next-reloaded
 
 # 支持时序图
 sequence:
@@ -98,6 +98,13 @@ marked:
   smartypants: true
   modifyAnchors: ''
   autolink: true
+
+symbols_count_time:
+  symbols: true
+  time: false
+  total_symbols: true
+  total_time: false
+  exclude_codeblock: false
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

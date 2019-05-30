@@ -1,10 +1,11 @@
 title: Markdown 语法详解
 date: 2019-05-19 15:36:02
+mathjax: true
 tags: 
-
 - Markdown
 categories: 
 - Markdown
+
 ---
 
 ## 引言
