@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Kotlin 委托属性详解 | ReBE</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Kotlin,委托属性,">
+  
+
+  <meta name="description" content="委托属性算是 Kotlin 语言中的高级特性，初次接触可能毫无头绪，再次接触还是一脸懵逼。只有在深入理解其语言特性和实现原理之后，才能对这一甜之又甜的“语法糖”有所认识，从而极大提高代码效率。在笔者的项目 UESTC_BBS 中，对自带 SharedPreferences 的封装 PreferenceUtils 就使用了委托属性，故一直想找机会写一篇笔记类型的文章将其记录下来。委托属性的基础是委托">
+<meta name="keywords" content="Kotlin,委托属性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin 委托属性详解">
+<meta property="og:url" content="http://yoursite.com/Kotlin-委托属性详解/index.html">
+<meta property="og:site_name" content="ReBE">
+<meta property="og:description" content="委托属性算是 Kotlin 语言中的高级特性，初次接触可能毫无头绪，再次接触还是一脸懵逼。只有在深入理解其语言特性和实现原理之后，才能对这一甜之又甜的“语法糖”有所认识，从而极大提高代码效率。在笔者的项目 UESTC_BBS 中，对自带 SharedPreferences 的封装 PreferenceUtils 就使用了委托属性，故一直想找机会写一篇笔记类型的文章将其记录下来。委托属性的基础是委托">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-02T05:02:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kotlin 委托属性详解">
+<meta name="twitter:description" content="委托属性算是 Kotlin 语言中的高级特性，初次接触可能毫无头绪，再次接触还是一脸懵逼。只有在深入理解其语言特性和实现原理之后，才能对这一甜之又甜的“语法糖”有所认识，从而极大提高代码效率。在笔者的项目 UESTC_BBS 中，对自带 SharedPreferences 的封装 PreferenceUtils 就使用了委托属性，故一直想找机会写一篇笔记类型的文章将其记录下来。委托属性的基础是委托">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/category/" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/tag/" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#委托"><span class="toc-text">委托</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本使用"><span class="toc-text">基本使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标准委托"><span class="toc-text">标准委托</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lazy"><span class="toc-text">lazy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#observable"><span class="toc-text">observable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Storing"><span class="toc-text">Storing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#典型应用"><span class="toc-text">典型应用</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Kotlin-委托属性详解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Kotlin 委托属性详解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.05.21</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Febers</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>委托属性算是 Kotlin 语言中的高级特性，初次接触可能毫无头绪，再次接触还是一脸懵逼。只有在深入理解其语言特性和实现原理之后，才能对这一甜之又甜的“语法糖”有所认识，从而极大提高代码效率。在笔者的项目 <a href="https://github.com/Febers/UESTC_BBS" target="_blank" rel="noopener">UESTC_BBS</a> 中，对自带 SharedPreferences 的封装 <a href="https://github.com/Febers/UESTC_BBS/blob/master/app/src/main/java/com/febers/uestc_bbs/utils/PreferenceUtils.kt" target="_blank" rel="noopener">PreferenceUtils </a>就使用了委托属性，故一直想找机会写一篇笔记类型的文章将其记录下来。委托属性的基础是<strong>委托</strong>，一种设计模式，操作的对象不用自己执行，而是委托给另一个辅助对象。<a id="more"></a></p>
+<h2 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h2><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>定义一个委托属性的基本语法为 <code>val/var <属性名>: <类型> by <表达式></表达式></类型></属性名></code>，在 <em>by</em> 后面的表达式即为<em>委托</em>， 属性对应的 <code>get()</code>与<code>set()</code>会被委托给它的 <code>getValue()</code> 与 <code>setValue()</code> 方法。 </p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> p: String <span class="keyword">by</span> Delegate()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> {</span><br><span class="line">        <span class="meta">@JvmStatic</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span><<span class="type">String</span>>)</span></span> {</span><br><span class="line">            <span class="keyword">var</span> e = Example()</span><br><span class="line">            println(e.p)</span><br><span class="line">            e.p = <span class="string">"newValue"</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Delegate</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">getValue</span><span class="params">(thisRef: <span class="type">Any</span>?, property: <span class="type">Any</span>)</span></span>: String {</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"<span class="variable">$thisRef</span>, thank you for delegating '<span class="variable">$property</span>' to me!"</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">setValue</span><span class="params">(thisRef: <span class="type">Any</span>?, property: <span class="type">Any</span>, value: <span class="type">String</span>)</span></span> {</span><br><span class="line">        println(<span class="string">"<span class="variable">$value</span> has been assigned to '<span class="variable">$property</span>' in <span class="variable">$thisRef</span>."</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>上述代码中，Delegate 内方法的参数 property 原本为 KProperty<*> 接口类型，为了手动调用其方法，改成 Any 以实现传参。</*></p>
+<p>控制台输出结果为</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Example@1175e2db, thank you <span class="keyword">for</span> delegating <span class="string">'p'</span> to me!</span><br><span class="line">newValue has been assigned to <span class="string">'p'</span> <span class="keyword">in</span> Example@1175e2db.</span><br></pre></td></tr></tbody></table></figure>
+<p>可以看到属性 p 委托给了 Delegate() 对象实例，按照约定，该对象必须声明具有<code>getValue</code>、<code>setValue</code>方法，且方法参数个数必须大于2、3。</p>
+<p>为了更清楚的了解这一过程，可以将代码改写成另一种形式</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> delegate: Delegate = Delegate()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> p: String</span><br><span class="line">        <span class="keyword">set</span>(value) {</span><br><span class="line">            delegate.setValue(thisRef = <span class="keyword">this</span>, property = delegate, value = value)</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">get</span>() = delegate.getValue(thisRef = <span class="keyword">this</span>, property = delegate)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>当我们使用 p 时调用其<code>get</code>方法，给 p 赋值时调用其<code>set</code>方法，并且都是通过委托对象 delegate 实现。</p>
+<h2 id="标准委托"><a href="#标准委托" class="headerlink" title="标准委托"></a>标准委托</h2><h3 id="lazy"><a href="#lazy" class="headerlink" title="lazy"></a>lazy</h3><p>函数<code>lazy</code>接收一个 lambda 表达式并返回一个 <code>Lazy <t></t></code> 实例，默认情况下其线程安全</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法签名</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">actual</span> <span class="function"><span class="keyword">fun</span> <span class="type"><t></t></span> <span class="title">lazy</span><span class="params">(initializer: ()</span></span> -> T): Lazy<t> = SynchronizedLazyImpl(initializer)</t></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> s: String <span class="keyword">by</span> lazy {</span><br><span class="line">	println(<span class="string">"get"</span>)</span><br><span class="line">	<span class="string">"hello"</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">println(s)</span><br><span class="line">println(s)</span><br></pre></td></tr></tbody></table></figure>
+<p>只有在第一次调用 s 时才会执行传递给 <code>lazy()</code> 的 lambda 表达式并返回一个记录下来的结果， 后续调用 <code>get()</code> 只会返回记录的结果。底层原理在于函数签名中的<code>SynchronizedLazyImpl</code>方法，其中会检查变量的值，判断其是否为默认值，如果是则执行初始化函数，否则直接返回结果，具体代码可以查阅<code>LazyJVM.kt</code>文件。</p>
+<p>控制台输出为</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">get</span><br><span class="line">hello</span><br><span class="line">hello</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="observable"><a href="#observable" class="headerlink" title="observable"></a>observable</h3><p>字面意思，用委托的方式来定义一个可观察属性。该函数的方法签名为</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type"><t></t></span> <span class="title">observable</span><span class="params">(initialValue: <span class="type">T</span>, <span class="keyword">crossinline</span> onChange: (<span class="type">property</span>: <span class="type">KProperty</span><*>, oldValue: <span class="type">T</span>, newValue: <span class="type">T</span>)</*></span></span> -> <span class="built_in">Unit</span>):</span><br><span class="line">            ReadWriteProperty<any?, t=""></any?,></span><br></pre></td></tr></tbody></table></figure>
+<p>其接收两个参数，第一个为默认值，第二个为 lambda 表达式，位于<code>Delegates.kt</code>，具体使用</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name: String <span class="keyword">by</span> Delegates.observable(<span class="string">"initialValue"</span>) {</span><br><span class="line">	property, oldValue, newValue -></span><br><span class="line">	println(<span class="string">"<span class="variable">$oldValue</span> -> <span class="variable">$newValue</span>"</span>)</span><br><span class="line">}</span><br><span class="line">name = <span class="string">"newValue0"</span></span><br><span class="line">name = <span class="string">"newValue1"</span></span><br></pre></td></tr></tbody></table></figure>
+<p>控制台输出</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">initialValue -> newValue0</span><br><span class="line">newValue0 -> newValue1</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Storing"><a href="#Storing" class="headerlink" title="Storing"></a>Storing</h3><p>将对象的属性委托值 map 中，用于解析 JSON 或者其他动态工作，不过应用较少</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> user = User(mapOf(<span class="string">"name"</span> to <span class="string">"Jack"</span>, <span class="string">"age"</span> to <span class="number">20</span>))</span><br><span class="line">println(user.name)</span><br><span class="line">println(user.age)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">private</span> <span class="keyword">val</span> map: Map<string, any?="">) {</string,></span><br><span class="line">    <span class="keyword">val</span> name: String <span class="keyword">by</span> map</span><br><span class="line">    <span class="keyword">val</span> age: <span class="built_in">Int</span> <span class="keyword">by</span> map</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="典型应用"><a href="#典型应用" class="headerlink" title="典型应用"></a>典型应用</h2><p>封装一个 SharedPreferences（简称 SP） 是 Android 开发中经常要做的事，因为直接调用 SP 足够繁琐。如果是 Java 代码，则代码基本如下</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">PreferencesUtil</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> PreferencesUtil sInstance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Context context)</span> </span>{</span><br><span class="line">        <span class="keyword">if</span> (sInstance == <span class="keyword">null</span>) {</span><br><span class="line">            sInstance = <span class="keyword">new</span> PreferencesUtil(context);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> PreferencesUtil <span class="title">getInstance</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">if</span> (sInstance == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Uninitialized."</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sInstance;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SharedPreferences mSp;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">PreferencesUtil</span><span class="params">(Context context)</span> </span>{</span><br><span class="line">        mSp = PreferenceManager.getDefaultSharedPreferences(context);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getString</span><span class="params">(String key, String defValue)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> mSp.getString(key, defValue);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putString</span><span class="params">(String key, String value)</span> </span>{</span><br><span class="line">        mSp.edit().putString(key, value).apply();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getInt</span><span class="params">(String key, <span class="keyword">int</span> defValue)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> mSp.getInt(key, defValue);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putInt</span><span class="params">(String key, <span class="keyword">int</span> value)</span> </span>{</span><br><span class="line">        mSp.edit().putInt(key, value).apply();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getLong</span><span class="params">(String key, <span class="keyword">long</span> defValue)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> mSp.getLong(key, defValue);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putLong</span><span class="params">(String key, <span class="keyword">long</span> value)</span> </span>{</span><br><span class="line">        mSp.edit().putLong(key, value).apply();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getFloat</span><span class="params">(String key, <span class="keyword">float</span> defValue)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> mSp.getFloat(key, defValue);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putFloat</span><span class="params">(String key, <span class="keyword">float</span> value)</span> </span>{</span><br><span class="line">        mSp.edit().putFloat(key, value).apply();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">getBoolean</span><span class="params">(String key, <span class="keyword">boolean</span> defValue)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> mSp.getBoolean(key, defValue);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putBoolean</span><span class="params">(String key, <span class="keyword">boolean</span> value)</span> </span>{</span><br><span class="line">        mSp.edit().putBoolean(key, value).apply();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>外部调用</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (PreferencesUtil.getInstance().getBoolean(Constant.IS_FIRST_LAUNCH, Constant.DEF_IS_FIRST_LAUNCH)) {</span><br><span class="line">    <span class="comment">// Do something first launch, like showing Welcome.</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    PreferencesUtil.getInstance().putBoolean(Constant.IS_FIRST_LAUNCH, <span class="keyword">false</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>使用 Kotlin 的委托属性之后实现就简洁很多</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PreferenceUtils</span><<span class="type">T</span>></span>(<span class="keyword">val</span> context: Context, <span class="keyword">val</span> name: String, <span class="keyword">val</span> <span class="keyword">default</span>: T): ReadWriteProperty<any?, t=""> {</any?,></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> prefs: SharedPreferences <span class="keyword">by</span> lazy { context.defaultSharedPreferences }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getValue</span><span class="params">(thisRef: <span class="type">Any</span>?, property: <span class="type">KProperty</span><*>)</*></span></span>: T {</span><br><span class="line">        <span class="keyword">return</span> findPreference(name, <span class="keyword">default</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">setValue</span><span class="params">(thisRef: <span class="type">Any</span>?, property: <span class="type">KProperty</span><*>, value: <span class="type">T</span>)</*></span></span> {</span><br><span class="line">        putPreference(name, value)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="type"><t></t></span> <span class="title">findPreference</span><span class="params">(name: <span class="type">String</span>, <span class="keyword">default</span>: <span class="type">T</span>)</span></span>: T = with(prefs) {</span><br><span class="line">        <span class="keyword">val</span> res: Any = <span class="keyword">when</span> (<span class="keyword">default</span>) {</span><br><span class="line">            <span class="keyword">is</span> <span class="built_in">Long</span> -> getLong(name, <span class="keyword">default</span>)</span><br><span class="line">            <span class="keyword">is</span> <span class="built_in">Int</span> -> getInt(name, <span class="keyword">default</span>)</span><br><span class="line">            <span class="keyword">is</span> String -> getString(name, <span class="keyword">default</span>)</span><br><span class="line">            <span class="keyword">is</span> <span class="built_in">Boolean</span> -> getBoolean(name, <span class="keyword">default</span>)</span><br><span class="line">            <span class="keyword">is</span> <span class="built_in">Float</span> -> getFloat(name, <span class="keyword">default</span>)</span><br><span class="line">            <span class="keyword">else</span> -> <span class="keyword">throw</span> IllegalArgumentException(<span class="string">"This type can't be saved into Preferences"</span>)</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span><span class="symbol">@with</span> res <span class="keyword">as</span> T</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="type"><t></t></span> <span class="title">putPreference</span><span class="params">(name: <span class="type">String</span>, value: <span class="type">T</span>)</span></span> = with(prefs.edit()) {</span><br><span class="line">        <span class="keyword">when</span> (value) {</span><br><span class="line">            <span class="keyword">is</span> <span class="built_in">Long</span> -> putLong(name, value)</span><br><span class="line">            <span class="keyword">is</span> <span class="built_in">Int</span> -> putInt(name, value)</span><br><span class="line">            <span class="keyword">is</span> String -> putString(name, value)</span><br><span class="line">            <span class="keyword">is</span> <span class="built_in">Boolean</span> -> putBoolean(name, value)</span><br><span class="line">            <span class="keyword">is</span> <span class="built_in">Float</span> -> putFloat(name, value)</span><br><span class="line">            <span class="keyword">else</span> -> <span class="keyword">throw</span> IllegalArgumentException(<span class="string">"This type can't be saved into Preferences"</span>)</span><br><span class="line">        }.apply()</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>其中接口<code>ReadWriteProperty</code>为系统提供的规范接口，其中定义了<code>getValue/setValue</code>方法。外部调用如下</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> themeCode <span class="keyword">by</span> PreferenceUtils(context, Constant.theme_code, <span class="keyword">default</span> = <span class="number">1</span>)</span><br><span class="line">themeCode = <span class="number">9527</span></span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/Dart-反射初识/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/Gradle-构建工具详解/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/category/" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/tag/" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

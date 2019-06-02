@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Github Pages+Hexo搭建个人博客 | ReBE</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="GitHub,Hexo,">
+  
+
+  <meta name="description" content="上一个博客是使用WordPress搭建在云服务器上的，郁闷的是这个位于美国的服务器ip被墙了，无奈放弃。正好最近抽出时间，又迫切地想记录点东西，选择了基本不会被墙的Github Pages，搭配Hexo框架，构建了一个轻量级的博客，在此将其过程记录下来。">
+<meta name="keywords" content="GitHub,Hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Github Pages+Hexo搭建个人博客">
+<meta property="og:url" content="http://yoursite.com/Github-Pages-Hexo搭建个人博客/index.html">
+<meta property="og:site_name" content="ReBE">
+<meta property="og:description" content="上一个博客是使用WordPress搭建在云服务器上的，郁闷的是这个位于美国的服务器ip被墙了，无奈放弃。正好最近抽出时间，又迫切地想记录点东西，选择了基本不会被墙的Github Pages，搭配Hexo框架，构建了一个轻量级的博客，在此将其过程记录下来。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-02T05:00:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Github Pages+Hexo搭建个人博客">
+<meta name="twitter:description" content="上一个博客是使用WordPress搭建在云服务器上的，郁闷的是这个位于美国的服务器ip被墙了，无奈放弃。正好最近抽出时间，又迫切地想记录点东西，选择了基本不会被墙的Github Pages，搭配Hexo框架，构建了一个轻量级的博客，在此将其过程记录下来。">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/category/" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/tag/" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Github-Pages"><span class="toc-text">Github Pages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo"><span class="toc-text">Hexo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关联"><span class="toc-text">关联</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#发表与删除"><span class="toc-text">发表与删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主题"><span class="toc-text">主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#域名绑定"><span class="toc-text">域名绑定</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#备份与恢复"><span class="toc-text">备份与恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#备份"><span class="toc-text">备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#恢复"><span class="toc-text">恢复</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo各文件（夹）说明"><span class="toc-text">Hexo各文件（夹）说明</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Github-Pages-Hexo搭建个人博客" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Github Pages+Hexo搭建个人博客</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.01.11</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Febers</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/互联网/">互联网</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>上一个博客是使用WordPress搭建在云服务器上的，郁闷的是这个位于美国的服务器ip被墙了，无奈放弃。正好最近抽出时间，又迫切地想记录点东西，选择了基本不会被墙的Github Pages，搭配Hexo框架，构建了一个轻量级的博客，在此将其过程记录下来。<a id="more"></a></p>
+<p>作者的环境基于Windows，其他环境的搭建过程大同小异。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="Github-Pages"><a href="#Github-Pages" class="headerlink" title="Github Pages"></a>Github Pages</h3><p>创建 Github Pages，首先需要一个 Github 帐号，新建一个仓库，仓库名为<code>{账户名}.github.io</code>，系统会自动识别并将其设为 Github Pages。注意的是仓库权限要设置为<code>public</code>。之后浏览器打开：<code>https://{账户名}.github.io</code>便可以看到缺省的界面。</p>
+<h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>Hexo是一个基于Node.js的静态博客框架，快速、高效且简洁。需要安装在本地，具体过程如下：</p>
+<ul>
+<li>安装Git客户端，前往Git主页下载，安装后登录帐号。</li>
+<li>安装Node.js环境，前往Node主页下载。</li>
+<li><p>安装Hexo，新建一个命名任意的文件夹，在其中打开Git Bash，键入Hexo的安装命令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>初始化Hexo，<code>projectname</code>省略时，要求当前文件夹为空。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init [projectname]</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<h2 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h2><p>经过前面的过程，已经获得了 Github Pages 和本地的 Hexo 环境，接下来就是关联两者。<br>在博客的文件夹中有<code>_config.yml</code>文件，为 Hexo 的配置文件，打开并将相应位置设置为：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span> </span><br><span class="line"><span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">该处填写仓库的完整路径</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></tbody></table></figure>
+<p>该过程其实是给<code>hexo d</code>这一命令做相应的配置，让 hexo 知道 blog 部署的位置，显然部署在 GitHub 的仓库里。<br>保存文件之后，安装 Git 部署插件，在 Git Bash 中键入命令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></tbody></table></figure>
+<p>接下来就是清除 hexo 缓存：<br></p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>生成静态文件<br></p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>部署网站，d 的意思是 deploy</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></tbody></table></figure>
+<p>后两个命令可以合并为一条，关于 Hexo 的命令请访问：<a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">Hexo指令</a>。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></tbody></table></figure>
+<p>至此，博客已经搭建完毕，浏览器键入<code>https://{账户名}.github.io</code>，发现打开了一个使用 Hexo 搭建的 Github Pages 博客。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>博客文件夹下的<code>_config.yml</code>文件可以配置整个博客的名称、主题等基本功能，<code>/theme/</code>文件夹下的<code>_config.yml</code>文件则用于配置具体的主题配置。</p>
+<h3 id="发表与删除"><a href="#发表与删除" class="headerlink" title="发表与删除"></a>发表与删除</h3><p>在博客文件夹打开 Git Bash，键入</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n "文章的标题"</span><br></pre></td></tr></tbody></table></figure>
+<p>之后便会生成一个md文件，在md文件中编辑文章保存，然后键入<code>hexo g -d</code>便会发布文章。</p>
+<p>如果要删除文章，直接删除对应的 md 文件。基本上每一次对博客的修改，都需要生成静态文件和部署命令。</p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>网络上有很多优秀的 Hexo 主题，关于主题选择，可以查看这个知乎问答：<a href="https://www.zhihu.com/question/24422335" target="_blank" rel="noopener">有哪些好看的 Hexo主题</a>。笔者使用的是<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">NexT</a>。</p>
+<p>在博客文件夹下的<code>_config.yml</code>文件中，将theme选项设置为下载的主题，注意的是所有的选项冒号之后要有一个半角空格，否则设置将失效。Hexo会自动检测博客<code>_config.yml</code>文件的更改，保存片刻即生效。</p>
+<h3 id="域名绑定"><a href="#域名绑定" class="headerlink" title="域名绑定"></a>域名绑定</h3><p>具体过程如下：</p>
+<ul>
+<li>需要一个域名，可以前往万网等提供商购买，之后在后台设置添加解析，一般需要解析三个，Github 的 IP 地址，<code>{账户名}.github.io</code>的 IP 地址，还有一个的记录类型为<code>CNAME</code>，记录值为：<code>{账户名}.github.io</code>。</li>
+<li>进入 GitHub Pages 的仓库，点击 settings，设置 Custom domain，输入购买的域名，保存。</li>
+<li>进入博客文件夹中的<code>/source/</code>，新建一个记事本文件，只需填写域名即可。如果在域名前填了 www，则每次浏览器访问都要填入 www，不填则没这个必要。之后将该文件保存为<strong>所有文件</strong>，名称为<strong>CNAME</strong>。</li>
+</ul>
+<h2 id="备份与恢复"><a href="#备份与恢复" class="headerlink" title="备份与恢复"></a>备份与恢复</h2><p>由于在 Github Pages 的仓库中，只有生成的静态网页的文件，没有整个博客的源文件，如果当前电脑出现问题，或者需要多设备操作时，就会很麻烦。所以需要对博客进行备份与恢复。</p>
+<h3 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h3><p>创建一个分支，用来保存网站源文件，具体步骤如下:</p>
+<ul>
+<li>新建一个分支，如 hexo，并将其设置为默认</li>
+<li>本地 clone 你的 Github Pages 仓库，得到一个 io 文件夹：<code>{账户名}.github.io</code>的文件夹。</li>
+<li>将原来博客文件夹中的<code>_config.yml，themes/，source/，scffolds/，package.json，.gitignore</code>复制到 clone 下来的文件夹，注意要将<code>theme/</code>主题的<code>.git/</code>删除。</li>
+<li>在 clone 下的文件夹执行<code>npm install</code>，<code>npm install hexo-deployer-git</code>。</li>
+</ul>
+<p>此时<code>{账户名}.github.io</code>文件夹已经成为包含你博客所有文件的工作文件夹，在部署(<code>hexo g -d</code>)之前，执行下面三条命令，以使用 hexo 分支更新 git 上的源文件:<br></p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"更新源文件"</span></span><br><span class="line">git push origin hexo</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>这样一来，达到了在 master 分支上部署网页静态文件，在hexo分支上备份网站源文件的目的。</p>
+<h3 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h3><p>当在新的环境中需要对博客进行操作，包括写文章、配置博客时，需要获取整个网站的源文件，当然前提是Node.js 的安装，步骤如下:</p>
+<ul>
+<li>clone 你的 Github Pages 仓库，得到一个 io 文件夹。</li>
+<li>在文件夹中打开 Git Bash，键入以下命令:<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">npm install </span><br><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<p>现在就可以在该文件夹进行博客的操作了，如果多终端同时工作时，记得使用 pull 命令更新本地文件，且分支始终为 hexo。</p>
+<p>如果在拉取过程中提示本地分支与远程仓库冲突，可以使用<code>git reset --hard</code>命令重置之后再次 pull。如果提示</p>
+<blockquote>
+<p>The following untracked working tree files would be overwritten by merge</p>
+</blockquote>
+<p>可以使用<code>git clean -d -fx</code>，关于该命令</p>
+<blockquote>
+<p>git clean -f -n       //选项-n将显示执行下一步时将会移除哪些文件。<br> git clean -f            //该命令会移除所有上一条命令中显示的文件。<br> git clean -fd           //移除文件夹，使用选项-d。<br> git clean -fX           //只想移除已被忽略的文件，使用选项-X。<br> git clean -fx           //想移除已被忽略和未被忽略的文件，使用选项-x。</p>
+</blockquote>
+<h2 id="Hexo各文件（夹）说明"><a href="#Hexo各文件（夹）说明" class="headerlink" title="Hexo各文件（夹）说明"></a>Hexo各文件（夹）说明</h2><ul>
+<li>_config.yml：站点的配置文件，备份过程中需要拷贝；</li>
+<li>themes/：主题文件夹，需要拷贝；</li>
+<li>source：博客文章的.md文件，需要拷贝；</li>
+<li>scaffolds/：文章的模板，需要拷贝；</li>
+<li>package.json：安装包的名称，需要拷贝；</li>
+<li>.gitignore：限定在push时哪些文件可以忽略，需要拷贝；</li>
+<li>.git/：主题和站点都有，标志这是一个git项目，不需要拷贝；</li>
+<li>node_modules/：是安装包的目录，在执行npm install的时候会重新生成，不需要拷贝；</li>
+<li>public：hexo g生成的静态网页，不需要拷贝；</li>
+<li>.deploy_git：同上，hexo g也会生成，不需要拷贝；</li>
+<li>db.json：文件，不需要拷贝。</li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/坐过山车的人/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/LeetCode：最长回文子串（Longest-Palindromic-Substring）的解法/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/category/" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/tag/" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

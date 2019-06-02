@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Android 动画详解 | ReBE</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Android,动画开发,">
+  
+
+  <meta name="description" content="Android 提供了很多丰富的 API 去实现动画效果，加上 SDK 25.3 时推出的 SpringAnimation，总共有三大类 Animation 供开发者使用。">
+<meta name="keywords" content="Android,动画开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 动画详解">
+<meta property="og:url" content="http://yoursite.com/Android-动画详解/index.html">
+<meta property="og:site_name" content="ReBE">
+<meta property="og:description" content="Android 提供了很多丰富的 API 去实现动画效果，加上 SDK 25.3 时推出的 SpringAnimation，总共有三大类 Animation 供开发者使用。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-02T04:54:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 动画详解">
+<meta name="twitter:description" content="Android 提供了很多丰富的 API 去实现动画效果，加上 SDK 25.3 时推出的 SpringAnimation，总共有三大类 Animation 供开发者使用。">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/category/" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/tag/" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#View-Animation"><span class="toc-text">View Animation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#补间动画"><span class="toc-text">补间动画</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#XML-方式"><span class="toc-text">XML 方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-代码方式"><span class="toc-text">Java 代码方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义"><span class="toc-text">自定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特殊使用"><span class="toc-text">特殊使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#帧动画"><span class="toc-text">帧动画</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Property-Animation"><span class="toc-text">Property Animation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#API"><span class="toc-text">API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ValueAniamtor"><span class="toc-text">ValueAniamtor</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ofInt"><span class="toc-text">ofInt</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ofFloat"><span class="toc-text">ofFloat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ofObject"><span class="toc-text">ofObject</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ObjectAnimator"><span class="toc-text">ObjectAnimator</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#具体使用"><span class="toc-text">具体使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义-1"><span class="toc-text">自定义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AnimatorSet"><span class="toc-text">AnimatorSet</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Animation"><span class="toc-text">Spring Animation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#API-1"><span class="toc-text">API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单使用"><span class="toc-text">简单使用</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Android-动画详解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Android 动画详解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.02.18</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Febers</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Android/">Android</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>Android 提供了很多丰富的 API 去实现动画效果，加上 SDK 25.3 时推出的 SpringAnimation，总共有三大类 Animation 供开发者使用。<a id="more"></a></p>
+<h2 id="View-Animation"><a href="#View-Animation" class="headerlink" title="View Animation"></a>View Animation</h2><p>视图动画的作用对象是 View，可分为补间动画和帧动画。</p>
+<h3 id="补间动画"><a href="#补间动画" class="headerlink" title="补间动画"></a>补间动画</h3><p>动画开始和结尾的中间过程都是假象，是渲染出来的表象，只是显示的位置变动，View的实际位置未改变，表现为View移动到其他地方，点击事件仍在原处才能响应。利用补间动画，同一个图形在界面上可以进行透明度（AlphaAnimation）、缩放（ScaleAnimation）、旋转（RotateAnimation）、平移（TranslateAnimation）的变化。</p>
+<h4 id="XML-方式"><a href="#XML-方式" class="headerlink" title="XML 方式"></a>XML 方式</h4><p>创建一个 set.xml 文件，通过动画集合标签<code><set></set></code>将四种效果结合起来<br></p><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><?xml version="1.0" encoding="utf-8"?></span></span><br><span class="line"></span><br><span class="line"><span class="tag"><<span class="name">--动画集合</span></span></span><br><span class="line"><span class="tag"><span class="attr">interpolator</span> 表示所采用的的差值器，其影响动画的速度，可以不指定</span></span><br><span class="line"><span class="tag"><span class="attr">shareInterpolator</span> 表示集合中的动画是否和集合共享同一个差值器<span class="attr">--</span>></span></span><br><span class="line"><span class="tag"><<span class="name">set</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:duration</span>=<span class="string">"1000"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:fillAfter</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:shareInterpolator</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:repeatMode</span>=<span class="string">"reverse"</span>></span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"><!-- 缩放动画</span></span><br><span class="line"><span class="comment">    fromXScale 表示水平方向缩放的起始值</span></span><br><span class="line"><span class="comment">    toXScale 表示水平方向的结束值</span></span><br><span class="line"><span class="comment">    fillAfter 表示动画显示结束保持最后一帧--></span></span><br><span class="line">    <span class="tag"><<span class="name">scale</span>  </span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"1000"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:fillAfter</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:fromXScale</span>=<span class="string">"0.5"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:fromYScale</span>=<span class="string">"0.5"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:toXScale</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:toYScale</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:repeatCount</span>=<span class="string">"infinite"</span>/></span><span class="comment"><!--次数 ,infinite 为无线循环播放--></span></span><br><span class="line">        </span><br><span class="line">    <span class="comment"><!-- 透明度动画</span></span><br><span class="line"><span class="comment">        fromAlpha 表示起始透明度</span></span><br><span class="line"><span class="comment">        toAlpha 表示结束透明度--></span></span><br><span class="line">    <span class="tag"><<span class="name">alpha</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"2000"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:fillAfter</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:fromAlpha</span>=<span class="string">"0.7"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:toAlpha</span>=<span class="string">"1"</span>/></span></span><br><span class="line">        </span><br><span class="line">    <span class="comment"><!--旋转动画</span></span><br><span class="line"><span class="comment">    fromDegrees 表示起始角度</span></span><br><span class="line"><span class="comment">    toDegrees 表示结束角度--></span></span><br><span class="line">    <span class="tag"><<span class="name">rotate</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:fromDegrees</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:toDegrees</span>=<span class="string">"90"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:fillAfter</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"1000"</span>/></span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"><!--平移动画--></span></span><br><span class="line">    <span class="tag"><<span class="name">translate</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:fromXDelta</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:fromYDelta</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:toXDelta</span>=<span class="string">"100%"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:toYDelta</span>=<span class="string">"-100%"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:fillAfter</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"2000"</span></span></span><br><span class="line"><span class="tag">        /></span></span><br><span class="line"><span class="tag">set</span>></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>使用以上动画的方式如下<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Animation anim = AnimationUtils.loadAnimation(context, R.anim.my_animation);</span><br><span class="line">view.startAnimation(anim);</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h4 id="Java-代码方式"><a href="#Java-代码方式" class="headerlink" title="Java 代码方式"></a>Java 代码方式</h4><p>使用 Java 代码实现动画的方式如下<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startAnimationSet</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="comment">//创建动画，参数表示他的子动画是否共用一个插值器</span></span><br><span class="line">    AnimationSet animationSet = <span class="keyword">new</span> AnimationSet(<span class="keyword">true</span>);</span><br><span class="line">    <span class="comment">//添加动画</span></span><br><span class="line">    animationSet.addAnimation(<span class="keyword">new</span> AlphaAnimation(<span class="number">1.0f</span>, <span class="number">0.0f</span>));</span><br><span class="line">    <span class="comment">//设置插值器</span></span><br><span class="line">    animationSet.setInterpolator(<span class="keyword">new</span> LinearInterpolator());</span><br><span class="line">    <span class="comment">//设置动画持续时长</span></span><br><span class="line">    animationSet.setDuration(<span class="number">3000</span>);</span><br><span class="line">    <span class="comment">//设置动画结束之后是否保持动画的目标状态</span></span><br><span class="line">    animationSet.setFillAfter(<span class="keyword">true</span>);</span><br><span class="line">    <span class="comment">//设置动画结束之后是否保持动画开始时的状态</span></span><br><span class="line">    animationSet.setFillBefore(<span class="keyword">false</span>);</span><br><span class="line">    <span class="comment">//设置重复模式</span></span><br><span class="line">    animationSet.setRepeatMode(AnimationSet.REVERSE);</span><br><span class="line">    <span class="comment">//设置重复次数</span></span><br><span class="line">    animationSet.setRepeatCount(AnimationSet.INFINITE);</span><br><span class="line">    <span class="comment">//设置动画延时时间</span></span><br><span class="line">    animationSet.setStartOffset(<span class="number">2000</span>);</span><br><span class="line">    <span class="comment">//取消动画</span></span><br><span class="line">    animationSet.cancel();</span><br><span class="line">    <span class="comment">//释放资源</span></span><br><span class="line">    animationSet.reset();</span><br><span class="line">    <span class="comment">//开始动画</span></span><br><span class="line">    view.startAnimation(animationSet);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h4 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h4><p>除了系统自带的四种补间动画，我们还可以自定义 View 动画。派生一种动画只需要继承抽象类 Animation，然后重写它的<code>initialize</code>和<code>applyTransformation</code>方法即可，在前一个方法中做初始化工作，后一个方法中进行相应的矩阵变换，本文不再详细介绍。 </p>
+<h4 id="特殊使用"><a href="#特殊使用" class="headerlink" title="特殊使用"></a>特殊使用</h4><p>View 动画还可以用在控制 ViewGroup 中子元素的出场效果、实现不同 Activity 的切换效果等场景中。</p>
+<h3 id="帧动画"><a href="#帧动画" class="headerlink" title="帧动画"></a>帧动画</h3><p>帧动画是顺序播放一组预先定义好的图片，类似于电影播放。不同于补间动画，系统提供了另外一个类 AnimationDrawable 来使用帧动画。</p>
+<p>首先需要定义一个 XML 文件<code>frame_animation.xml</code><br></p><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><?xml version="1.0" encoding="utf-8"?></span></span><br><span class="line"><span class="tag"><<span class="name">animation-list</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:oneshot</span>=<span class="string">"false"</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@mipmap/image1"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /></span></span><br><span class="line">    <span class="tag"><<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@mipmap/image2"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /></span></span><br><span class="line">    <span class="tag"><<span class="name">item</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:drawable</span>=<span class="string">"@mipmap/iamge2"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:duration</span>=<span class="string">"100"</span> /></span></span><br><span class="line"><span class="tag">animation-list</span>></span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>然后将上述的 Drawable 作为 View 的背景并通过 Drawable 来播放动画即可<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">view.setBackgroundResource(R.drawable.frame_animation)；</span><br><span class="line">AnimationDrawable drawable = (AnimationDrawable) view.getBackground();</span><br><span class="line">drawable.start();</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h2 id="Property-Animation"><a href="#Property-Animation" class="headerlink" title="Property Animation"></a>Property Animation</h2><p>属性动画在 API 11 引入，可以看作是增强版的补间动画，与补间动画的不同之处体现在：</p>
+<ul>
+<li>补间动画只能定义两个关键帧在透明、旋转、位移和倾斜这四个属性的变换，但是属性动画可以定义任何属性的变化。</li>
+<li>补间动画只能对 UI 组件执行动画，但属性动画可以对任何对象执行动画。</li>
+</ul>
+<p>与补间动画类似，属性动画也需要定义几个方面的属性：</p>
+<ul>
+<li>动画持续时间。默认为 300ms，可以通过 android:duration 属性指定。</li>
+<li>动画插值方式。通过 android:interploator 指定。</li>
+<li>动画重复次数。通过 android:repeatCount 指定。</li>
+<li>重复行为。通过 android:repeatMode 指定。</li>
+<li>动画集。在属性资源文件中通过 <code><set></set></code> 来组合。</li>
+<li>帧刷新率。指定多长时间播放一帧。默认为 10 ms。</li>
+</ul>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><ul>
+<li>ValueAnimator：属性动画用到的主要的时间引擎，负责计算各个帧的属性值。</li>
+<li>ObjectAnimator： ValueAnimator 的子类，对指定对象的属性执行动画。</li>
+<li>AnimatorSet：Animator 的子类，用于组合多个 Animator。</li>
+</ul>
+<p>属性动画还提供了一个 Evaluator ，用来控制如何计算属性值。</p>
+<ul>
+<li>IntEvaluator：计算 int 类型属性值的计算器。</li>
+<li>FloatEvaluator：用于计算 float 类型属性值的计算器。</li>
+<li>ArgbEvaluator：用于计算十六进制形式表示的颜色值的计算器。</li>
+<li>TypeEvaluator：可以自定义计算器。</li>
+</ul>
+<h3 id="ValueAniamtor"><a href="#ValueAniamtor" class="headerlink" title="ValueAniamtor"></a>ValueAniamtor</h3><p>ValueAnimator 类中有3个重要方法：</p>
+<blockquote>
+<p>ValueAnimator.ofInt(int values)<br>ValueAnimator.ofFloat(float values)<br>ValueAnimator.ofObject(int values)</p>
+</blockquote>
+<h4 id="ofInt"><a href="#ofInt" class="headerlink" title="ofInt"></a>ofInt</h4><p>将初始值以整型数值的形式过渡到结束值,即估值器是整型估值器 —— IntEvaluator</p>
+<p>下面的代码将实现按钮的宽度从 150px 放大到 500px<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">    Button mButton = (Button) findViewById(R.id.Button);</span><br><span class="line">    <span class="comment">// 设置属性数值的初始值 & 结束值</span></span><br><span class="line">    <span class="comment">// ValueAnimator.ofInt()内置了整型估值器，默认设置了如何从初始值150 过渡到 结束值500</span></span><br><span class="line">    ValueAnimator valueAnimator = ValueAnimator.ofInt(mButton.getLayoutParams().width, <span class="number">500</span>);</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// 设置动画的播放各种属性</span></span><br><span class="line">    valueAnimator.setDuration(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将属性数值手动赋值给对象的属性，此处是将值赋给按钮的宽度</span></span><br><span class="line">    <span class="comment">// 设置更新监听器，数值每次变化更新都会调用该方法</span></span><br><span class="line">    valueAnimator.addUpdateListener(<span class="keyword">new</span> AnimatorUpdateListener() {</span><br><span class="line">    </span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animator)</span> </span>{</span><br><span class="line">            <span class="comment">// 获得每次变化后的属性值</span></span><br><span class="line">            <span class="keyword">int</span> currentValue = (Integer) animator.getAnimatedValue();</span><br><span class="line">            <span class="comment">// 将值手动赋值给对象的属性，实现按钮宽度属性的动态变化</span></span><br><span class="line">            mButton.getLayoutParams().width = currentValue;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 刷新视图，即重新绘制</span></span><br><span class="line">            mButton.requestLayout();</span><br><span class="line">        }</span><br><span class="line">    });</span><br><span class="line">    valueAnimator.start();  <span class="comment">// 启动动画</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h4 id="ofFloat"><a href="#ofFloat" class="headerlink" title="ofFloat"></a>ofFloat</h4><p>其与 ofInt 的区别仅在于采用了浮点估值器（FloatEvaluator）<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FloatEvaluator</span> <span class="keyword">implements</span> <span class="title">TypeEvaluator</span> </span>{  </span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重写evaluate()</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fraction 动画完成度（根据它来计算当前动画的值）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> startValue 动画的初始值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> endValue 动画的结束值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">evaluate</span><span class="params">(<span class="keyword">float</span> fraction, Object startValue, Object endValue)</span> </span>{  </span><br><span class="line"></span><br><span class="line">        <span class="keyword">float</span> startFloat = ((Number) startValue).floatValue();  </span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 初始值过渡到结束值的算法</span></span><br><span class="line">        <span class="comment">// 1. 用结束值减去初始值，算出它们之间的差值</span></span><br><span class="line">        <span class="comment">// 2. 用上述差值乘以 fraction 系数</span></span><br><span class="line">        <span class="comment">// 3. 加上初始值，得到当前动画的值</span></span><br><span class="line">        <span class="keyword">return</span> startFloat + fraction * (((Number) endValue).floatValue() - startFloat);  </span><br><span class="line">    }  </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h4 id="ofObject"><a href="#ofObject" class="headerlink" title="ofObject"></a>ofObject</h4><p>对于 ValueAnimator.ofInt 和 ValueAnimator.ofFloat 来说，由于使用了系统内置的估值器 —— FloatEvaluator 和 IntEvaluator，所以已经默认实现了从初始值到结束值的逻辑。</p>
+<p>但对于 ValueAnimator.ofObject，并没有系统默认实现，因为对象的动画操作复杂多样，系统无法知道如何从初始对象过度到结束对象，因此需要自定义估值器（TypeEvaluator）来告知系统具体的逻辑。</p>
+<p>自定义一个估值器 PointEvaluator，实现一个圆从一个点移动到另外一个点。默认已经有了一个点坐标类：Point，其具有 x 和 y 两个浮点属性。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PointEvaluator</span> <span class="keyword">implements</span> <span class="title">TypeEvaluator</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">evaluate</span><span class="params">(<span class="keyword">float</span> fraction, Object startValue, Object endValue)</span> </span>{</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将动画初始值startValue 和 动画结束值endValue 类型转换成Point对象</span></span><br><span class="line">        Point startPoint = (Point) startValue;</span><br><span class="line">        Point endPoint = (Point) endValue;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据fraction来计算当前动画的x和y的值</span></span><br><span class="line">        <span class="keyword">float</span> x = startPoint.getX() + fraction * (endPoint.getX() - startPoint.getX());</span><br><span class="line">        <span class="keyword">float</span> y = startPoint.getY() + fraction * (endPoint.getY() - startPoint.getY());</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 将计算后的坐标封装到一个新的Point对象中并返回</span></span><br><span class="line">        Point point = <span class="keyword">new</span> Point(x, y);</span><br><span class="line">        <span class="keyword">return</span> point;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>将属性动画作用到自定义View当中<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyView</span> <span class="keyword">extends</span> <span class="title">View</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> RADIUS = <span class="number">70f</span>;<span class="comment">// 圆的半径</span></span><br><span class="line">    <span class="keyword">private</span> Point currentPoint;<span class="comment">// 当前点坐标</span></span><br><span class="line">    <span class="keyword">private</span> Paint mPaint;<span class="comment">// 绘图画笔</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 构造方法，初始化画笔</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>{</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">        mPaint = <span class="keyword">new</span> Paint(Paint.ANTI_ALIAS_FLAG);</span><br><span class="line">        mPaint.setColor(Color.BLUE);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实现绘制逻辑</span></span><br><span class="line">    <span class="comment">// 先在初始点画圆，监听当前坐标值的变化，每次变化都调用onDraw()重新绘制圆，实现圆的平移动画效果</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>{</span><br><span class="line">        <span class="comment">// 如果当前点坐标为空(即第一次)</span></span><br><span class="line">        <span class="keyword">if</span> (currentPoint == <span class="keyword">null</span>) {</span><br><span class="line">            currentPoint = <span class="keyword">new</span> Point(RADIUS, RADIUS);  <span class="comment">// 创建一个点对象(坐标是(70,70))</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">float</span> x = currentPoint.getX();</span><br><span class="line">            <span class="keyword">float</span> y = currentPoint.getY();</span><br><span class="line">            canvas.drawCircle(x, y, RADIUS, mPaint);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将属性动画作用到View中</span></span><br><span class="line">            Point startPoint = <span class="keyword">new</span> Point(RADIUS, RADIUS);<span class="comment">// 初始点为圆心(70,70)</span></span><br><span class="line">            Point endPoint = <span class="keyword">new</span> Point(<span class="number">700</span>, <span class="number">1000</span>);<span class="comment">// 结束点为(700,1000)</span></span><br><span class="line"></span><br><span class="line">            ValueAnimator anim = ValueAnimator.ofObject(<span class="keyword">new</span> PointEvaluator(), startPoint, endPoint);</span><br><span class="line">            anim.setDuration(<span class="number">5000</span>);</span><br><span class="line">    </span><br><span class="line">            anim.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() {</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>{</span><br><span class="line">                    currentPoint = (Point) animation.getAnimatedValue();</span><br><span class="line">                    <span class="comment">// 每次赋值后就重新绘制，从而实现动画效果</span></span><br><span class="line">                    <span class="comment">// 调用invalidate()后,就会刷新View,即才能看到重新绘制的界面,即onDraw()会被重新调用一次</span></span><br><span class="line">                    invalidate();  </span><br><span class="line">                }</span><br><span class="line">            });</span><br><span class="line">            anim.start();</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="comment">// 如果坐标值不为0,则画圆</span></span><br><span class="line">            <span class="keyword">float</span> x = currentPoint.getX();</span><br><span class="line">            <span class="keyword">float</span> y = currentPoint.getY();</span><br><span class="line">            canvas.drawCircle(x, y, RADIUS, mPaint);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h3 id="ObjectAnimator"><a href="#ObjectAnimator" class="headerlink" title="ObjectAnimator"></a>ObjectAnimator</h3><p>继承自 ValueAnimator 类，即底层的动画实现机制基于 ValueAnimator。<br>ObjectAnimator 与 ValueAnimator类的区别在于</p>
+<ul>
+<li>ValueAnimator 类是先改变值，然后<strong>手动赋值</strong>给对象的属性从而实现动画，属于<strong>间接</strong>对对象属性进行操作</li>
+<li>ObjectAnimator 类是先改变值，然后<strong>自动赋值</strong>给对象的属性从而实现动画，属于<strong>直接</strong>对对象属性进行操作</li>
+</ul>
+<h4 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h4><p>对于</p>
+<blockquote>
+<p>ObjectAnimator animator = ObjectAnimator.ofFloat(Object object, String property, float ….values); </p>
+</blockquote>
+<p>其中 values 参数不定，表示动画初始值和结束值，如果是两个参数a,b，则动画效果是从属性的a值到b值；如果是三个参数a,b,c，则动画效果是从属性的a值到b值再到c值</p>
+<p>对 Button 进行变换<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ObjectAnimator animator = ObjectAnimator.ofFloat(mButton, <span class="string">"alpha"</span>, <span class="number">1f</span>, <span class="number">0f</span>, <span class="number">1f</span>);  <span class="comment">// 效果:常规->全透明->常规</span></span><br><span class="line">ObjectAnimator animator = ObjectAnimator.ofFloat(mButton, <span class="string">"rotation"</span>, <span class="number">0f</span>, <span class="number">360f</span>);</span><br><span class="line">......</span><br><span class="line">animator.setDuration(<span class="number">5000</span>);</span><br><span class="line">animator.start();</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h4 id="自定义-1"><a href="#自定义-1" class="headerlink" title="自定义"></a>自定义</h4><p>在上面的例子中，我们给<code>ObjectAnimator.ofFloat</code>的第二个参数<code>String property</code>传入<code>alpha</code>、<code>rotation</code>、<code>translationX</code> 和<code>scaleY</code>等值，实际上，我们可以传任意属性值，因为 ObjectAnimator 类实现动画效果的本质是：不断控制值的变化，再不断自动赋给对象的属性，赋值的过程是通过调用对象的<code>get/set</code>方法进行的。</p>
+<p>所以自定义属性就可以通过为对象设置需要操作属性的<code>set/get</code>方法，再实现 TypeEvaluator 定义属性变化的逻辑完成。</p>
+<p>还是对一个球做变换<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyView2</span> <span class="keyword">extends</span> <span class="title">View</span> </span>{</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> RADIUS = <span class="number">100f</span>;</span><br><span class="line">    <span class="keyword">private</span> Paint mPaint;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String color;  <span class="comment">// 设置背景颜色属性</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置背景颜色的get() & set()方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getColor</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> color;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setColor</span><span class="params">(String color)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.color = color;</span><br><span class="line">        mPaint.setColor(Color.parseColor(color));  <span class="comment">// 将画笔的颜色设置成方法参数传入的颜色</span></span><br><span class="line">        invalidate();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyView2</span><span class="params">(Context context, AttributeSet attrs)</span> </span>{</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">        mPaint = <span class="keyword">new</span> Paint(Paint.ANTI_ALIAS_FLAG);</span><br><span class="line">        mPaint.setColor(Color.BLUE);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>{</span><br><span class="line">        canvas.drawCircle(<span class="number">500</span>, <span class="number">500</span>, RADIUS, mPaint);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>实现自定义估值器，完成颜色过渡的逻辑<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ColorEvaluator</span> <span class="keyword">implements</span> <span class="title">TypeEvaluator</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mCurrentRed;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mCurrentGreen ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mCurrentBlue ;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重写evaluate，写入对象动画过渡的逻辑，此处为颜色过渡</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">evaluate</span><span class="params">(<span class="keyword">float</span> fraction, Object startValue, Object endValue)</span> </span>{</span><br><span class="line"></span><br><span class="line">        String startColor = (String) startValue;</span><br><span class="line">        String endColor = (String) endValue;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 通过字符串截取的方式将初始化颜色分为RGB三个部分，并将RGB的值转换成十进制数字</span></span><br><span class="line">        <span class="comment">// 那么每个颜色的取值范围是0-255</span></span><br><span class="line">        <span class="keyword">int</span> startRed = Integer.parseInt(startColor.substring(<span class="number">1</span>, <span class="number">3</span>), <span class="number">16</span>);</span><br><span class="line">        <span class="keyword">int</span> startGreen = Integer.parseInt(startColor.substring(<span class="number">3</span>, <span class="number">5</span>), <span class="number">16</span>);</span><br><span class="line">        <span class="keyword">int</span> startBlue = Integer.parseInt(startColor.substring(<span class="number">5</span>, <span class="number">7</span>), <span class="number">16</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> endRed = Integer.parseInt(endColor.substring(<span class="number">1</span>, <span class="number">3</span>), <span class="number">16</span>);</span><br><span class="line">        <span class="keyword">int</span> endGreen = Integer.parseInt(endColor.substring(<span class="number">3</span>, <span class="number">5</span>), <span class="number">16</span>);</span><br><span class="line">        <span class="keyword">int</span> endBlue = Integer.parseInt(endColor.substring(<span class="number">5</span>, <span class="number">7</span>), <span class="number">16</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将初始化颜色的值定义为当前需要操作的颜色值</span></span><br><span class="line">        mCurrentRed = startRed;</span><br><span class="line">        mCurrentGreen = startGreen;</span><br><span class="line">        mCurrentBlue = startBlue;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算初始颜色和结束颜色之间的差值</span></span><br><span class="line">        <span class="comment">// 该差值决定着颜色变化的快慢，如果初始颜色值和结束颜色值相近，变化会比较缓慢</span></span><br><span class="line">        <span class="keyword">int</span> redDiff = Math.abs(startRed - endRed);</span><br><span class="line">        <span class="keyword">int</span> greenDiff = Math.abs(startGreen - endGreen);</span><br><span class="line">        <span class="keyword">int</span> blueDiff = Math.abs(startBlue - endBlue);</span><br><span class="line">        <span class="keyword">int</span> colorDiff = redDiff + greenDiff + blueDiff;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (mCurrentRed != endRed) {</span><br><span class="line">            <span class="comment">// getCurrentColor()决定如何根据差值来决定颜色变化的快慢 ->>关注1</span></span><br><span class="line">            mCurrentRed = getCurrentColor(startRed, endRed, colorDiff, <span class="number">0</span>, fraction);</span><br><span class="line">        </span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (mCurrentGreen != endGreen) {</span><br><span class="line">            mCurrentGreen = getCurrentColor(startGreen, endGreen, colorDiff, redDiff, fraction);</span><br><span class="line">            </span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (mCurrentBlue != endBlue) {</span><br><span class="line">            mCurrentBlue = getCurrentColor(startBlue, endBlue, colorDiff, redDiff + greenDiff, fraction);</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 将计算出的当前颜色的值组装返回</span></span><br><span class="line">        String currentColor = <span class="string">"#"</span> + getHexString(mCurrentRed)</span><br><span class="line">                + getHexString(mCurrentGreen) + getHexString(mCurrentBlue);</span><br><span class="line">        <span class="keyword">return</span> currentColor;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据fraction值来计算当前的颜色。</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getCurrentColor</span><span class="params">(<span class="keyword">int</span> startColor, <span class="keyword">int</span> endColor, <span class="keyword">int</span> colorDiff,</span></span></span><br><span class="line"><span class="function"><span class="params">                                <span class="keyword">int</span> offset, <span class="keyword">float</span> fraction)</span> </span>{</span><br><span class="line">        <span class="keyword">int</span> currentColor;</span><br><span class="line">        <span class="keyword">if</span> (startColor > endColor) {</span><br><span class="line">            currentColor = (<span class="keyword">int</span>) (startColor - (fraction * colorDiff - offset));</span><br><span class="line">            <span class="keyword">if</span> (currentColor < endColor) {</span><br><span class="line">                currentColor = endColor;</span><br><span class="line">            }</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            currentColor = (<span class="keyword">int</span>) (startColor + (fraction * colorDiff - offset));</span><br><span class="line">            <span class="keyword">if</span> (currentColor > endColor) {</span><br><span class="line">                currentColor = endColor;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> currentColor;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将10进制颜色值转换成16进制。</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getHexString</span><span class="params">(<span class="keyword">int</span> value)</span> </span>{</span><br><span class="line">        String hexString = Integer.toHexString(value);</span><br><span class="line">        <span class="keyword">if</span> (hexString.length() == <span class="number">1</span>) {</span><br><span class="line">            hexString = <span class="string">"0"</span> + hexString;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> hexString;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>具体调用<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ObjectAnimator anim = ObjectAnimator.ofObject(myView2, <span class="string">"color"</span>, <span class="keyword">new</span> ColorEvaluator(), <span class="string">"#0000FF"</span>, <span class="string">"#FF0000"</span>);</span><br><span class="line">anim.setDuration(<span class="number">2000</span>);</span><br><span class="line">anim.start();</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>此时还有一个问题需要我们解决：如果需要对 view 控件（比如 button）的宽高做变换，但是由于因为 View 中<code>setWidth</code>并不是设置 View 的宽度，而是设置控件的最大和最小宽度，所以通过<code>get/set</code>无法改变控件的宽度，也就无法实现动画效果。</p>
+<p>解决方案是使用装饰器模式，包装原始动画对象，间接给对象加上该属性的<code>get/set</code>方法。<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">ButtonWrapper wrapper = <span class="keyword">new</span> ViewWrapper(button);</span><br><span class="line">ObjectAnimator.ofInt(wrapper, <span class="string">"width"</span>, <span class="number">500</span>)</span><br><span class="line">        .setDuration(<span class="number">3000</span>)</span><br><span class="line">        .start();</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewWrapper</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> View mTarget;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ViewWrapper</span><span class="params">(View target)</span> </span>{</span><br><span class="line">        mTarget = target;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 为宽度设置get/set</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getWidth</span><span class="params">()</span> </span>{</span><br><span class="line">            <span class="keyword">return</span> mTarget.getLayoutParams().width;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWidth</span><span class="params">(<span class="keyword">int</span> width)</span> </span>{</span><br><span class="line">        mTarget.getLayoutParams().width = width;</span><br><span class="line">        mTarget.requestLayout();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h3 id="AnimatorSet"><a href="#AnimatorSet" class="headerlink" title="AnimatorSet"></a>AnimatorSet</h3><p>最后介绍组合动画类，仅展示用法<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ObjectAnimator translation = ObjectAnimator.ofFloat(mButton, <span class="string">"translationX"</span>, curTranslationX, <span class="number">300</span>,curTranslationX);  </span><br><span class="line">ObjectAnimator rotate = ObjectAnimator.ofFloat(mButton, <span class="string">"rotation"</span>, <span class="number">0f</span>, <span class="number">360f</span>);  </span><br><span class="line">ObjectAnimator alpha = ObjectAnimator.ofFloat(mButton, <span class="string">"alpha"</span>, <span class="number">1f</span>, <span class="number">0f</span>, <span class="number">1f</span>);  </span><br><span class="line"></span><br><span class="line">AnimatorSet animSet = <span class="keyword">new</span> AnimatorSet();  </span><br><span class="line"></span><br><span class="line">animSet.play(translation).with(rotate).before(alpha);  </span><br><span class="line">animSet.setDuration(<span class="number">5000</span>);  </span><br><span class="line">animSet.start();</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h2 id="Spring-Animation"><a href="#Spring-Animation" class="headerlink" title="Spring Animation"></a>Spring Animation</h2><p>SpringAnimation，弹簧动画，位于<code>android.support.animation</code>包中，属性动画位于<code>android.animation.Animator</code>包中，其实通过 <a href="https://developer.android.com/reference/android/view/animation/BounceInterpolator.html" target="_blank" rel="noopener">BounceInterpolator</a> 或者 <a href="https://developer.android.com/reference/android/view/animation/OvershootInterpolator.html" target="_blank" rel="noopener">OvershootInterpolator</a> 作为插值器，同样可以实现弹性动画效果，引入 SpringAnimation 是因为它使用更简单，而且上两个差值器实现的轨迹并不符合物理学上的弹跳效果。</p>
+<p>使用之前需要导入<code>com.android.support:support-dynamic-animation</code>包</p>
+<h3 id="API-1"><a href="#API-1" class="headerlink" title="API"></a>API</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SpringAnimation</span><span class="params">(View v, ViewProperty property)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SpringAnimation</span><span class="params">(View v, ViewProperty property, <span class="keyword">float</span> finalPosition)</span></span></span><br></pre></td></tr></tbody></table></figure>
+<p>参数分别是操作对应的View，对应的变化属性及最终的位置。</p>
+<p>ViewProperty 包括(Z轴支持需要API >= 21)：</p>
+<blockquote>
+<p>TRANSLATION_X<br>TRANSLATION_Y<br>TRANSLATION_Z<br>SCALE_X<br>SCALE_Y<br>ROTATION<br>ROTATION_X<br>ROTATION_Y<br>X<br>Y<br>Z<br>ALPHA<br>SCROLL_X<br>SCROLL_Y</p>
+</blockquote>
+<p>在 SpringAnimation 中有一个 SpringForce 对象，负责对应的变量设置及位置计算。其中包括两个个关键变量</p>
+<ul>
+<li>Stiffness 刚度(劲度/弹性)，刚度越大，形变产生的里也就越大，体现在效果上就是运动越快</li>
+<li>DampingRatio 阻尼系数，系数越大，动画停止的越快。从理论上讲分为三种情况 Overdamped过阻尼（ζ > 1）、Critically damped临界阻尼(ζ = 1)、Underdamped欠阻尼状态(0 < ζ <1)。< li="">
+</1)。<></li></ul>
+<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SpringAnimation btnAnim = <span class="keyword">new</span> SpringAnimation(mButton, SpringAnimation.TRANSLATION_Y, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">btnAnim.getSpring().setStiffness(SpringForce.STIFFNESS_VERY_LOW);</span><br><span class="line">btnAnim.getSpring().setDampingRatio(SpringForce.DAMPING_RATIO_LOW_BOUNCY);</span><br><span class="line"></span><br><span class="line">btnAnim.setStartVelocity(<span class="number">10000</span>);  <span class="comment">//开始速度，单位是px/second. 正数是弹簧收缩的方向，负数相反</span></span><br><span class="line">btnAnim.start();</span><br></pre></td></tr></tbody></table></figure><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/LeakCanary源码解析/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/Android-IPC-机制详解/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/category/" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/tag/" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

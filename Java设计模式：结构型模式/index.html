@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Java设计模式：结构型模式 | ReBE</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Java,设计模式,">
+  
+
+  <meta name="description" content="适配器模式在 Android 开发中，经常能见到各种各样的 Adapter 类，其采用的正是适配器模式。该设计模式作为两个不兼容的接口之间的桥梁，将一个类的接口转换成客户希望的另外一个接口，从而使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。">
+<meta name="keywords" content="Java,设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java设计模式：结构型模式">
+<meta property="og:url" content="http://yoursite.com/Java设计模式：结构型模式/index.html">
+<meta property="og:site_name" content="ReBE">
+<meta property="og:description" content="适配器模式在 Android 开发中，经常能见到各种各样的 Adapter 类，其采用的正是适配器模式。该设计模式作为两个不兼容的接口之间的桥梁，将一个类的接口转换成客户希望的另外一个接口，从而使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-15T15:27:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java设计模式：结构型模式">
+<meta name="twitter:description" content="适配器模式在 Android 开发中，经常能见到各种各样的 Adapter 类，其采用的正是适配器模式。该设计模式作为两个不兼容的接口之间的桥梁，将一个类的接口转换成客户希望的另外一个接口，从而使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/category/" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/tag/" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#适配器模式"><span class="toc-text">适配器模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类适配器模式"><span class="toc-text">类适配器模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象适配器模式"><span class="toc-text">对象适配器模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组合模式"><span class="toc-text">组合模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#装饰器模式"><span class="toc-text">装饰器模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代理模式"><span class="toc-text">代理模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#过滤器模式"><span class="toc-text">过滤器模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#桥接模式"><span class="toc-text">桥接模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外观模式"><span class="toc-text">外观模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#享元模式"><span class="toc-text">享元模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#补充"><span class="toc-text">补充</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Java设计模式：结构型模式" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Java设计模式：结构型模式</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.01.21</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Febers</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><p>在 Android 开发中，经常能见到各种各样的 Adapter 类，其采用的正是适配器模式。该设计模式作为两个不兼容的接口之间的桥梁，将一个类的接口转换成客户希望的另外一个接口，从而使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。<a id="more"></a></p>
+<p>用电源接口举例，笔记本电脑的电源需要接入5V的电压，无法直接使用220v的交流电压，两者并不匹配，在软件开发中，该现象称之为接口不兼容，此时就需要适配器来进行接口转换。这个转换的中间层便是 Adapter 层。在这个例子中，我们需要5v的电压，因此<code>Volt5V</code>称为<code>Target</code>，而不兼容的220V电压称之为<code>Adaptee</code>，我们的目的是适配设计一个<code>Adpater</code>，方法有两种。</p>
+<h3 id="类适配器模式"><a href="#类适配器模式" class="headerlink" title="类适配器模式"></a>类适配器模式</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Volt5V</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get5V</span><span class="params">()</span></span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Volt220V</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get220V</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="number">220</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">Volt220V</span> <span class="keyword">implements</span> <span class="title">Volt5V</span> </span>{</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get5V</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">    Adapter adapter = <span class="keyword">new</span> Adapter();</span><br><span class="line">    System.out.println(<span class="string">"获取需要的5V电源："</span> + adapter.get5V());</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="对象适配器模式"><a href="#对象适配器模式" class="headerlink" title="对象适配器模式"></a>对象适配器模式</h3><p>与类适配器模式一样，对象适配器模式把被适配的类的API转换成为目标类的API，不同的是，对象适配器模式的连接方式不是继承，其使用代理关系连接到Adaptee类。<br>　　<br></p><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ObjectAdapter</span> <span class="keyword">implements</span> <span class="title">Volt5V</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Volt220V volt220V;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ObjectAdapter</span><span class="params">(Volt220V adaptee)</span> </span>{</span><br><span class="line">        volt220V = adaptee;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get5V</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">    }</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get220V</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> volt220V.get220V();</span><br><span class="line">    }  </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>关于 Android 中 ListView 中的 Adapter，可以参考：<a href="https://blog.csdn.net/bboyfeiyu/article/details/43950185" target="_blank" rel="noopener">Android源码之ListView的适配器模式</a></p>
+<h2 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h2><p>将对象组合成树形结构来表现”部分-整体“的层次结构，使得客户以一致的方式处理单个对象以及对象的组合。<br>组合模式实现的最关键的地方是——简单对象和复合对象必须实现相同的接口。这就是组合模式能够将组合对象和简单对象进行一致处理的原因。</p>
+<ul>
+<li>组合部件（Component）：它是一个抽象角色，为要组合的对象提供统一的接口。</li>
+<li>叶子（Leaf）：在组合中表示子节点对象，叶子节点不能有子节点。</li>
+<li>合成部件（Composite）：定义有枝节点的行为，用来存储部件，实现在Component接口中的有关操作，如增加（Add）和删除（Remove）。</li>
+</ul>
+<p>对于透明组合模式来说，Component 中声明所有管理子对象的方法，其中包括Add，Remove等。这样做的好处是叶节点和枝节点具备完全一致的接口，对于外界没有区别。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//抽象构件，声明一个接口用于访问和管理Component的子部件</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Component</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Component</span><span class="params">()</span> </span>{ }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Component component)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Component component)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//显示层级结构</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Display</span><span class="params">(<span class="keyword">int</span> level)</span></span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//叶子节点</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Leaf</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Leaf</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//无意义的实现</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Component component)</span> </span>{ }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//无意义的实现</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Component component)</span> </span>{ }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Display</span><span class="params">(<span class="keyword">int</span> level)</span> </span>{</span><br><span class="line">        System.out.println(<span class="string">"-"</span> + level);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//枝节点</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Composite</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Composite</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List<component> children = <span class="keyword">new</span> ArrayList<>();</component></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Component component)</span> </span>{</span><br><span class="line">        children.add(component);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Component component)</span> </span>{</span><br><span class="line">        children.remove(component);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Display</span><span class="params">(<span class="keyword">int</span> level)</span> </span>{</span><br><span class="line">        children.forEach(</span><br><span class="line">                component -> component.Display(level + <span class="number">2</span>)</span><br><span class="line">        );</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>对于这种方式来说，叶子节点并不具备 add、remove 等方法，对他们的实现是没有意义的，可以采用安全式组合模式，将叶子节点不具备的功能下放到枝节点中实现。该做法的弊端是对于客户端来说，必须对叶节点和枝节点进行判定，使用不便。</p>
+<h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><p>向一个现有的对象添加新的功能，同时又不改变其结构。<br><br>创建一个 Shape 接口和实现了 Shape 接口的实体类。然后创建一个实现了 Shape 接口的抽象装饰类 ShapeDecorator，并把 Shape 对象作为它的实例变量。<br>RedShapeDecorator 是实现了 ShapeDecorator 的实体类，用来装饰 Shape 对象。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>{</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>{</span><br><span class="line">        System.out.println(<span class="string">"Draw a circle"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//实现了 Shape 接口的抽象装饰类。</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeDecorator</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>{</span><br><span class="line"></span><br><span class="line">    Shape decoratedShape;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ShapeDecorator</span><span class="params">(Shape decoratedShape)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.decoratedShape = decoratedShape;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>{</span><br><span class="line">        decoratedShape.draw();</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体的装饰类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedShapeDecorator</span> <span class="keyword">extends</span> <span class="title">ShapeDecorator</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RedShapeDecorator</span><span class="params">(Shape decoratedShape)</span> </span>{</span><br><span class="line">        <span class="keyword">super</span>(decoratedShape);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>{</span><br><span class="line">        decoratedShape.draw();</span><br><span class="line">        setRedBorder(decoratedShape);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setRedBorder</span><span class="params">(Shape decoratedShape)</span> </span>{</span><br><span class="line">        System.out.println(<span class="string">"Border color: Red"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2><p>下面的例子展示了静态代理的过程，创建一个 Image 接口和实现了 Image 接口的实体类。ProxyImage 是一个代理类，减少 RealImage 对象加载的内存占用。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Image</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RealImage</span> <span class="keyword">implements</span> <span class="title">Image</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String fileName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RealImage</span><span class="params">(String fileName)</span></span>{</span><br><span class="line">        <span class="keyword">this</span>.fileName = fileName;</span><br><span class="line">        loadFromDisk(fileName);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>{</span><br><span class="line">        System.out.println(<span class="string">"Displaying "</span> + fileName);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadFromDisk</span><span class="params">(String fileName)</span></span>{</span><br><span class="line">        System.out.println(<span class="string">"Loading "</span> + fileName);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxyImage</span> <span class="keyword">implements</span> <span class="title">Image</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> RealImage realImage;</span><br><span class="line">    <span class="keyword">private</span> String fileName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyImage</span><span class="params">(String fileName)</span></span>{</span><br><span class="line">        <span class="keyword">this</span>.fileName = fileName;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">if</span>(realImage == <span class="keyword">null</span>){</span><br><span class="line">            realImage = <span class="keyword">new</span> RealImage(fileName);</span><br><span class="line">        }</span><br><span class="line">        realImage.display();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>静态代理的缺点是显而易见的，由于代理类和委托类实现相同的接口，导致代码冗杂。接口的变化将引起所有实现类和代理类的变化，同时当代理类需要为多对象服务时也会显得力不从心，为此引入动态代理的方式。<br><br>Java中的动态代理类必须实现 reflect 包中的 InvocationHandler 接口，同时使用 Proxy 类。当通过动态代理对象调用一个方法时候，该方法的调用就会被转发到实现 InvocationHandler 接口类的 invoke 方法。还是以静态代理中 Image 举例，这次不再创建一个 ProxyImage， 而是通过一个 DisplayHandler 实现动态代理。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DisplayHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="comment">//要代理的真实对象</span></span><br><span class="line">    <span class="keyword">private</span> Object obj;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DisplayHandler</span><span class="params">(Object obj)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.obj = obj;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> proxy 代理类代理的真实代理对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> method 所要调用某个对象真实的方法的Method对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> args 指代代理对象方法传递的参数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Throwable</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>{</span><br><span class="line">        <span class="comment">//真实的对象执行之前</span></span><br><span class="line">        System.out.println(<span class="string">"Before invoke..."</span>);</span><br><span class="line"></span><br><span class="line">        Object invoke = method.invoke(obj, args);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//真实的对象执行之后</span></span><br><span class="line">        System.out.println(<span class="string">"After invoke..."</span>);</span><br><span class="line">        <span class="keyword">return</span> invoke;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">    Image image = <span class="keyword">new</span> RealImage(<span class="string">"hello.jpg"</span>);</span><br><span class="line">    InvocationHandler handler = <span class="keyword">new</span> DisplayHandler(image);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 参数一：handler.getClass().getClassLoader()，使用handler对象的classloader对象来加载我们的代理对象</span></span><br><span class="line"><span class="comment">     * 参数二：image.getClass().getInterfaces()，提供真实对象实现的接口，使代理对象能调用接口中的所有方法</span></span><br><span class="line"><span class="comment">     * 参数三：handler，将代理对象关联到上面的InvocationHandler对象上</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Image proxy = (Image) Proxy.newProxyInstance(</span><br><span class="line">            handler.getClass().getClassLoader(),</span><br><span class="line">            image.getClass().getInterfaces(),</span><br><span class="line">            handler);</span><br><span class="line">    proxy.display();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>控制台输出结果为<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Loading hello.jpg</span><br><span class="line">Before invoke...</span><br><span class="line">Displaying hello.jpg</span><br><span class="line">After invoke...</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>代理模式和装饰模式非常类似，二者最主要的区别是：代理模式中，代理类对被代理的对象有控制权，决定其执行或者不执行。而装饰模式中，装饰类对代理对象没有控制权，只能为其增加一层装饰，以加强被装饰对象的功能，仅此而已。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="过滤器模式"><a href="#过滤器模式" class="headerlink" title="过滤器模式"></a>过滤器模式</h3><p>简单的说，筛选器提供一个输入参数为特定类型集合的筛选方法，返回筛选之后的集合，同时筛选器之间可以组合。</p>
+<h3 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h3><p>桥接模式即将抽象部分与它的实现部分分离开来，使他们都可以独立变化。</p>
+<p>举个例子，在画画这一行为中，画笔需要选择不同的颜色、绘画形状等，为了方便拓展，使用桥接模式，抽象出形状和颜色两个父类，然后根据需要对颜色和形状进行组合。实际上这是“面向接口编程”设计思想最直观的体现。</p>
+<h3 id="外观模式"><a href="#外观模式" class="headerlink" title="外观模式"></a>外观模式</h3><p>外观模式隐藏系统的复杂性，并向客户端提供了一个可以访问系统的接口。</p>
+<p>简单的来说就是对外提供一个简单接口，隐藏实现的逻辑。比如计算机的电源键，用户只需按电源键，就可以启动或者关闭计算机，无需知道它是怎么启动的(启动CPU、启动内存、启动硬盘)，怎么关闭的(关闭硬盘、关闭内存、关闭CPU)。</p>
+<h3 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h3><p>所谓享元模式就是运行共享技术有效地支持大量细粒度对象的复用。系统使用少量对象,而且这些都比较相似，状态变化小，可以实现对象的多次复用。通过其中的享元工厂来展示该模式的特点</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyweightFactory</span></span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> Map<string, shape=""> shapes = <span class="keyword">new</span> HashMap<string, shape="">();</string,></string,></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Shape <span class="title">getShape</span><span class="params">(String key)</span></span>{</span><br><span class="line">        Shape shape = shapes.get(key);</span><br><span class="line">        <span class="keyword">if</span>(shape == <span class="keyword">null</span>){</span><br><span class="line">            shape = <span class="keyword">new</span> Circle(key);</span><br><span class="line">            shapes.put(key, shape);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> shape;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getSum</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="keyword">return</span> shapes.size();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>从代码上看，结构型模式中的很多模式具有相当大的相似性，具体区分的话，装饰器模式是“新增行为”，代理模式是“控制访问行为”，适配器模式是”转换行为”，外观模式是一种”简化行为”。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/巴洛克的珍珠：巴赫《六首无伴奏大提琴组曲》/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/Java设计模式：行为型模式/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/category/" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/tag/" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
