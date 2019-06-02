@@ -8,11 +8,7 @@ categories:
 - Kotlin
 ---
 
-## 引言
-
-委托属性算是 Kotlin 语言中的高级特性，初次接触可能毫无头绪，再次接触还是一脸懵逼。只有在深入理解其语言特性和实现原理之后，才能对这一甜之又甜的“语法糖”有所认识，从而极大提高代码效率。在笔者的项目 [UESTC_BBS](https://github.com/Febers/UESTC_BBS) 中，对自带 SharedPreferences 的封装 [PreferenceUtils ](https://github.com/Febers/UESTC_BBS/blob/master/app/src/main/java/com/febers/uestc_bbs/utils/PreferenceUtils.kt)就使用了委托属性，故一直想找机会写一篇笔记类型的文章将其记录下来。委托属性的基础是**委托**，一种设计模式，操作的对象不用自己执行，而是委托给另一个辅助对象。
-
-<!--more-->
+委托属性算是 Kotlin 语言中的高级特性，初次接触可能毫无头绪，再次接触还是一脸懵逼。只有在深入理解其语言特性和实现原理之后，才能对这一甜之又甜的“语法糖”有所认识，从而极大提高代码效率。在笔者的项目 [UESTC_BBS](https://github.com/Febers/UESTC_BBS) 中，对自带 SharedPreferences 的封装 [PreferenceUtils ](https://github.com/Febers/UESTC_BBS/blob/master/app/src/main/java/com/febers/uestc_bbs/utils/PreferenceUtils.kt)就使用了委托属性，故一直想找机会写一篇笔记类型的文章将其记录下来。委托属性的基础是**委托**，一种设计模式，操作的对象不用自己执行，而是委托给另一个辅助对象。<!--more-->
 
 ## 委托
 

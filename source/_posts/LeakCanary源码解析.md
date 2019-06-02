@@ -9,7 +9,6 @@ categories:
 - Android
 ---
 
-## 引言
 内存泄漏是 Android 开发中无法避免的问题，[LeakCanary](https://github.com/square/leakcanary) 框架是 Square 公司开源的内存泄漏分析工具，其集成方便，使用便捷。<!--more-->
 
 ## ActivityLifecycleCallbacks

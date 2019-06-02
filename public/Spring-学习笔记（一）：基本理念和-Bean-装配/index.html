@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Spring-学习笔记（一）：基本理念和-Bean-装配 | ReBE</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Spring,DI,AOP,Java EE,">
+  
+
+  <meta name="description" content="很早就接触 Java 后端开发，不过大都浅尝辄止，并没有深刻地理解和实践，时间一长倒也跟没学过差不了多少。由于职业规划是要从 Android 开发慢慢转到后端开发，拖到现在终于是要系统学习了。学习的路线初步定为，从 Spring 出发，不断回顾 Java Web 的知识，重点在 Spring Boot 项目，通过具体的项目实践掌握相关知识。这篇文章属于第一篇学习笔记，参考手上的《Spring 实战">
+<meta name="keywords" content="Spring,DI,AOP,Java EE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-学习笔记（一）：基本理念和-Bean-装配">
+<meta property="og:url" content="http://yoursite.com/Spring-学习笔记（一）：基本理念和-Bean-装配/index.html">
+<meta property="og:site_name" content="ReBE">
+<meta property="og:description" content="很早就接触 Java 后端开发，不过大都浅尝辄止，并没有深刻地理解和实践，时间一长倒也跟没学过差不了多少。由于职业规划是要从 Android 开发慢慢转到后端开发，拖到现在终于是要系统学习了。学习的路线初步定为，从 Spring 出发，不断回顾 Java Web 的知识，重点在 Spring Boot 项目，通过具体的项目实践掌握相关知识。这篇文章属于第一篇学习笔记，参考手上的《Spring 实战">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/spring-projects/spring-framework/raw/master/src/docs/asciidoc/images/spring-framework.png">
+<meta property="og:image" content="http://yoursite.com/Spring-学习笔记（一）：基本理念和-Bean-装配/生命周期.png">
+<meta property="og:updated_time" content="2019-06-01T12:16:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring-学习笔记（一）：基本理念和-Bean-装配">
+<meta name="twitter:description" content="很早就接触 Java 后端开发，不过大都浅尝辄止，并没有深刻地理解和实践，时间一长倒也跟没学过差不了多少。由于职业规划是要从 Android 开发慢慢转到后端开发，拖到现在终于是要系统学习了。学习的路线初步定为，从 Spring 出发，不断回顾 Java Web 的知识，重点在 Spring Boot 项目，通过具体的项目实践掌握相关知识。这篇文章属于第一篇学习笔记，参考手上的《Spring 实战">
+<meta name="twitter:image" content="https://github.com/spring-projects/spring-framework/raw/master/src/docs/asciidoc/images/spring-framework.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/category/" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/tag/" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于"><span class="toc-text">关于</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring"><span class="toc-text">Spring</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#依赖注入"><span class="toc-text">依赖注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#面向切面编程"><span class="toc-text">面向切面编程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#装配-Bean"><span class="toc-text">装配 Bean</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#容器"><span class="toc-text">容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bean-生命周期"><span class="toc-text">Bean 生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可选装配方案"><span class="toc-text">可选装配方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自动化装配-bean"><span class="toc-text">自动化装配 bean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-代码装配"><span class="toc-text">Java 代码装配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XML-代码装配"><span class="toc-text">XML 代码装配</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导入和混合配置"><span class="toc-text">导入和混合配置</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Spring-学习笔记（一）：基本理念和-Bean-装配" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Spring-学习笔记（一）：基本理念和-Bean-装配</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.05.28</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Febers</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>很早就接触 Java 后端开发，不过大都浅尝辄止，并没有深刻地理解和实践，时间一长倒也跟没学过差不了多少。由于职业规划是要从 Android 开发慢慢转到后端开发，拖到现在终于是要系统学习了。学习的路线初步定为，从 Spring 出发，不断回顾 Java Web 的知识，重点在 Spring Boot 项目，通过具体的项目实践掌握相关知识。这篇文章属于第一篇学习笔记，参考手上的《Spring 实战》和网络上的技术文章，主要记录 Spring 的基本知识和理念、Bean  的装配。</p>
+<p><img src="https://github.com/spring-projects/spring-framework/raw/master/src/docs/asciidoc/images/spring-framework.png" alt=""></p>
+<a id="more"></a>
+<h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><h3 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h3><p>一个 Java EE 框架，同来替代更加重量级的企业级 Java 技术。其起源可以追溯到作者 Rod Johnson 2002年编写的《Expert One-to-One J2EE Design and Development》一书，书中他提出了一种基于普通 Java 类和依赖注入的解决方案。Rod Johnson 编写了超过30,000行基础结构代码，这便是最初的 Spring 框架。</p>
+<p>Spring 的基本理念在于：简化 Java 开发，为此采用了4种关键措施：</p>
+<ul>
+<li>基于 POJO 的轻量级和最小侵入性编程</li>
+<li>通过依赖注入和面向接口实现松耦合</li>
+<li>基于切面和惯例进行声明式编程</li>
+<li>通过切面和模板减少样板式代码</li>
+</ul>
+<h3 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h3><p>依赖注入（Dependency Injection，简称 DI）是最常见的控制反转（Inversion of Control，简称 IoC）方式，是面向对象编程中的一种设计原则，用于减少代码之间的耦合度。系统通过引入实现 IoC 模式的容器，管理对象的声明周期、依赖关系，常用的 IoC 容器有 Spring 、JBoss、EJB 等。可以把 IoC 模式看作工厂模式的升华，区别在于该工厂要生成的对象是通过 XML 文件、配置类或者注解来配置。</p>
+<p>Java 项目大都是由众多类组成，这些类相互协作来完成特定的业务逻辑。传统的做法是每个对象负责管理与自己相互协作的对象（即它所依赖的对象）的引用，导致代码高度耦合。耦合具有两面性，一方面，紧密耦合的代码难以测试、难以复用、难以理解，并且修复 Bug 的过程中容易引发更多的 Bug；另一方面，一定的耦合又是必须的——完全无耦合的代码什么也做不了。通过 DI，对象的依赖关系交由系统中负责协调各对象的第三者在创建对象时设定，依赖关系被注入到需要它们的对象中。</p>
+<p>通过一个简单的 Spring Demo 引入依赖注入的思想。</p>
+<p>项目结构如下</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">├─src</span><br><span class="line">│  ├─main</span><br><span class="line">│  │  ├─java</span><br><span class="line">│  │  │  └─knigt</span><br><span class="line">│  │  │          BraveKnight.kt</span><br><span class="line">│  │  │          SlayDragonQuest.kt</span><br><span class="line">│  │  │          KnightConfig.kt</span><br><span class="line">│  │  │          KnightMain.kt</span><br><span class="line">│  │  │</span><br><span class="line">│  │  └─resources</span><br><span class="line">│  │          knights.xml</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>在 IDEA 内通过以下命令生成项目文档树</p>
+<p>tree  >>    D:/tree.txt 输出文件夹<br>tree /f >>    D:/tree.txt 输出文件夹和文件</p>
+</blockquote>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//BraveKnight.kt</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Knight</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">embarkOnQuest</span><span class="params">()</span></span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BraveKnight</span></span>(<span class="keyword">private</span> <span class="keyword">val</span> quest: Quest): Knight {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">embarkOnQuest</span><span class="params">()</span></span> {</span><br><span class="line">        quest.embark()</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//SlayDragonQuest.kt</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Quest</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">embark</span><span class="params">()</span></span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SlayDragonQuest</span></span>(<span class="keyword">private</span> <span class="keyword">val</span> stream: PrintStream): Quest {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">embark</span><span class="params">()</span></span> {</span><br><span class="line">        stream.println(<span class="string">"Embarking on quest to slay the dragon!"</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//KnightConfig.kt</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">KnightConfig</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">knight</span><span class="params">()</span></span>: Knight = BraveKnight(quest())</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">quest</span><span class="params">()</span></span>: Quest = SlayDragonQuest(System.<span class="keyword">out</span>)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//KnightMain.kt</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KnightMain</span> </span>{</span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> {</span><br><span class="line">        <span class="meta">@JvmStatic</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span><<span class="type">String</span>>)</span></span> {</span><br><span class="line">            <span class="keyword">val</span> context: AnnotationConfigApplicationContext = AnnotationConfigApplicationContext(KnightConfig::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            <span class="comment">//val context: ClassPathXmlApplicationContext = ClassPathXmlApplicationContext("knights.xml")   XML 方式配置</span></span><br><span class="line">            <span class="keyword">val</span> knight: Knight = context.getBean(Knight::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            knight.embarkOnQuest()</span><br><span class="line">            context.close()</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>XML 的配置文件为</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//knight.xml</span><br><span class="line"><span class="meta"><?xml version="1.0" encoding="UTF-8"?></span></span><br><span class="line"><span class="tag"><<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans </span></span></span><br><span class="line"><span class="tag"><span class="string">      http://www.springframework.org/schema/beans/spring-beans.xsd"</span>></span></span><br><span class="line"></span><br><span class="line">  <span class="tag"><<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"knight"</span> <span class="attr">class</span>=<span class="string">"sia.knights.BraveKnight"</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">"quest"</span> /></span></span><br><span class="line">  <span class="tag">bean</span>></span><br><span class="line"></span><br><span class="line">  <span class="tag"><<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"quest"</span> <span class="attr">class</span>=<span class="string">"sia.knights.SlayDragonQuest"</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"#{T(System).out}"</span> /></span></span><br><span class="line">  <span class="tag">bean</span>></span><br><span class="line"></span><br><span class="line"><span class="tag">beans</span>></span><br></pre></td></tr></tbody></table></figure>
+<p>输出结果为</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Embarking on quest to slay the dragon!</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="面向切面编程"><a href="#面向切面编程" class="headerlink" title="面向切面编程"></a>面向切面编程</h3><p>Aspect-Oriented Programming，AOP。DI 能够让相互协作的组件保持松耦合，而 AOP 则允许开发者把组件除自身核心功能之外，可重用的功能分离出来，比如日志、事务管理和安全等服务。AOP 思想中的相关术语包括</p>
+<ul>
+<li>Joinpoint：连接点，目标对象中所有可增强的方法</li>
+<li>Pointcut：切入点，目标对象中所有已增强的方法</li>
+<li>Advice：增强/通知，增强的代码</li>
+<li>Weaving：织入，将“通知”应用到切入点的过程</li>
+<li>Proxy：将“通知”织入到目标对象后，形成代理对象</li>
+<li>Aspect：切面，切入点+“通知”</li>
+</ul>
+<p>使用一个传唱骑士事迹的吟游诗人服务类作为一个 AOP 的应用</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Minstrel.kt</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">Minstrel</span></span>(<span class="keyword">private</span> <span class="keyword">val</span> stream: PrintStream) {</span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">singBeforeQuest</span><span class="params">()</span></span> {</span><br><span class="line">        stream.println(<span class="string">"Fa la la, the knight is so brave!"</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">singAfterQuest</span><span class="params">()</span></span> {</span><br><span class="line">        stream.println(<span class="string">"Tee hee hee, the brave knight did embark on a quest!"</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//knights.xml 加入以下代码</span><br><span class="line"><span class="tag"><<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"minstrel"</span> <span class="attr">class</span>=<span class="string">"Minstrel"</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"#{T(System).out}"</span> /></span></span><br><span class="line"><span class="tag">bean</span>></span><br><span class="line"></span><br><span class="line"><span class="tag"><<span class="name">aop:config</span>></span></span><br><span class="line">	<span class="tag"><<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">"minstrel"</span>></span></span><br><span class="line">		<span class="tag"><<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"embark"</span> <span class="attr">expression</span>=<span class="string">"execution(* *.embarkOnQuest(..))"</span> /></span></span><br><span class="line"></span><br><span class="line">		<span class="tag"><<span class="name">aop:before</span> <span class="attr">pointcut-ref</span>=<span class="string">"embark"</span> <span class="attr">method</span>=<span class="string">"singBeforeQuest"</span> /></span></span><br><span class="line"></span><br><span class="line">		<span class="tag"><<span class="name">aop:after</span> <span class="attr">pointcut-ref</span>=<span class="string">"embark"</span> <span class="attr">method</span>=<span class="string">"singAfterQuest"</span> /></span></span><br><span class="line">	<span class="tag">aop:aspect</span>></span><br><span class="line"><span class="tag">aop:config</span>></span><br></pre></td></tr></tbody></table></figure>
+<p><em>默认缺少 org.aspectj.aspectjweaver，可以引入 maven，添加对应的依赖</em></p>
+<p>运行之后，控制台输出结果为</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Fa la la, the knight is so brave!</span><br><span class="line">Embarking on quest to slay the dragon!</span><br><span class="line">Tee hee hee, the brave knight did embark on a quest!</span><br></pre></td></tr></tbody></table></figure>
+<p>不使用 BraveKnight 和 Minstrel 组合的方式而是使用 AOP，通过少量的 XML 配置，就可以把 Minstrel 声明为一个 Spring 切面，进而实现相应的功能。Minstrel 仍然只是一个 POJO，但可以被应用到任何需要它的地方，只需要修改配置文件中的 AspectJ 切点表达式语言即可。</p>
+<h2 id="装配-Bean"><a href="#装配-Bean" class="headerlink" title="装配 Bean"></a>装配 Bean</h2><h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>Spring 容器（Container）负责创建、装配和配置对象，并且管理它们的生命周期。Spring 的核心便是容器，它自带多个容器实现，可以归为两种不同的类型：Bean 工厂（由<code>org.springframework.beans.factory.BeanFactory</code>接口定义）是最简单的容器，提供基本的 DI 支持；应用上下文（由<code>org.springframework.context.ApplicationContext</code>接口定义），基于 BeanFactory 构建，并提供应用框架级别的服务，例如从属性文本解析文本信息以及发送应用事件给感兴趣的事件监听者。重点在于应用上下文上。</p>
+<p>Spring 自带多种应用上下文</p>
+<ul>
+<li>AnnotationConfigApplicationContext：从一个或多个基于 Java 的配置类中加载 Spring 应用上下文</li>
+<li>AnnotationConfigWebApplicationContext：从一个或多个基于 Java 的配置类中加载 Spring Web 应用上下文</li>
+<li>ClassPathXmlApplicationContext：从类路径下的一个或多个 XML 配置文件中加载上下文定义，把应用上下文的定义文件作为类资源</li>
+<li>FileSystemXmlApplicationContext：从文件系统的一个或多个 XML 配置文件中加载上下文定义</li>
+<li>XmlWebApplicationContext：从 Web 应用下的一个或多个 XML 配置文件中加载上下文定义</li>
+</ul>
+<h3 id="Bean-生命周期"><a href="#Bean-生命周期" class="headerlink" title="Bean 生命周期"></a>Bean 生命周期</h3><p><img src="/Spring-学习笔记（一）：基本理念和-Bean-装配/生命周期.png" alt=""></p>
+<ol>
+<li>Spring 对 bean 进行实例化</li>
+<li>Spring 将值和 bean 的引用注入到 bean 对应的属性中</li>
+<li>如果 bean 实现了 BeanNameAware 接口，Spring 将 bean 的 ID 传递给<code>setBeanName</code>方法</li>
+<li>如果 bean 实现了 BeanFactoryAware 接口，Spring 将调用<code>setBeanFactory</code>方法，将 BeanFactory 容器实例传入</li>
+<li>如果 bean 实现了 ApplicationContextAware 接口， Spring 将调用<code>setApplicationContext</code>方法，将 bean 所在的应用上下文的引用传入</li>
+<li>如果 bean 实现了 BeanPostProcessor 接口，Spring 将调用它们的<code>postProcessBeforeInitialization</code>方法</li>
+<li>如果 bean 实现了 InitializingBean 接口，Spring 将调用它们的 <code>afterPropertiesSet</code>方法。类似的，如果 bean 使用 init-method 声明了初始化方法，该方法也会被调用</li>
+<li>如果 bean 实现了 BeanPostProcessor 接口，Spring 将调用它们的<code>postProcessAfterInitialzation</code>方法</li>
+<li>此时，bean 已经准备就绪，可以被应用程序使用了，它们将一直驻留在应用上下文中，直到该应用上下文被销毁</li>
+<li>如果 bean 实现了 DisposablBean 接口，Spring 将调用它的<code>destroy</code>接口方法。同样，如果 bean 使用 destroy-method 声明了销毁方法，该方法也会被调用</li>
+</ol>
+<h3 id="可选装配方案"><a href="#可选装配方案" class="headerlink" title="可选装配方案"></a>可选装配方案</h3><p>有三种方式向 Spring 容器描述 Bean 如何装配</p>
+<ul>
+<li>在 XML 文件中进行显示配置</li>
+<li>在 Java 代码中进行显示配置</li>
+<li>隐式的 bean 发现机制和自动装配</li>
+</ul>
+<h4 id="自动化装配-bean"><a href="#自动化装配-bean" class="headerlink" title="自动化装配 bean"></a>自动化装配 bean</h4><p>Spring 从两个角度实现自动化装配</p>
+<ul>
+<li>组件扫描（Component Scanning）：Spring 会自动发现应用上下文中所创建的 bean</li>
+<li>自动装配（Autowiring）：Spring 自动满足 bean 之间的依赖</li>
+</ul>
+<p>通过一个 CD 播放的 Demo 说明，XML config 文件位于<code>/resources</code>目录下，Kotlin 文件位于<code>java/soundsystem</code>目录下</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//conpactDisc.kt</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompactDisc</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> title = <span class="string">"Sgt. Pepper's Lonely Hearts Club Band"</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> artist = <span class="string">"The Beatles"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">play</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"Playing <span class="variable">$title</span> by <span class="variable">$artist</span>"</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//CDPlayer.kt</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CDPlayer</span> <span class="meta">@Autowired</span></span></span><br><span class="line"><span class="keyword">constructor</span>(<span class="keyword">private</span> <span class="keyword">val</span> cd: CompactDisc) {</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">play</span><span class="params">()</span></span> {</span><br><span class="line">        cd.play()</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//CDPlayerTest.kt</span></span><br><span class="line"><span class="meta">@RunWith(SpringJUnit4ClassRunner::class)</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = [CDPlayerConfig::class])</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CDPlayerTest</span> </span>{</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">lateinit</span> <span class="keyword">var</span> player: CDPlayer</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">play</span><span class="params">()</span></span> {</span><br><span class="line">        player.play()</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>以上便是准备好的工程文件，使用<code>@Autowired</code>注解在需要自动装配的任何属性、构造器、方法上，然后在 Java 代码或者 XML 配置文件启动自动装配。不同的自动装配方式需要修改 JUnit 测试框架的<code>@ContextConfiguration</code>注解参数</p>
+<ul>
+<li><p>XML 方式：<code>locations = ["classpath:spring-config.xml"]</code></p>
+</li>
+<li><p>Java 方式：<code>classes = [CDPlayerConfig::class]</code></p>
+</li>
+</ul>
+<p><em>JUnit 测试框架需要导入依赖</em></p>
+<p>接下来的一步便是启用 Spring 的组件扫描，也就是配置以上的两种注解参数之一，搭配 Bean 类注解<code>@Component</code>便可以实现组件扫描。以下两种做法都可以，第一种是使用一个<code>Config</code>类并添加注解<code>@Configuration</code>和<code>@ConponentScan</code>，第二种则是在 XML 文件中配置<code>context:component-scan</code></p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Java 代码</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">CDPlayerConfig</span></span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//XML 文件</span><br><span class="line"><span class="meta"><?xml version="1.0" encoding="UTF-8"?></span></span><br><span class="line"><span class="tag"><<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"</span>></span></span><br><span class="line"></span><br><span class="line">    <span class="tag"><<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"soundsystem"</span> /></span></span><br><span class="line"></span><br><span class="line"><span class="tag">beans</span>></span><br></pre></td></tr></tbody></table></figure>
+<p>运行测试，控制台成功输出</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Playing Sgt. Pepper<span class="string">'s Lonely Hearts Club Band by The Beatles</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Java-代码装配"><a href="#Java-代码装配" class="headerlink" title="Java 代码装配"></a>Java 代码装配</h4><p>大多数情况下都可以通过自动化装配的方式完成配置，但是当我们使用第三方的类库组件时，无法在组件类上直接添加注解，只能使用显示装配。这种情况下，使用 JavaConfig 是最好的方式。通常将 JavaConfig 放到同一个包中，并且它应该不包含任何的业务逻辑。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">CDPlayerConfig</span> </span>{</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">sgtPeppers</span><span class="params">()</span></span>: SgtPeppers = SgtPeppers()</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">cdPlayer</span><span class="params">()</span></span>: CDPlayer = CDPlayer(sgtPeppers())</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">anotherCDPlayer</span><span class="params">()</span></span>: CDPlayer = CDPlayer(sgtPeppers())</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">cdPlayerUseParam</span><span class="params">(compactDisc: <span class="type">CompactDisc</span>)</span></span>: CDPlayer {</span><br><span class="line">        <span class="keyword">val</span> cdPlayer = CDPlayer(compactDisc)</span><br><span class="line">        cdPlayer.setCompactDisc(compactDisc)</span><br><span class="line">        <span class="keyword">return</span> cdPlayer</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>在上面的代码中，配置类<code>CDPlayerConfig</code>中提供了几种装配 Bean  的方式。<code>sgtPeppers</code>方法注入了一个 SgtPeppers 实例，<code>cdPlayer</code>和<code>anotherCDPlayer</code>需要调用该方法来注入 CDPlayer 实例。Spring 会拦截所有对该方法的调用，并直接返回该方法创建的 Bean，并且默认情况下 Bean 是单例的。</p>
+<p>最后一个方法则展现了一个更具可读性、更多样化的注入方式。</p>
+<h4 id="XML-代码装配"><a href="#XML-代码装配" class="headerlink" title="XML 代码装配"></a>XML 代码装配</h4><p>最简单的 Spring XML 配置如下</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><?xml version="1.0" encoding="UTF-8"?></span></span><br><span class="line"><span class="tag"><<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>></span></span><br><span class="line">    </span><br><span class="line"><span class="tag">beans</span>></span><br></pre></td></tr></tbody></table></figure>
+<p>需要在配置文件顶部声明多个 XML 模式（XSD）文件，这些文件定义了配置 Spring 的 XML 元素。<code><beans></beans></code>配置文件的根元素。</p>
+<p>声明一个简单的 Bean 可以通过下面的方式实现</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag"><<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cdPlayer"</span> <span class="attr">class</span>=<span class="string">"sound_system.CDPlayer"</span>></span></span><br><span class="line">	<span class="tag"><<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">"sgtPeppers"</span>/></span></span><br><span class="line"><span class="tag">bean</span>></span><br><span class="line">    </span><br><span class="line"><span class="tag"><<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sgtPeppers"</span> <span class="attr">class</span>=<span class="string">"sound_system.SgtPeppers"</span> /></span></span><br></pre></td></tr></tbody></table></figure>
+<p>如果没有指定 id，该 Bean 将会根据全限定类名命名：<code>sound_system.CDPlayer#0</code>，<code>#0</code>为计数形式，用以区分相同类型的其他 Bean。</p>
+<p><code>&lt;constructor-arg&gt;</code>元素告知 Spring 要将一个 id 为<code>sgtPeppers</code>的 bean 引用传递到 CDPlayer 的构造器中。作为替代，也可以使用 Spring 的 c-命名空间，不再赘述。关于<code>&lt;constructor-arg&gt;</code>元素的更多知识：<a href="http://cmsblogs.com/?p=2754" target="_blank" rel="noopener">IOC 之解析 bean 标签：constructor-arg、property 子元素</a></p>
+<p>在该元素中，可以使用<code>value</code>属性将字面量传递给构造器，使用子元素<code>&lt;null/&gt;</code>空值，使用子元素<code>&lt;list&gt;</code>传递集合。</p>
+<p>XML 配置也提供了设置属性的接口，通过元素<code>property</code>可以将对象引用、字面量、集合等注入 Bean 中。比如为 SgtPeppers 添加新的属性并对外提供修改接口</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SgtPeppers</span>: <span class="type">CompactDisc {</span></span></span><br><span class="line">    <span class="keyword">var</span> title = <span class="string">"Sgt. Pepper's Lonely Hearts Club Band"</span></span><br><span class="line">    <span class="keyword">var</span> artist = <span class="string">"The Beatles"</span></span><br><span class="line">    <span class="keyword">var</span> tracks: MutableList<string> = ArrayList()</string></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">play</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"Playing <span class="variable">$title</span> by <span class="variable">$artist</span>"</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>然后在 XML 文件中注入属性设置</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><?xml version="1.0" encoding="UTF-8"?></span></span><br><span class="line"><span class="tag"><<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>></span></span><br><span class="line"></span><br><span class="line">    <span class="tag"><<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sgtPeppers"</span> <span class="attr">class</span>=<span class="string">"sound_system.SgtPeppers"</span>></span></span><br><span class="line">        <span class="tag"><<span class="name">property</span> <span class="attr">name</span>=<span class="string">"title"</span> <span class="attr">value</span>=<span class="string">"new title"</span> /></span></span><br><span class="line">        <span class="tag"><<span class="name">property</span> <span class="attr">name</span>=<span class="string">"artist"</span> <span class="attr">value</span>=<span class="string">"new artist"</span> /></span></span><br><span class="line">        <span class="tag"><<span class="name">property</span> <span class="attr">name</span>=<span class="string">"tracks"</span>></span></span><br><span class="line">            <span class="tag"><<span class="name">list</span>></span></span><br><span class="line">                <span class="tag"><<span class="name">value</span>></span>track 1<span class="tag">value</span>></span><br><span class="line">                <span class="tag"><<span class="name">value</span>></span>track 2<span class="tag">value</span>></span><br><span class="line">                <span class="tag"><<span class="name">value</span>></span>track 3<span class="tag">value</span>></span><br><span class="line">                <span class="tag"><<span class="name">value</span>></span>track 4<span class="tag">value</span>></span><br><span class="line">            <span class="tag">list</span>></span><br><span class="line">        <span class="tag">property</span>></span><br><span class="line">    <span class="tag">bean</span>></span><br><span class="line"></span><br><span class="line"><span class="tag">beans</span>></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="导入和混合配置"><a href="#导入和混合配置" class="headerlink" title="导入和混合配置"></a>导入和混合配置</h3><p>当开发者使用自动装配的时候，Spring 会考虑容器中的所有 Bean，因此不用考虑混合配置的问题。混合配置应用在显式装配时，比如 XML 和 Java 互相引用配置的 Bean。</p>
+<p>在 JavaConfig 中使用注解<code>@Import</code>导入其他 JavaConfig，使用注解<code>@ImportResource</code>混合 XML 配置，比如</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import(CDPlayerConfig::class)</span></span><br><span class="line"><span class="meta">@ImportResource(<span class="meta-string">"classpath:sound_system.xml"</span>)</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">SoundSystemConfig</span></span></span><br></pre></td></tr></tbody></table></figure>
+<p>在 XML 中使用元素<code>import</code>导入其他 XML 文件，而如果要导入 JavaConfig，做法很简单 ：将其声明为一个 bean 即可。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/Gradle-构建工具详解/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/Spring-学习笔记（二）：高级装配/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/category/" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/tag/" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

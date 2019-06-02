@@ -8,7 +8,6 @@ categories:
 - Android
 ---
 
-## 引言
 Android 提供了很多丰富的 API 去实现动画效果，加上 SDK 25.3 时推出的 SpringAnimation，总共有三大类 Animation 供开发者使用。<!--more-->
 
 ## View Animation 

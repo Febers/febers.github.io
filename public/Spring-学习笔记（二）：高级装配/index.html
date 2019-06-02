@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Spring 学习笔记（二）：高级装配 | ReBE</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Spring,">
+  
+
+  <meta name="description" content="开发软件的过程中要涉及到不同的环境，需要配置不同的数据库配置、加密算法和外部环境的集成等组件，为此必须要考虑不同的环境下对应不同的配置。本文将从 Spring profile 出发，进而介绍条件化的 Bean 声明、自动装配的歧义性和 Bean 的作用域，以及 Spring 表达式语言。">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring 学习笔记（二）：高级装配">
+<meta property="og:url" content="http://yoursite.com/Spring-学习笔记（二）：高级装配/index.html">
+<meta property="og:site_name" content="ReBE">
+<meta property="og:description" content="开发软件的过程中要涉及到不同的环境，需要配置不同的数据库配置、加密算法和外部环境的集成等组件，为此必须要考虑不同的环境下对应不同的配置。本文将从 Spring profile 出发，进而介绍条件化的 Bean 声明、自动装配的歧义性和 Bean 的作用域，以及 Spring 表达式语言。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-02T05:03:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring 学习笔记（二）：高级装配">
+<meta name="twitter:description" content="开发软件的过程中要涉及到不同的环境，需要配置不同的数据库配置、加密算法和外部环境的集成等组件，为此必须要考虑不同的环境下对应不同的配置。本文将从 Spring profile 出发，进而介绍条件化的 Bean 声明、自动装配的歧义性和 Bean 的作用域，以及 Spring 表达式语言。">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/category/" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/tag/" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="ROUND_RECT" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-profile"><span class="toc-text">Spring profile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置-profile"><span class="toc-text">配置 profile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#激活-profile"><span class="toc-text">激活 profile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#条件化的-Bean"><span class="toc-text">条件化的 Bean</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自动装配的歧义性"><span class="toc-text">自动装配的歧义性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Primary"><span class="toc-text">@Primary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Qualifier"><span class="toc-text">@Qualifier</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bean-的作用域"><span class="toc-text">Bean 的作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#会话和请求作用域"><span class="toc-text">会话和请求作用域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-表达式语言"><span class="toc-text">Spring 表达式语言</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Spring-学习笔记（二）：高级装配" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Spring 学习笔记（二）：高级装配</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.06.01</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Febers</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>开发软件的过程中要涉及到不同的环境，需要配置不同的数据库配置、加密算法和外部环境的集成等组件，为此必须要考虑不同的环境下对应不同的配置。本文将从 Spring profile 出发，进而介绍条件化的 Bean 声明、自动装配的歧义性和 Bean 的作用域，以及 Spring 表达式语言。<a id="more"></a></p>
+<h2 id="Spring-profile"><a href="#Spring-profile" class="headerlink" title="Spring profile"></a>Spring profile</h2><h3 id="配置-profile"><a href="#配置-profile" class="headerlink" title="配置 profile"></a>配置 profile</h3><p>使用注解<code>@Profile</code>指定某个 Bean 属于哪一个 profile，以不同环境下的数据库 Bean 为例</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSourceConfig</span> </span>{</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Profile(<span class="meta-string">"dev"</span>)</span></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">embeddedDataSource</span><span class="params">()</span></span>: DataSource = EmbeddedDatabaseBuilder()</span><br><span class="line">            .setType(EmbeddedDatabaseType.H2)</span><br><span class="line">            .addScript(<span class="string">"classpath:schema.sql"</span>)</span><br><span class="line">            .build()</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Profile(<span class="meta-string">"prod"</span>)</span></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">jndiDataSource</span><span class="params">()</span></span>: DataSource {</span><br><span class="line">        <span class="keyword">val</span> jndiObjectFactoryBean = JndiObjectFactoryBean()</span><br><span class="line">        jndiObjectFactoryBean.jndiName = <span class="string">"jndi/myDS"</span></span><br><span class="line">        jndiObjectFactoryBean.isResourceRef = <span class="literal">true</span></span><br><span class="line">        jndiObjectFactoryBean.setProxyInterface(javax.sql.DataSource::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">        <span class="keyword">return</span> jndiObjectFactoryBean.`<span class="keyword">object</span>` <span class="keyword">as</span> DataSource</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>同样支持使用 XML 文件配置 profile</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><?xml version="1.0" encoding="UTF-8"?></span></span><br><span class="line"><span class="tag"><<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:jdbc</span>=<span class="string">"http://www.springframework.org/schema/jdbc"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">profile</span>=<span class="string">"dev"</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">jdbc:embedded-database</span> <span class="attr">id</span>=<span class="string">"dataSource2"</span>></span></span><br><span class="line">        <span class="tag"><<span class="name">jdbc:script</span> <span class="attr">location</span>=<span class="string">"classpath:schema.sql"</span> /></span></span><br><span class="line">    <span class="tag">< /<span class="attr">jdbc:embedded-database</span>></span></span><br><span class="line"><span class="tag">beans</span>></span><br></pre></td></tr></tbody></table></figure>
+<p>可以将  profile 设置为<code>prod</code>，创建适用于生产环境的 JNDI 获取的 DataSource Bean，所有的配置文件都会被放进部署单元之中（如 WAR 文件），但是只有 profile 属性与当前激活 profile 相匹配的配置文件才会被使用。</p>
+<p>不过更方便的方法是把所有的 Bean 放进同一个配置文件中</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><?xml version="1.0" encoding="UTF-8"?></span></span><br><span class="line"><span class="tag"><<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:jdbc</span>=<span class="string">"http://www.springframework.org/schema/jdbc"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:jee</span>=<span class="string">"http://www.springframework.org/schema/jee"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd"</span>></span></span><br><span class="line"></span><br><span class="line">    <span class="tag"><<span class="name">beans</span> <span class="attr">profile</span>=<span class="string">"dev"</span>></span></span><br><span class="line">        <span class="tag"><<span class="name">jdbc:embedded-database</span> <span class="attr">id</span>=<span class="string">"dataSource"</span>></span></span><br><span class="line">            <span class="tag"><<span class="name">jdbc:script</span> <span class="attr">location</span>=<span class="string">"classpath:schema.sql"</span> /></span></span><br><span class="line">        <span class="tag">jdbc:embedded-database</span>></span><br><span class="line">    <span class="tag">beans</span>></span><br><span class="line"></span><br><span class="line">    <span class="tag"><<span class="name">beans</span> <span class="attr">profile</span>=<span class="string">"prod"</span>></span></span><br><span class="line">        <span class="tag"><<span class="name">jee:jndi-lookup</span> <span class="attr">id</span>=<span class="string">"dataSource"</span></span></span><br><span class="line"><span class="tag">                         <span class="attr">jndi-name</span>=<span class="string">"jdbc/myDS"</span></span></span><br><span class="line"><span class="tag">                         <span class="attr">resource-ref</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">                         <span class="attr">proxy-interface</span>=<span class="string">"javax.sql.DataSource"</span> /></span></span><br><span class="line">    <span class="tag">beans</span>></span><br><span class="line"><span class="tag">beans</span>></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="激活-profile"><a href="#激活-profile" class="headerlink" title="激活 profile"></a>激活 profile</h3><p>Spring 借助两个独立的属性<code>spring.profiles.active</code>、<code>spring.profiles.default</code>来确定哪个 profile 处于激活状态，优先级从高到低。如果两个值都没有设置，那就没有激活的 profile，此时只会创建那些没有定义在 profile 中的 Bean。以下是设置这两个属性的方式</p>
+<ul>
+<li>作为 DispatcherServlet 的初始化参数</li>
+<li>作为 Web 应用的上下文参数</li>
+<li>作为 JNDI 条目</li>
+<li>作为环境变量</li>
+<li>作为 JVM 的系统属性</li>
+<li>在集成测试类上，使用<code>@ActiveProfiles</code>注解设置</li>
+</ul>
+<p>例如在 Web 应用中，设置<code>spring.profiles.default</code>的 web.xml 文件如下</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><?xml version="1.0" encoding="UTF-8"?></span></span><br><span class="line"><span class="tag"><<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">context-param</span>></span></span><br><span class="line">        <span class="tag"><<span class="name">param-name</span>></span>spring.profiles.default<span class="tag">param-name</span>></span><br><span class="line">        <span class="tag"><<span class="name">param-value</span>></span>dev<span class="tag">param-value</span>></span><br><span class="line">    <span class="tag">context-param</span>></span><br><span class="line">    </span><br><span class="line">    <span class="tag"><<span class="name">servlet</span>></span></span><br><span class="line">        <span class="tag"><<span class="name">servlet-name</span>></span>appServlet<span class="tag">servlet-name</span>></span><br><span class="line">        <span class="tag"><<span class="name">servlet-class</span>></span>org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">        <span class="tag">servlet-class</span>></span><br><span class="line">        <span class="tag"><<span class="name">init-param</span>></span></span><br><span class="line">            <span class="tag"><<span class="name">param-name</span>></span>spring.profiles.default<span class="tag">param-name</span>></span><br><span class="line">            <span class="tag"><<span class="name">param-value</span>></span>dev<span class="tag">param-value</span>></span><br><span class="line">        <span class="tag">init-param</span>></span><br><span class="line">    <span class="tag">servlet</span>></span><br><span class="line"><span class="tag">web-app</span>></span><br></pre></td></tr></tbody></table></figure>
+<p>该文件分别为上下文和 Servlet 设置了默认的 profile。当应用程序部署到 QA、生产或者其他环境中时，负责部署的人根据情况使用系统属性、环境变量或 JNDI 设置<code>spring.profiles.active</code>即可——其优先级比<code>spring.profiles.default</code>高</p>
+<h2 id="条件化的-Bean"><a href="#条件化的-Bean" class="headerlink" title="条件化的 Bean"></a>条件化的 Bean</h2><p>使用 Spring 提供的注解<code>@Conditional</code>，可以实现 Bean 在符合条件的情况下才会配置的效果，不符合条件则该 Bean 会被忽略。下面的例子假设只有设置了<code>magic</code>环境属性时 Spring 才会实例化 MagicBean（事先准备），否则它将被忽略。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">MagicConfig</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Conditional(MagicExistsCondition::class)</span></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">magicBean</span><span class="params">()</span></span>: MagicBean = MagicBean()</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><code>@Conditional</code>需要一个<code>class</code>参数，并且该类要实现<code>Condition</code>接口，重写方法<code>match</code>，如果该方法返回 true 则创建带有<code>@Conditional</code>的 Bean。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MagicExistsCondition</span>: <span class="type">Condition {</span></span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">matches</span><span class="params">(p0: <span class="type">ConditionContext</span>?, p1: <span class="type">AnnotatedTypeMetadata</span>?)</span></span>: <span class="built_in">Boolean</span> {</span><br><span class="line">        <span class="keyword">val</span> env = p0?.environment</span><br><span class="line">        <span class="keyword">return</span> env?.containsProperty(<span class="string">"magic"</span>) ?: <span class="literal">false</span></span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>该方法传入两个参数，第一个为<code>ConditionContext</code></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ConditionContext</span> </span>{</span><br><span class="line">    <span class="function">BeanDefinitionRegistry <span class="title">getRegistry</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">ConfigurableListableBeanFactory <span class="title">getBeanFactory</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Environment <span class="title">getEnvironment</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">ResourceLoader <span class="title">getResourceLoader</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">ClassLoader <span class="title">getClassLoader</span><span class="params">()</span></span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>可以看到该参数为我们提供了很多接口。第二个参数为<code>AnnotatedTypeMetadata</code></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AnnotatedTypeMetadata</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isAnnotated</span><span class="params">(String var1)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Map<string, object=""> <span class="title">getAnnotationAttributes</span><span class="params">(String var1)</span></string,></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Map<string, object=""> <span class="title">getAnnotationAttributes</span><span class="params">(String var1, <span class="keyword">boolean</span> var2)</span></string,></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">MultiValueMap<string, object=""> <span class="title">getAllAnnotationAttributes</span><span class="params">(String var1)</span></string,></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">MultiValueMap<string, object=""> <span class="title">getAllAnnotationAttributes</span><span class="params">(String var1, <span class="keyword">boolean</span> var2)</span></string,></span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>该参数为我们提供了一系列检查<code>@Bean</code>方法上的其他注解的接口</p>
+<p>观察第一节提到的<code>Profile</code>注解</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>({ElementType.TYPE, ElementType.METHOD})</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Conditional</span>({ProfileCondition.class})</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Profile {</span><br><span class="line">    String[] value();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>可以看到其本身也使用了<code>@Conditional</code>，引用<code>ProfileCondition.class</code>作为 Condition 实现</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProfileCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span> </span>{</span><br><span class="line">    ProfileCondition() {</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext context, AnnotatedTypeMetadata metadata)</span> </span>{</span><br><span class="line">        <span class="keyword">if</span> (context.getEnvironment() != <span class="keyword">null</span>) {</span><br><span class="line">            MultiValueMap<string, object=""> attrs = metadata.getAllAnnotationAttributes(Profile.class.getName());</string,></span><br><span class="line">            <span class="keyword">if</span> (attrs != <span class="keyword">null</span>) {</span><br><span class="line">                Iterator var4 = ((List)attrs.get(<span class="string">"value"</span>)).iterator();</span><br><span class="line"></span><br><span class="line">                Object value;</span><br><span class="line">                <span class="keyword">do</span> {</span><br><span class="line">                    <span class="keyword">if</span> (!var4.hasNext()) {</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                    }</span><br><span class="line"></span><br><span class="line">                    value = var4.next();</span><br><span class="line">                } <span class="keyword">while</span>(!context.getEnvironment().acceptsProfiles((String[])((String[])value)));</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>该类通过 AnnotatedTypeMetadata 获得用于<code>@Profile</code>注解的所有属性，然后检查<code>value</code>属性，得到<code>profile</code>名称。然后通过 ConditionContext 检查该<code>profile</code>是否激活</p>
+<h2 id="自动装配的歧义性"><a href="#自动装配的歧义性" class="headerlink" title="自动装配的歧义性"></a>自动装配的歧义性</h2><p>在自动装配中，只有当仅有一个 Bean 匹配所需的结果时，自动装配才是有效的，出现歧义则将阻碍 Spring 自动装配属性、构造器参数或方法参数。</p>
+<p>比如下面的例子，提供两个 CompactDisc 的实现类</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">CompactDisc</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">play</span><span class="params">()</span></span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SgtPeppers</span>: <span class="type">CompactDisc {</span></span></span><br><span class="line">	......</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlankDisc</span>: <span class="type">CompactDisc {</span></span></span><br><span class="line">	......</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>测试代码为</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringJUnit4ClassRunner::class)</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = [CDPlayerConfig::class])</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CDPlayerTest</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> cd: CompactDisc</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">play</span><span class="params">()</span></span> {</span><br><span class="line">    	cd.play()</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">setCompactDisc</span><span class="params">(cd: <span class="type">CompactDisc</span>)</span></span> {</span><br><span class="line">        <span class="keyword">this</span>.cd = cd</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>测试将会报错</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of <span class="built_in">type</span> <span class="string">'soundsystem.CompactDisc'</span> available: expected single matching bean but found 2: blankDisc,sgtPeppers</span><br></pre></td></tr></tbody></table></figure>
+<p>针对这种情况，可以使用<code>@Primary</code>和<code>@Qualifier</code>解决</p>
+<h3 id="Primary"><a href="#Primary" class="headerlink" title="@Primary"></a>@Primary</h3><p>在其中一个实现上添加注解</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Primary</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SgtPeppers</span>: <span class="type">CompactDisc {</span></span></span><br><span class="line">	......</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>该注解也可以应用在 JavaConfig 代码中，在 XML 文件的配置方式为</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag"><<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sgtPeppers"</span> <span class="attr">class</span>=<span class="string">"sound_system.SgtPeppers"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">primary</span>=<span class="string">"true"</span>></span></span><br><span class="line"><span class="tag">bean</span>></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Qualifier"><a href="#Qualifier" class="headerlink" title="@Qualifier"></a>@Qualifier</h3><p>该注解比<code>@Primary</code>更加灵活，使用简单</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Qualifier(<span class="meta-string">"sgtPeppers"</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">setCompactDisc</span><span class="params">(cd: <span class="type">CompactDisc</span>)</span></span> {</span><br><span class="line">	<span class="keyword">this</span>.cd = cd</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>为<code>@Qualifier</code>注解设置的参数就是想要注入的 Bean 的 id，一般为 Bean 的类名首字母变为小写之后的字符。当然开发者也可以自定义 Bean 的限定符防止重命名之后原来的注解失效</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Qualifier(<span class="meta-string">"byBeatles"</span>)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SgtPeppers</span>: <span class="type">CompactDisc {</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> title = <span class="string">"Sgt. Pepper's Lonely Hearts Club Band"</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> artist = <span class="string">"The Beatles"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">play</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"Playing <span class="variable">$title</span> by <span class="variable">$artist</span>"</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>相应的代码也更改为</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Qualifier(<span class="meta-string">"byBeatles"</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">setCompactDisc</span><span class="params">(cd: <span class="type">CompactDisc</span>)</span></span> {</span><br><span class="line">	<span class="keyword">this</span>.cd = cd</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>更进一步，开发者可以自定义一个使用<code>@Qualifier</code>注解的注解类，防止以后再出现一个<code>byBeatles</code>的 Bean</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.<span class="keyword">annotation</span>.Qualifier</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(AnnotationTarget.CONSTRUCTOR, AnnotationTarget.FIELD, AnnotationTarget.TYPE, AnnotationTarget.FUNCTION)</span></span><br><span class="line"><span class="meta">@Retention(AnnotationRetention.RUNTIME)</span></span><br><span class="line"><span class="meta">@Qualifier</span></span><br><span class="line"><span class="keyword">annotation</span> <span class="class"><span class="keyword">class</span> <span class="title">FavoriteCD</span></span></span><br></pre></td></tr></tbody></table></figure>
+<p>使用方法和<code>@Qualifier("id")</code>类似，在需要注解的类上添加<code>@FavoriteCD</code>，然后在自动装配的地方同样使用该注解即可。</p>
+<h2 id="Bean-的作用域"><a href="#Bean-的作用域" class="headerlink" title="Bean 的作用域"></a>Bean 的作用域</h2><p> 在上一篇文章中我们提到 Spring 中的 Bean 默认是单例的，但是显然这样的实例将会保持一定的“状态”，因此重用将是不安全的。Spring 定义了多种 Bean 作用域</p>
+<ul>
+<li>单例（Singleton）：整个应用中只创建 Bean 的一个实例</li>
+<li>原型（Prototype）：每次注入或者通过 Spring 应用上下文获取的时候都会创建一个新的实例</li>
+<li>会话（Session）：在 Web 应用中，为每个会话创建一个实例</li>
+<li>请求（Request）：在 Web 应用中，为每个请求创建一个实例</li>
+</ul>
+<p>要使用作用域，可以通过<code>@Scope</code>注解实现</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SgtPeppers</span></span></span><br></pre></td></tr></tbody></table></figure>
+<p>当然在自动装配的地方使用该注解也可以，XML 文件的配置方式同理，不再赘述</p>
+<h3 id="会话和请求作用域"><a href="#会话和请求作用域" class="headerlink" title="会话和请求作用域"></a>会话和请求作用域</h3><p>在典型的电子商务应用中，可能有一个 Bean 代表用户的购物车，当其为单例时意味着所有的用户共用一个购物车。这种情况下使用会话作用域显然更加合适</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Scope(value = WebApplicationContext.SCOPE_SESSION,</span></span><br><span class="line"><span class="meta">        proxyMode = ScopedProxyMode..TARGET_CLASS)</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">ShoppingCart</span></span></span><br></pre></td></tr></tbody></table></figure>
+<p>注解的第一个参数<code>value</code>将告诉 Spring 为 Web 应用的每个会话创建一个 ShoppingCart，在会话相关的操作中其相当于一个单例。第二个参数<code>proxyMode</code>被设为<code>ScopedProxyMode.INTERFACES</code>，解决将会话或者请求作用域的 Bean 注入到单例 Bean 中所遇到的问题</p>
+<p>假设 ShoppingCart 注入到一个单例 StoreService 中，由于单例 Bean 会在 Spring 应用上下文加载的时候创建，然而此时属于会话作用域的 ShoppingCart 并不存在；此外，系统中将会有多个 ShoppingCart 实例，我们并不想让某一个固定的 ShoppingCart 实例到 StoreService 中，而是希望当 StoreService 处理购物车功能时，其所使用的 ShoppingCart 实例刚好是当前会话所对应的那个</p>
+<p><code>proxyMode</code>的作用就在于，Spring 不会将实际的 ShoppingCart 注入到 StoreService 中，而是将它的代理注入。这一代理会暴露与 ShoppingCart 相同的方法，所以 StoreService 会认为它就是一个购物车。当 StoreService 调用方法时，代理会进行懒解析并将调用委托到会话作用域内真正的 ShoppingCart 实例</p>
+<p>XML 方式配置不再赘述</p>
+<h2 id="Spring-表达式语言"><a href="#Spring-表达式语言" class="headerlink" title="Spring 表达式语言"></a>Spring 表达式语言</h2><p>Spring Expression Language，简称 SpEL，能够以一种强大和简洁的方式将值装配到 Bean 属性和构造器参数中。其有很多特性</p>
+<ul>
+<li>使用 ID 来引用 Bean</li>
+<li>调用方法和访问对象的属性</li>
+<li>对值进行算数、关系和逻辑运算</li>
+<li>正则表达式匹配</li>
+<li>集合操作</li>
+</ul>
+<p>SpEL 要放到<code>#{ ... }</code>中，与属性占位符放到<code>${ ... }</code>中类似。对于下面的表达式</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#{T(System).currentTimeMillis()}</span><br></pre></td></tr></tbody></table></figure>
+<p>将得到表达式计算的那一刻时间的毫秒数。<code>T()</code>表达式将其中参数视为 Java 中的类型，从而可以调用该类型的静态方法。</p>
+<p><code>#{ ... }</code>中既可以放字面值如整数、浮点数、字符串、布尔值，也可以引用对象属性和方法</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#{sgtPeppers.artist}</span><br><span class="line"></span><br><span class="line">#{systemProperties[<span class="string">'sgtPeppers.title'</span>]}</span><br><span class="line"></span><br><span class="line">#{sgtPeppers.toString()?.toUpperCase}</span><br></pre></td></tr></tbody></table></figure>
+<p>上面的第二个表达式将调用<code>properties</code>文件中<code>sgtPeppers</code>的<code>title</code>属性值。第三个参数表示我们可以对方法返回值使用安全调用</p>
+<p>SpEL 支持各种常用的运算，包括算术运算、比较运算、逻辑运算、条件运算（<code>? :</code>和<code>?:</code>）、正则表达式（<code>matches</code>），下面是一个正则表达式的例子，用以验证邮箱</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#{admin.email matches <span class="string">'[a-zA-Z0-9._&+-]+@[a-zA-Z0-9._&+-]'</span>+\\.com}</span><br></pre></td></tr></tbody></table></figure>
+<p>下面是一个操作集合的例子</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#{cd.tracks[<span class="number">1</span>].title}</span><br><span class="line"></span><br><span class="line">#{<span class="string">'the string'</span>[<span class="number">1</span>]} <span class="comment">//得到 h</span></span><br><span class="line"></span><br><span class="line">#{cd.tracks.?[title eq <span class="string">'Title'</span>} <span class="comment">//得到 title 为 Title 的新集合</span></span><br><span class="line"></span><br><span class="line">#{cd.tracks.^[title eq <span class="string">'Title'</span>} <span class="comment">//得到第一个 title 值为 Title 的元素</span></span><br><span class="line">              </span><br><span class="line">#{cd.tracks.$[title eq <span class="string">'Title'</span>} <span class="comment">//得到最后一个 title 值为 Title 的元素             </span></span><br><span class="line"></span><br><span class="line">#{cd.tracks.![title]} <span class="comment">//得到 title 的集合</span></span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/Spring-学习笔记（一）：基本理念和-Bean-装配/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/Spring-学习笔记（三）：面向切面/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/category/" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/tag/" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="ROUND_RECT" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

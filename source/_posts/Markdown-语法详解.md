@@ -1,3 +1,4 @@
+---
 title: Markdown 语法详解
 date: 2019-05-19 15:36:02
 mathjax: true
@@ -5,10 +6,7 @@ tags:
 - Markdown
 categories: 
 - Markdown
-
 ---
-
-## 引言
 
 这篇文章本应该在搭建博客之后就发布，一开始觉得 Markdown  的语法足够简单，熟能生巧，无需花费篇幅去记录；近来无事，反省了一下自己的错误认识，除去一些高级用法，了解这门用途广泛的标记语言的由来与发展，回顾它的基础语法如何将排版变成一件充满乐趣的事，完全值得专门写一篇文章。
 
@@ -254,11 +252,7 @@ Markdown 中标准引用是 `>` 符号后面加上引用内容，可以嵌套，
 陶渊明 {% endcenterquote %}
 ```
 
-{% centerquote %}盛年不重来，一日难再晨。及时当勉励，岁月不待人。
-
-陶渊明 {% endcenterquote %}
-
-
+*该标签不会被当前主题识别，且造成部署 Hexo 时报错，在 NexT 主题上正常使用*
 
 #### Note
 
@@ -266,16 +260,6 @@ Markdown 中标准引用是 `>` 符号后面加上引用内容，可以嵌套，
 
 ```javascript
 {% note class_name %} Content (md partial supported) {% endnote %}
-```
-
-实现类似笔记的引用效果，其中`class_name`可以为
-
-- `default`
-- `primary`
-- `success`
-- `info`
-- `warning`
-- `danger`
 
 {% note default %} This is a default note {% endnote %}
 
@@ -288,6 +272,18 @@ Markdown 中标准引用是 `>` 符号后面加上引用内容，可以嵌套，
 {% note warning %} This is a warning note {% endnote %}
 
 {% note danger %} This is a danger note {% endnote %}
+```
+
+实现类似笔记的引用效果，其中`class_name`可以为
+
+- `default`
+- `primary`
+- `success`
+- `info`
+- `warning`
+- `danger`
+
+*该标签不会被当前主题识别，且造成部署 Hexo 时报错，在 NexT 主题上正常使用*
 
 #### 高亮
 
@@ -441,3 +437,16 @@ note right of 大三: 大三面临毕业
 
 
 Hexo 默认同样不支持时序图，使用 [hexo-filter-sequence](https://github.com/bubkoo/hexo-filter-sequence)。具体的做法参考 [为 Hexo 增加时序图解析功能](http://wewelove.github.io/fcoder/2017/09/06/markdown-sequence/)
+
+### 字符转义
+
+由于 Markdown 最终会渲染成 HTML 页面，所以一些特殊字符需要遵循 HTML 的转义规则，转义成实体字符才能显示，传送门：[HTML 转义字符](http://www.w3chtml.com/html/character.html)。以下图表中为了显示空格的实体多添加了一个空格
+
+| 显示结果  | 描述    | 实体名称               | 实体编号                   |
+| -- | -- | -- | -- |
+| &nbsp;   | 空格   | &n bsp;            | &# 160;                 |
+| <        | 小于号 | &l t;                 | &# 60;                  |
+| >        | 大于号 | &g t;                 | &# 62;                  |
+| &        | 和号   | &a mp;                 | &# 38;                  |
+| "        | 引号   | &q uot;                | &# 34;                  |
+| '        | 撇号   | &a pos; (IE不支持)      | &# 39;                  |

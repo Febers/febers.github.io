@@ -7,8 +7,6 @@ categories:
 - Dart
 ---
 
-## 引言
-
 作为一门面向对象的语言，Dart 在很多方面跟 Java 都很相似。Dart 中所有对象都是类的实例，所有类都属于 Object 的子类，类的继承则使用 Mixin 机制。
 
 <!--more-->

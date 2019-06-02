@@ -8,7 +8,6 @@ categories:
 - Java
 ---
 
-## 引言
 JDK 中提供了很多数据结构，如下所示
 > Collection
 > ├ List
@@ -23,9 +22,7 @@ JDK 中提供了很多数据结构，如下所示
 > ├ HashMap
 > └ WeakHashMap
 
-本文将进行部分数据结构的简单实现。
-
-<!--more-->
+本文将进行部分数据结构的简单实现。<!--more-->
 
 ## Stack
 ```Java

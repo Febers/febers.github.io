@@ -11,8 +11,6 @@ categories:
 - Gradle
 ---
 
-## 引言
-
 Gradle 是一个基于 JVM 的自动化构建工具，使用 Groovy  DSL 声明配置。现代软件开发包含众多步骤，包括编译、测试、打包等，如果需要手动重复每一过程，将会耗费大量时间、增加出错概率，项目自动化应运而生。在此之前，常见的 Java 构建工具包括 Ant、Gant 和 Maven 等，Gradle 结合了以上工具的优点，基于约定大于配置，通用灵活，是 Android 的官方构建工具。本文将介绍 Gradle 的基本知识、Groovy 基本语法以及 Android 开发中的 Gradle 知识。
 
 ![](https://plugins.gradle.org/shared-assets/shared/images/gradle-logo-horizontal.svg)

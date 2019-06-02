@@ -8,8 +8,6 @@ categories:
 - Android
 ---
 
-## 引言
-
 在 Android 开发中，View 扮演了很重要的角色，是 Android 在视觉上的呈现。不满足于既有控件的开发者，会自定义 View 实现各种效果。但自定义复杂的 View 具有一定的难度，需要开发者掌握 View 的底层工作原理，比如 View 的测量、布局和绘制等流程。
 
 <!--more-->

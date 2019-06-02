@@ -9,7 +9,6 @@ categories:
 - Java
 ---
 
-## 引言
 线程在 Java 开发中是一个很重要的概念。 在Java中，“线程”指两件不同的事情：
 > java.lang.Thread 类的一个实例；
 >

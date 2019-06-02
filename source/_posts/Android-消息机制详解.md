@@ -8,7 +8,6 @@ categories:
 - Android 
 ---
 
-## 引言
 Android 的消息机制，主要是指 Handler 的运行机制。<!--more-->
 
 ## ANR
