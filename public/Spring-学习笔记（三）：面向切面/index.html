@@ -5,27 +5,32 @@
 
 
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>Spring 学习笔记（三）：面向切面 | ReBE</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Febers,Android,Java,Kotlin,后台">
+    <meta name="keywords" content="Spring,AOP,">
   
 
-  <meta name="description" content="document.querySelectorAll(&apos;.github-emoji&apos;)           .forEach(el =&amp;gt; {             if (!el.dataset.src) { return; }             const img = document.createElement(&apos;img&apos;);             img.style">
+  <meta name="description" content="第一篇笔记 曾简单提及了 AOP 的知识，本文将重点展开 Spring 对切面的支持，包括如何使用和 AspectJ 的具体应用">
+<meta name="keywords" content="Spring,AOP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring 学习笔记（三）：面向切面">
 <meta property="og:url" content="http://yoursite.com/Spring-学习笔记（三）：面向切面/index.html">
 <meta property="og:site_name" content="ReBE">
-<meta property="og:description" content="document.querySelectorAll(&apos;.github-emoji&apos;)           .forEach(el =&amp;gt; {             if (!el.dataset.src) { return; }             const img = document.createElement(&apos;img&apos;);             img.style">
+<meta property="og:description" content="第一篇笔记 曾简单提及了 AOP 的知识，本文将重点展开 Spring 对切面的支持，包括如何使用和 AspectJ 的具体应用">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-02T04:52:26.000Z">
+<meta property="og:image" content="http://yoursite.com/Spring-学习笔记（三）：面向切面/AOP_1.jpg">
+<meta property="og:image" content="http://yoursite.com/Spring-学习笔记（三）：面向切面/AOP_2.jpg">
+<meta property="og:image" content="http://yoursite.com/Spring-学习笔记（三）：面向切面/Compiler.png">
+<meta property="og:updated_time" content="2019-06-03T04:18:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring 学习笔记（三）：面向切面">
-<meta name="twitter:description" content="document.querySelectorAll(&apos;.github-emoji&apos;)           .forEach(el =&amp;gt; {             if (!el.dataset.src) { return; }             const img = document.createElement(&apos;img&apos;);             img.style">
+<meta name="twitter:description" content="第一篇笔记 曾简单提及了 AOP 的知识，本文将重点展开 Spring 对切面的支持，包括如何使用和 AspectJ 的具体应用">
+<meta name="twitter:image" content="http://yoursite.com/Spring-学习笔记（三）：面向切面/AOP_1.jpg">
 
   
 
@@ -87,7 +92,7 @@ ga('send', 'pageview');
 
   
     <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 </head>
@@ -96,7 +101,7 @@ ga('send', 'pageview');
 
 
   
-    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><span id="toolbox-mobile" class="toolbox-mobile">导航</span>
   
 
   <div class="post-header CENTER">
@@ -152,6 +157,11 @@ ga('send', 'pageview');
 </div>
 
 
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#面向切面编程"><span class="toc-text">面向切面编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AOP-术语"><span class="toc-text">AOP 术语</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Advice"><span class="toc-text">Advice</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Joint-point"><span class="toc-text">Joint point</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pointcut"><span class="toc-text">Pointcut</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Aspect"><span class="toc-text">Aspect</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Introduction"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Weaving"><span class="toc-text">Weaving</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-AOP"><span class="toc-text">Spring AOP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过切点选择连接点"><span class="toc-text">通过切点选择连接点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编写切点"><span class="toc-text">编写切点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用注解创建切面"><span class="toc-text">使用注解创建切面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简单通知"><span class="toc-text">简单通知</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环绕通知"><span class="toc-text">环绕通知</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#带参数的通知"><span class="toc-text">带参数的通知</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注入-AspectJ-切面"><span class="toc-text">注入 AspectJ 切面</span></a></li></ol>
+  </div>
+
 
 
 <div class="content content-post CENTER">
@@ -173,6 +183,11 @@ ga('send', 'pageview');
       
 
       
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+  </span>
+
 
 
       
@@ -190,7 +205,138 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      <script>
+      <p><a href="https://febers.github.io/Spring-学习笔记（一）：基本理念和-Bean-装配/" target="_blank" rel="noopener">第一篇笔记</a> 曾简单提及了 AOP 的知识，本文将重点展开 Spring 对切面的支持，包括如何使用和 AspectJ 的具体应用<a id="more"></a></p>
+<h2 id="面向切面编程"><a href="#面向切面编程" class="headerlink" title="面向切面编程"></a>面向切面编程</h2><p>Aspect-Oriented Programming，AOP。每个应用除了其核心业务之外，还会需要一些模块化的通用功能——比如日志、安全、通知等。重用通用功能的方式一般有继承（inheritance）、 委托（delegation），缺点在于前者会导致对象体系复杂、难以维护，后者则可能需要对委托对象进行复杂的调用。切面提供了不一样的思路，并且在很多场景下更加清晰简洁。</p>
+<h3 id="AOP-术语"><a href="#AOP-术语" class="headerlink" title="AOP 术语"></a>AOP 术语</h3><p><img src="/Spring-学习笔记（三）：面向切面/AOP_1.jpg" alt=""></p>
+<h4 id="Advice"><a href="#Advice" class="headerlink" title="Advice"></a>Advice</h4><p>通知，如果翻译为“增强”就能更直观地理解它所扮演的角色。Spring 切面可以应用 5 种类型的通知</p>
+<ul>
+<li>前置通知（ Before ）：在目标方法被调用之前调用通知功能</li>
+<li>后置通知（ After ）：在目标方法完成之后调用通知，不关心方法的返回值</li>
+<li>返回通知（ After-returning ）：在目标方法成功执行之后调用通知</li>
+<li>异常通知（ After-throwing ）：在目标方法抛出异常之后调用通知</li>
+<li>环绕通知（ Around ）：通知包裹了被通知的方法，在被通知的方法调用之前喝调用之后执行自定义的行为</li>
+</ul>
+<h4 id="Joint-point"><a href="#Joint-point" class="headerlink" title="Joint point"></a>Joint point</h4><p>连接点，应用可能有数以千计的时机应用通知，这些时机被称为连接点。根据上面的图理解，连接点是在应用执行过程中能够插入切面的一个点，改点可以是调用方法时、抛出异常时、甚至修改一个字段时。</p>
+<h4 id="Pointcut"><a href="#Pointcut" class="headerlink" title="Pointcut"></a>Pointcut</h4><p>切点，通知定义了切面的“什么”和“何时”，连接点定义了“时间点”，切点则定义了“何处”。切点会匹配通知所要织入的一个或多个连接点。通常使用明确的类和方法名称、或者使用正则表达式定义所匹配的类和方法来指定切点，有些 AOP 框架也会允许动态创建切点。</p>
+<h4 id="Aspect"><a href="#Aspect" class="headerlink" title="Aspect"></a>Aspect</h4><p>切面，通知+切点，这两者共同定义了切面的全部内容</p>
+<h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4><p>引入，允许开发者向现有的类添加方法或属性</p>
+<h4 id="Weaving"><a href="#Weaving" class="headerlink" title="Weaving"></a>Weaving</h4><p>织入，把切面应用到目标对象并创建新的代理对象的过程。切面在指定的连接点被织入到目标对象中，在目标对象的生命周期里有多个点可以进行织入：</p>
+<ul>
+<li>编译期：切面在目标类编译时被织入。需要特殊的编译器，如 AspectJ 的织入编译器</li>
+<li>类加载期：切面在目标类加载到 JVM 时被织入。这种方式需要特殊的类加载器，从而在目标类被引用之前增强其字节码。比如 AspectJ 5 的加载时织入（load-time weaving，LTW）</li>
+<li>运行期：切面在应用运行的某个时刻被织入。一般情况下，织入时 AOP 容器会为目标对象动态地创建一个代理对象。比如 Spring AOP</li>
+</ul>
+<h3 id="Spring-AOP"><a href="#Spring-AOP" class="headerlink" title="Spring AOP"></a>Spring AOP</h3><p>Spring 提供了 4 中类型的 AOP 支持：</p>
+<ul>
+<li>基于代理的经典 Spring AOP</li>
+<li>纯 POJO 切面</li>
+<li><code>@AspectJ</code>注解驱动的切面</li>
+<li>注入式 AspectJ 切面</li>
+</ul>
+<p>相比起其他方式，第一种显得笨重而古典，不再介绍。纯 POJO 切面需要借助 Spring 的 <code>aop</code>命名空间，虽然足够简便，但也不再赘述。Spring 借鉴了 AspectJ 的切面以提供注解驱动的 AOP，其本质仍然是代理，但是编程模型几乎与成熟的 AspectJ 注解完全一致。如果开发者对 AOP 的需求超过了简单的方法调用（如构造器或属性拦截），那么可以考虑第四种方式——使用 AspectJ。</p>
+<p>通过再代理类中包裹切面，Spring 在运行期把切面织入到 Spring 管理的 bean 中。代理类封装了目标类并拦截被通知方法的调用，再把调用转发给真正的目标 bean</p>
+<p><img src="/Spring-学习笔记（三）：面向切面/AOP_2.jpg" alt=""></p>
+<p>由于 Spring  AOP 基于动态代理，所以只支持方法连接点，不支持字段连接点——无法创建细粒度的通知、不支持构造器连接点——无法在 bean 创建时应用通知。</p>
+<h2 id="通过切点选择连接点"><a href="#通过切点选择连接点" class="headerlink" title="通过切点选择连接点"></a>通过切点选择连接点</h2><p>使用 AspectJ 的切点表达式语言来定义切点。Spring 仅支持 AspectJ 切点指示器的一个子集，因为 Spring 基于代理，而某些切点表达式与代理无关。下表是 Spring AOP 所支持的指示器</p>
+<table>
+<thead>
+<tr>
+<th>AspectJ 指示器</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arg()</td>
+<td>限制连接点匹配参数为指定类型的执行方法</td>
+</tr>
+<tr>
+<td>@args()</td>
+<td>限制连接点匹配参数由指定注解标注的执行方法</td>
+</tr>
+<tr>
+<td>execution()</td>
+<td>用于匹配是连接点的执行方法</td>
+</tr>
+<tr>
+<td>this()</td>
+<td>限制连接点匹配 AOP 代理的 bean 引用为指定类型的类</td>
+</tr>
+<tr>
+<td>target()</td>
+<td>限制连接点匹配目标对象为指定类型的类</td>
+</tr>
+<tr>
+<td>@target()</td>
+<td>限制连接点匹配特定的具有指定类型注解的执行对象</td>
+</tr>
+<tr>
+<td>within()</td>
+<td>限制连接点匹配指定的类型</td>
+</tr>
+<tr>
+<td>@within()</td>
+<td>限制连接点匹配指定注解所标注的类型（方法定义在该类型中）</td>
+</tr>
+<tr>
+<td>@annotation</td>
+<td>限定匹配带有指定注解的连接点</td>
+</tr>
+</tbody>
+</table>
+<p>尝试使用其他指示器时，将抛出<code>IllegalArgumentException</code>异常</p>
+<p>以上的指示器只有<code>execution()</code>指示器是实际执行匹配的，其他指示器都是用来限制匹配的。</p>
+<h3 id="编写切点"><a href="#编写切点" class="headerlink" title="编写切点"></a>编写切点</h3><p>准备一个主题 Performance，可代表任何类型的现场表演，假设要编写其中<code>perform</code>方法触发的通知</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> concert</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Performance</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">perform</span><span class="params">()</span></span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>使用 AspectJ 表达式编写切点</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line">execution(* concert.Performance.perform(..)) && within(concert.*)</span><br></pre></td></tr></tbody></table></figure>
+<p>使用<code>execution()</code>指示器选择<code>perform</code>方法，方法表达式以<code>*</code>开始表示不关心返回值类型，然后使用全限定类名和方法名；使用两个点号<code>..</code>表示不关心方法参数列表，切点会选择为所有的<code>perform</code>方法。<code>&&</code>操作符把<code>execution()</code>和<code>within</code>指示器连接在一起形成<code>与（and）</code>关系，限制需要配置的切点仅匹配<code>concert</code>包，类似也可以使用<code>||</code>和<code>!</code>来标识<code>或（or）</code>和<code>非（not）</code>操作</p>
+<p>当然也可以通过 Spring 引入的指示器<code>bean()</code>指示特定的 bean，参数为 bean 的 id</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line">execution(* concert.Performance.perform(..)) && bean(<span class="string">'woodstock'</span>)</span><br><span class="line">execution(* concert.Performance.perform(..)) && !bean(<span class="string">'woodstock'</span>)</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="使用注解创建切面"><a href="#使用注解创建切面" class="headerlink" title="使用注解创建切面"></a>使用注解创建切面</h2><h3 id="简单通知"><a href="#简单通知" class="headerlink" title="简单通知"></a>简单通知</h3><p>对于一场演出，我们将“观众”定义为切面</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Audience</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(<span class="meta-string">"execution(** concert.Performance.perform(..)"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">silenceCellPhones</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"Silencing cell phones"</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(<span class="meta-string">"execution(** concert.Performance.perform(..)"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">takeSeats</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"Taking seats"</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning(<span class="meta-string">"execution(** concert.Performance.perform(..)"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">applause</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"CLAP CLAP CLAP!!"</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterThrowing(<span class="meta-string">"execution(** concert.Performance.perform(..)"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">demandRefund</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"Demanding a refund"</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>AspectJ 库需要通过依赖引入</p>
+</blockquote>
+<p>Audience 定义了四个方法，通过 AOP 注解，形成以下期望的行为——演出之前观众就坐、将手机静音，演出很精彩则鼓掌欢呼，演出没有达到预期则要求退款。以上的方式有一点不足，每个方法的切点表达式都是一样的，重复了四次。为此可以使用<code>@Pointcut</code>注解定义可重用的切点</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Audience</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut(<span class="meta-string">"execution(** concert.Performance.perform(..))"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">performance</span><span class="params">()</span></span>{ }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Before(<span class="meta-string">"performance()"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">silenceCellPhones</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"Silencing cell phones"</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(<span class="meta-string">"performance()"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">takeSeats</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"Taking seats"</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning(<span class="meta-string">"performance()"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">applause</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"CLAP CLAP CLAP!!"</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterThrowing(<span class="meta-string">"performance()"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">demandRefund</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"Demanding a refund"</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>除了注解和作为标识的空<code>performance</code>方法，Audience 仍然是一个 POJO，可以添加<code>@Component</code>注解将其注入容器中。但此时 Audience 不会视为切面，需要在配置类的的类级别通过使用<code>@EnableAspectJAutoProxy</code>注解启动自动代理功能</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcertConfig</span></span></span><br></pre></td></tr></tbody></table></figure>
+<p>同时为 Performance 提供一个实现类</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">MyPerformance</span>: <span class="type">Performance {</span></span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">perform</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"Start perform"</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>测试类如下</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringJUnit4ClassRunner::class)</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = [ConcertConfig::class])</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PerformTest</span> </span>{</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">lateinit</span> <span class="keyword">var</span> performance: Performance</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">perform</span><span class="params">()</span></span> {</span><br><span class="line">        performance.perform()</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>输出结果为</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">Silencing cell phones</span><br><span class="line">Taking seats</span><br><span class="line">Start perform</span><br><span class="line">CLAP CLAP CLAP!!</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="环绕通知"><a href="#环绕通知" class="headerlink" title="环绕通知"></a>环绕通知</h3><p>环绕通知时最强大的通知类型，能够使编写的逻辑将被通知的目标方法完全包装，就像 在一个通知方法中同时编写前置通知和后置通知，重写上面的 Audience 切面</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Audience</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut(<span class="meta-string">"execution(** concert.Performance.perform(..))"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">performance</span><span class="params">()</span></span>{ }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Around(<span class="meta-string">"performance()"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">watchPerformance</span><span class="params">(jointPoint: <span class="type">ProceedingJoinPoint</span>)</span></span> {</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            println(<span class="string">"Silencing cell phones"</span>)</span><br><span class="line">            println(<span class="string">"Taking seats"</span>)</span><br><span class="line">            jointPoint.proceed()</span><br><span class="line">            println(<span class="string">"CLAP CLAP CLAP!!"</span>)</span><br><span class="line">        } <span class="keyword">catch</span> (e: Exception) {</span><br><span class="line">            println(<span class="string">"Demanding a refund"</span>)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>上面的代码将实现同样的功能。环绕通知注解的方法<code>watchPerformance</code>中类型为<code>ProceedingJoinPoint</code>的参数是必须的，由此拿到切点的引用</p>
+<h3 id="带参数的通知"><a href="#带参数的通知" class="headerlink" title="带参数的通知"></a>带参数的通知</h3><p>通过一个例子来展现带参数的通知如何实现，首先修改 MyPerformance 类</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">MyPerformance</span>: <span class="type">Performance {</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> performList: List<string> = arrayListOf(<span class="string">"Song"</span>, <span class="string">"Dance"</span>, <span class="string">"Magic"</span>)</string></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">perform</span><span class="params">()</span></span> {</span><br><span class="line">        perform(Math.round(<span class="number">10f</span>) % <span class="number">2</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">perform</span><span class="params">(type: <span class="type">Int</span>)</span></span> {</span><br><span class="line">        println(<span class="string">"Start perform: <span class="subst">${performList[type]}</span>"</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>假设现在有一个计数类 PerformanceCounter，其将跟踪每一次表演节目，记录下该节目的类型以及次数并打印</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PerformanceCounter</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> playCounter: MutableMap<<span class="built_in">Int</span>, <span class="built_in">Int</span>> = HashMap()</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut(<span class="meta-string">"execution(** concert.Performance.perform(..)) && args(whichType)"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">performanceTypePlay</span><span class="params">(whichType: <span class="type">Int</span>)</span></span> { }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After(<span class="meta-string">"performanceTypePlay(typeIntValue)"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">countPerformance</span><span class="params">(typeIntValue: <span class="type">Int</span>)</span></span> {</span><br><span class="line">        <span class="keyword">val</span> currentCount = getPlayCount(typeIntValue)</span><br><span class="line">        playCounter[typeIntValue] = currentCount+<span class="number">1</span></span><br><span class="line">        println(<span class="string">"=== type: <span class="subst">${getDesByInt(typeIntValue)}</span>, played <span class="subst">${currentCount+<span class="number">1</span>}</span> times ==="</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getPlayCount</span><span class="params">(type: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> = playCounter[type] ?: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">getDesByInt</span><span class="params">(type: <span class="type">Int</span>)</span></span>: String = <span class="keyword">when</span>(type) {</span><br><span class="line">        <span class="number">0</span> -> <span class="string">"Song"</span></span><br><span class="line">        <span class="number">1</span> -> <span class="string">"Dance"</span></span><br><span class="line">        <span class="number">2</span> -> <span class="string">"Magic"</span></span><br><span class="line">        <span class="keyword">else</span> -> <span class="string">"null"</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>着重注意不同方法中的<code>type</code>参数，参数名称各有不同，但本质都代表“表演类型”。而相同的参数名称则表示一一对应的关系：定义切点时，AspectJ 表达式内使用的参数名称为<code>whichType</code>，与标识该切点的空函数的参数是一致的；通知方法上的参数名称<code>typeIntValue</code>则与通知时机中引用切点时 AspectJ 表达式内的参数名称一致</p>
+<p>测试类如下</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringJUnit4ClassRunner::class)</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = [ConcertConfig::class])</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PerformTest</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">lateinit</span> <span class="keyword">var</span> performance: Performance</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">perform</span><span class="params">()</span></span> {</span><br><span class="line">        <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">0</span>..<span class="number">4</span>) {</span><br><span class="line">            performance.perform(i % <span class="number">3</span>)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>控制台输出为</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">Start perform: Song</span><br><span class="line">=== <span class="built_in">type</span>: Song, played 1 <span class="built_in">times</span> ===</span><br><span class="line">Start perform: Dance</span><br><span class="line">=== <span class="built_in">type</span>: Dance, played 1 <span class="built_in">times</span> ===</span><br><span class="line">Start perform: Magic</span><br><span class="line">=== <span class="built_in">type</span>: Magic, played 1 <span class="built_in">times</span> ===</span><br><span class="line">Start perform: Song</span><br><span class="line">=== <span class="built_in">type</span>: Song, played 2 <span class="built_in">times</span> ===</span><br><span class="line">Start perform: Dance</span><br><span class="line">=== <span class="built_in">type</span>: Dance, played 2 <span class="built_in">times</span> ===</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="注入-AspectJ-切面"><a href="#注入-AspectJ-切面" class="headerlink" title="注入 AspectJ 切面"></a>注入 AspectJ 切面</h2><p>AspectJ 和 Spring 实际上是独立的，只不过 Spring AOP 借助了前者的指示器。通过一个例子展示如何注入原始的 AspectJ 切面。</p>
+<p>首先准备一个评论员，在表演之后发表一段言论，其类型为<code>aspect</code>，在 IDEA 中可通过右键 New -> Aspect 新建一个该类型的文件</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> aspect CriticAspect {</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CriticAspect</span><span class="params">()</span> </span>{ }</span><br><span class="line"></span><br><span class="line">    <span class="function">pointcut <span class="title">performance</span><span class="params">()</span>: <span class="title">execution</span><span class="params">(* concert.MyPerformance.perform(..)</span>)</span>;</span><br><span class="line"></span><br><span class="line">    after(): performance() {</span><br><span class="line">        System.out.println(<span class="string">"something"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>在 Spring 框架中，CriticAspect 将不会由容器创建，因为它属于 AspectJ 切面，由 AspectJ 在运行时创建。所以需要通过 AspectJ 切面提供的静态<code>aspectOf</code>方法给 Spring 返回切面的单例，Spring XML 配置写成以下形式</p>
+<figure class="highlight xml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta"><?xml version="1.0" encoding="UTF-8"?></span></span><br><span class="line"><span class="tag"><<span class="name">beans</span> <span class="attr">...</span>></span></span><br><span class="line"></span><br><span class="line">    <span class="tag"><<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"concert"</span> /></span></span><br><span class="line"></span><br><span class="line">    <span class="tag"><<span class="name">aop:aspectj-autoproxy</span> /></span></span><br><span class="line"></span><br><span class="line">    <span class="tag"><<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"concert.CriticismEngineImpl"</span> <span class="attr">id</span>=<span class="string">"criticismEngine"</span> /></span></span><br><span class="line"></span><br><span class="line">    <span class="tag"><<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"concert.MyPerformance"</span> <span class="attr">id</span>=<span class="string">"performance"</span> /></span></span><br><span class="line"></span><br><span class="line">    <span class="tag"><<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"concert.CriticAspect"</span> <span class="attr">factory-method</span>=<span class="string">"aspectOf"</span> /></span></span><br><span class="line"><span class="tag">beans</span>></span><br></pre></td></tr></tbody></table></figure>
+<p>如果是 JavaConfig，则需要以下形式</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcertConfig</span> </span>{</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">criticAspect</span><span class="params">()</span></span>: concert.CriticAspect = org.aspectj.lang.Aspects.aspectOf(CriticAspect::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>但是运行时 JRE 将不会识别类 CriticAspect，无法运行。目前未找到解决办法，故使用 XML 配置的方法</p>
+<p>之后最重要的一步是使用<code>ajc</code>编译器，以编译<code>.aj</code>文件。通过一个插件<a href="https://www.mojohaus.org/aspectj-maven-plugin/usage.html" target="_blank" rel="noopener"> Mojo’s AspectJ Maven Plugin</a> 引入<code>ajc</code>，注意此时 IDEA Compiler 的选项截图为</p>
+<p><img src="/Spring-学习笔记（三）：面向切面/Compiler.png" alt=""></p>
+<p>测试类如下</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringJUnit4ClassRunner.class)</span></span><br><span class="line"><span class="meta">@ContextConfiguration(locations = {<span class="meta-string">"classpath:concert.xml"</span>})</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PerformTest</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    Performance performance;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> void test() {</span><br><span class="line">        performance.perform();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>按理说应该运行成功，然而此时还是报错</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">Error:ajc: can<span class="string">'t find critical required type java.io.Serializable</span></span><br><span class="line"><span class="string">Error:ajc: can'</span>t determine whether missing <span class="built_in">type</span> java.io.Serializable is an instance of concert.CriticAspect</span><br><span class="line">......</span><br><span class="line">Error:ajc: can<span class="string">'t find critical required type java.lang.Cloneable</span></span><br><span class="line"><span class="string">Error:ajc: can'</span>t determine whether missing <span class="built_in">type</span> java.lang.Cloneable is an instance of concert.CriticAspect</span><br><span class="line">......</span><br></pre></td></tr></tbody></table></figure>
+<p>目前并无解决办法， V2EX 上的求助帖为 <a href="https://www.v2ex.com/t/570139#reply11" target="_blank" rel="noopener">诚心求助 Spring 注入式 AspectJ 切面时 ClassNotFoundException 的问题</a></p>
+<p>Spring AOP 的内容到此为止，日后大概率会对本篇文章进行增删查改，继续进行下一步的学习吧</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -218,15 +364,6 @@ ga('send', 'pageview');
    
 
    
-  <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/Spring-学习笔记（二）：高级装配/">
-        <i class="icon icon-angle-left"></i>
-    </a>
-    <a class="hide pull-right" href="/">
-        <i class="icon icon-angle-right"></i>
-    </a>
-  </div>
-
 
 
 
@@ -342,7 +479,24 @@ ga('send', 'pageview');
       // load success
     });
   }
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 </body>
 </html>

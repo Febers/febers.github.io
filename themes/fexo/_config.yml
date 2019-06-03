@@ -54,7 +54,7 @@ page_nav_style: ROUND_RECT  # CIRCLE|ROUND_RECT
 
 # 面包屑
 breadcrumb:
-  isShow: true # true|fase
+  isShow: false # true|fase
 
 # 盒子
 toolbox:
@@ -63,7 +63,7 @@ toolbox:
 
 search_slogan:
   isShow: true # true|fase
-  text: Can you find the bug of world ~
+  text: 
 
 link_slogan:
   isShow: true # true|fase
@@ -100,7 +100,7 @@ post:
   showToc: true # true|false
   showComments: true
   open_in_new_window: false
-  show_prev_next: true
+  show_prev_next: false
 
 # =========================================================
 # 个性化设置
@@ -115,7 +115,8 @@ home_background_scheme: light # dark、light
 # custom font-family 暂时只支持这3种英文字体，你可以完全自定义字体(看文档)
 # blog_name_font_familiy: calligraffittiregular
 # blog_name_font_familiy: Lobster-Regular
-blog_name_font_familiy: PoiretOne-Regular
+# blog_name_font_familiy: PoiretOne-Regular
+blog_name_font_familiy: fontello
 
 init_page_content: POST  # HOME_NAV | POST
 

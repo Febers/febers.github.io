@@ -41,7 +41,7 @@ relative_link: false
 future: true
 highlight:
   enable: true
-  line_number: true
+  line_number: false
   auto_detect: false
   tab_replace:
   
@@ -106,6 +106,25 @@ symbols_count_time:
   total_symbols: true
   total_time: false
   exclude_codeblock: false
+
+search:
+  path: search.json
+  source: all # other values: posts, pages
+  trim_html: false
+
+math:
+  engine: 'mathjax' # or 'katex'
+  mathjax:
+    src: custom_mathjax_source
+    config:
+      # MathJax config
+  katex:
+    css: custom_css_source
+    js: custom_js_source # not used
+    config:
+      # KaTeX config
+      
+mathjax: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
