@@ -5,7 +5,7 @@
 
 
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>Github Pages+Hexo搭建个人博客 | ReBE</title>
 
@@ -88,7 +88,7 @@ ga('send', 'pageview');
 
   
     <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 </head>
@@ -97,7 +97,7 @@ ga('send', 'pageview');
 
 
   
-    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><span id="toolbox-mobile" class="toolbox-mobile">导航</span>
   
 
   <div class="post-header CENTER">
@@ -209,26 +209,26 @@ ga('send', 'pageview');
 <li>安装Git客户端，前往Git主页下载，安装后登录帐号。</li>
 <li>安装Node.js环境，前往Node主页下载。</li>
 <li><p>安装Hexo，新建一个命名任意的文件夹，在其中打开Git Bash，键入Hexo的安装命令：</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>初始化Hexo，<code>projectname</code>省略时，要求当前文件夹为空。</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init [projectname]</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">hexo init [projectname]</span><br></pre></td></tr></tbody></table></figure>
 </li>
 </ul>
 <h2 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h2><p>经过前面的过程，已经获得了 Github Pages 和本地的 Hexo 环境，接下来就是关联两者。<br>在博客的文件夹中有<code>_config.yml</code>文件，为 Hexo 的配置文件，打开并将相应位置设置为：</p>
-<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span> </span><br><span class="line"><span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">该处填写仓库的完整路径</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight yaml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span> </span><br><span class="line"><span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">该处填写仓库的完整路径</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></tbody></table></figure>
 <p>该过程其实是给<code>hexo d</code>这一命令做相应的配置，让 hexo 知道 blog 部署的位置，显然部署在 GitHub 的仓库里。<br>保存文件之后，安装 Git 部署插件，在 Git Bash 中键入命令：</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></tbody></table></figure>
-<p>接下来就是清除 hexo 缓存：<br></p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></tbody></table></figure><p></p>
-<p>生成静态文件<br></p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></tbody></table></figure><p></p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></tbody></table></figure>
+<p>接下来就是清除 hexo 缓存：<br></p><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>生成静态文件<br></p><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></tbody></table></figure><p></p>
 <p>部署网站，d 的意思是 deploy</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></tbody></table></figure>
 <p>后两个命令可以合并为一条，关于 Hexo 的命令请访问：<a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">Hexo指令</a>。</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></tbody></table></figure>
 <p>至此，博客已经搭建完毕，浏览器键入<code>https://{账户名}.github.io</code>，发现打开了一个使用 Hexo 搭建的 Github Pages 博客。</p>
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>博客文件夹下的<code>_config.yml</code>文件可以配置整个博客的名称、主题等基本功能，<code>/theme/</code>文件夹下的<code>_config.yml</code>文件则用于配置具体的主题配置。</p>
 <h3 id="发表与删除"><a href="#发表与删除" class="headerlink" title="发表与删除"></a>发表与删除</h3><p>在博客文件夹打开 Git Bash，键入</p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n "文章的标题"</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo n "文章的标题"</span><br></pre></td></tr></tbody></table></figure>
 <p>之后便会生成一个md文件，在md文件中编辑文章保存，然后键入<code>hexo g -d</code>便会发布文章。</p>
 <p>如果要删除文章，直接删除对应的 md 文件。基本上每一次对博客的修改，都需要生成静态文件和部署命令。</p>
 <h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>网络上有很多优秀的 Hexo 主题，关于主题选择，可以查看这个知乎问答：<a href="https://www.zhihu.com/question/24422335" target="_blank" rel="noopener">有哪些好看的 Hexo主题</a>。笔者使用的是<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">NexT</a>。</p>
@@ -247,12 +247,12 @@ ga('send', 'pageview');
 <li>将原来博客文件夹中的<code>_config.yml，themes/，source/，scffolds/，package.json，.gitignore</code>复制到 clone 下来的文件夹，注意要将<code>theme/</code>主题的<code>.git/</code>删除。</li>
 <li>在 clone 下的文件夹执行<code>npm install</code>，<code>npm install hexo-deployer-git</code>。</li>
 </ul>
-<p>此时<code>{账户名}.github.io</code>文件夹已经成为包含你博客所有文件的工作文件夹，在部署(<code>hexo g -d</code>)之前，执行下面三条命令，以使用 hexo 分支更新 git 上的源文件:<br></p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"更新源文件"</span></span><br><span class="line">git push origin hexo</span><br></pre></td></tr></tbody></table></figure><p></p>
+<p>此时<code>{账户名}.github.io</code>文件夹已经成为包含你博客所有文件的工作文件夹，在部署(<code>hexo g -d</code>)之前，执行下面三条命令，以使用 hexo 分支更新 git 上的源文件:<br></p><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"更新源文件"</span></span><br><span class="line">git push origin hexo</span><br></pre></td></tr></tbody></table></figure><p></p>
 <p>这样一来，达到了在 master 分支上部署网页静态文件，在hexo分支上备份网站源文件的目的。</p>
 <h3 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h3><p>当在新的环境中需要对博客进行操作，包括写文章、配置博客时，需要获取整个网站的源文件，当然前提是Node.js 的安装，步骤如下:</p>
 <ul>
 <li>clone 你的 Github Pages 仓库，得到一个 io 文件夹。</li>
-<li>在文件夹中打开 Git Bash，键入以下命令:<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">npm install </span><br><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></tbody></table></figure>
+<li>在文件夹中打开 Git Bash，键入以下命令:<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">npm install </span><br><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></tbody></table></figure>
 </li>
 </ul>
 <p>现在就可以在该文件夹进行博客的操作了，如果多终端同时工作时，记得使用 pull 命令更新本地文件，且分支始终为 hexo。</p>
@@ -420,7 +420,7 @@ ga('send', 'pageview');
       // load success
     });
   }
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
 </html>
