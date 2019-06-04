@@ -88,9 +88,11 @@ RootConfig 使用`@ComponentScan`以实现对非 Web 组件的调用。
 
 WebConfig 使用`@EnableWebMvc`启动 Spring MVC，使用`@ComponentScan`启用组件扫描，并继承 WebMvcConfigurerAdapter 重写其`configureDefaultServletHandling`方法以实现将静态资源的转发给默认 Servlet （貌似是多余的），同时添加一个 ViewResolver bean 查找对应的视图文件
 
-## 编写控制器
+## Spring 控制器
 
-在 Spring MVC 中，控制器是方法或者类添加了`@RequestMapping`注解的类，其本身所带的`@Controller`影响不大，如下面的代码。当然我们也可以将`@RequestMapping`放在类上。注解上的参数为数组，说明可以映射多个路径。`home`返回的字符串将配合上面 WebConfig 的`viewResolver`方法寻找网页视图
+### 基本用法
+
+在 Spring MVC 中，控制器是指添加了`@RequestMapping`注解的类，无论是在方法还是类上。控制器本身所带的`@Controller`则影响不大，如下面的代码。注解上的参数为数组，说明可以映射多个路径、多个请求类型。`home`返回的字符串将配合上面 WebConfig 的`viewResolver`方法寻找网页视图
 
 ```kotlin
 @Controller
@@ -123,7 +125,248 @@ java.lang.ClassNotFoundException: org.springframework.web.context.ContextLoaderL
 
 配置结束，需要注意的是不要导入 IDEA 生成的 Spring Web 框架，因为我们已经使用了 Maven 导入所有项目需要的类库，而且配置文件都是通过 Java 代码而没有引入任何的 XML 文件（除了 Maven 的`pom.xml`）。成功运行项目之后，浏览器打开`http://localhost:8080/spittr_war_exploded/`即可看到`home.jsp`中的网页视图
 
-## 传递数据到视图中
+### 传递数据到视图中
 
-## 接受视图数据输入
+首先建立数据模型，定义一条`Spittr`的内容为`Spittle`，同时通过一个仓库接口对外提供数据
+
+```kotlin
+data class Spittle(val id: Long, val message: String, val time: Date, val latitude: Double, val longitude: Double)
+
+interface SpittleRepository {
+    fun findSpittles(max: Long, count: Int): List<Spittle>
+}
+
+@Component
+class SpittleRepositoryImpl: SpittleRepository {
+
+    override fun findSpittles(max: Long, count: Int): List<Spittle> {
+        return createSpittles(count)
+    }
+
+    private fun createSpittles(count: Int): List<Spittle> {
+        val spittles: MutableList<Spittle> = ArrayList()
+        for (i in 0 until count) {
+            spittles.add(Spittle(id = i.toLong(), message = "This is spittle$i", time = Date(), latitude = Math.random(), longitude = Math.random()))
+        }
+        return spittles
+    }
+}
+```
+
+配置对应的控制器 SpittleController
+
+```kotlin
+@Controller
+@RequestMapping("/spittles")
+class SpittleController
+@Autowired constructor(private val spittleRepository: SpittleRepository) {
+
+    @RequestMapping(method = [RequestMethod.GET])
+    fun spittles(model: Model): String {
+        model.addAttribute("spittleList", spittleRepository.findSpittles(Long.MAX_VALUE, 20))
+        return "spittles"
+    }
+}
+```
+
+相应的 JSP 页面为`spittles.jsp`
+
+```xml
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>SpittleList</title>
+</head>
+<body>
+    <c:forEach items="${spittleList}" var="spittle">
+        <li id="spittle_<c:out value="spittle.id"/>">
+            <div class="spittleMessage">
+                <c:out value="${spittle.message}"/>
+            </div>
+            <div>
+                <span lass="spittleTime">
+                    <c:out value="${spittle.time}" />
+                </span>
+                <span class="spittleLocation">
+                    (<c:out value="${spittle.latitude}" />
+                    <c:out value="${spittle.longitude}" />)
+                </span>
+            </div>
+        </li>
+    </c:forEach>
+</body>
+</html>
+```
+
+需要注意的是，使用 JSTL 需要通过 Maven 引入两个库，参考[这里](https://howtodoinjava.com/spring-mvc/how-to-add-jstl-support-in-spring-3-using-maven/)——最重要的一步，将下载好之后的类库添加进 Tomcat lib 文件夹中
+
+运行项目之后在浏览器打开`http://localhost:8080/spittr_war_exploded/spittles`即可查看效果
+
+## 接受请求输入
+
+Spring MVC 允许多种方式将客户端中的数据传送到控制器的处理方法中
+
+- 查询参数（Query Parameter）
+- 表单参数（Form Parameter）
+- 路径变量（Path Parameter）
+
+### 处理查询参数
+
+添加一个新功能，让用户可以查看某一页的 Spittle 历史，为此需要获得一个 Spittle 的 ID——其恰好小于当前页最后一条 Spittle 的 ID。修改 SpittleController 中的方法 
+
+```kotlin
+    @RequestMapping(method = [RequestMethod.GET])
+    fun spittles(
+            @RequestParam("max", defaultValue = Long.MAX_VALUE.toString()) max: Long,
+            @RequestParam("count", defaultValue = "20") count: Int,
+            model: Model): String {
+        model.addAttribute("spittleList", spittleRepository.findSpittles(max, count))
+        return "spittles"
+    }
+```
+
+现在客户端可以通过再链接后添加可选的查询参数获得不同的结果，比如`http://localhost:8080/spittr_war_exploded/spittles?count=5`将显示 5 条 Spittle
+
+### 处理路径参数
+
+假设应用程序需要根据给定的 ID 展现某一条 Spittle 记录，从面向资源的角度，这时 Spittle 应该通过 URL 路径标示，而不是通过查询参数，控制器添加新的方法，同时 SpittleRepository 添加一个查询单个 Spittle 的新接口
+
+```kotlin
+   @RequestMapping(value = ["/{spittleId}"])
+    fun showSpittle(@PathVariable spittleId: Long, model: Model ): String {
+        model.addAttribute("spittle", spittleRepository.findSpittle(spittleId))
+        return "spittle"
+    }
+
+    override fun findSpittle(id: Long): Spittle {
+        return Spittle(id = id, message = "This is spittle$id", time = Date(), latitude = Math.random(), longitude = Math.random())
+    }
+```
+
+运行项目，现在就可以通过在原有路径上添加`/id`的方式访问特定的 Spittle，比如`http://localhost:8080/spittr_war_exploded/spittles/9527`
+
+![](Spring-学习笔记（四）：构建-Web-应用程序\spittle_by_id.png)
+
+### 处理表单
+
+为 Spittr 提供用户注册和通过`username`查看个人信息的接口，为此首先要定义一个用户类型 Spitter 以及对应的 Repository。需要注意的是，使用 Kotlin 的`data class`时，属性要添加默认值并且要使用`var`而不能用`val`，不符合其中一个条件，提交表格时 Spring 都不能实例化 Spitter。同时还引入了`javax.validation.validation-api`包进行错误检验
+
+```kotlin
+data class Spitter(@NotNull @Size(min = 3, max = 16) var firstName: String = "",
+              @NotNull @Size(min = 3, max = 16) var lastName: String = "",
+              @NotNull @Size(min = 3, max = 16) var username: String = "",
+              @NotNull @Size(min = 3, max = 16) var password: String = "")
+
+interface SpitterRepository {
+    fun save(spitter: Spitter)
+    fun findByUsername(username: String): Spitter?
+}
+
+@Component
+class SpitterRepositoryImpl: SpitterRepository {
+
+    private val spitterMap: MutableMap<String, Spitter> = HashMap()
+
+    override fun save(spitter: Spitter) {
+        spitterMap[spitter.username] = spitter
+    }
+
+    override fun findByUsername(username: String): Spitter? = spitterMap[username]
+}
+```
+
+添加一个控制器 SpitterController，实现下面的逻辑：用户打开`/spitter/register`页面时显示注册页面，其中包含一个表单。提交注册信息之后，判断注册信息有误错误，正确则重定向至`/spitter/username`路径，展示 Profile 信息
+
+>  奇怪的是当表单参数不符合注解要求时并不会触发 Error，尚不知道原因，已排除 Kotlin 代码的问题
+
+```kotlin
+@Controller
+@RequestMapping("/spitter")
+class SpitterController
+@Autowired constructor(private val spitterRepository: SpitterRepository) {
+
+    @RequestMapping(value = ["/register"], method = [RequestMethod.GET])
+    fun showRegistrationForm(): String = "registerForm"
+
+    @RequestMapping(value = ["/register"], method = [RequestMethod.POST])
+    fun processRegistration(@Validated spitter: Spitter, errors: Errors): String {
+        if (errors.hasErrors()) {
+            return "registerForm"
+        }
+        spitterRepository.save(spitter)
+        return "redirect:/spitter/${spitter.username}"
+    }
+
+    @RequestMapping(value = ["/{username}"], method = [RequestMethod.GET])
+    fun showSpitterProfile(@PathVariable username: String, model: Model): String {
+        val spitter = spitterRepository.findByUsername(username)
+        model.addAttribute("spitter", spitter)
+        return "profile"
+    }
+}
+```
+
+需要准备两个 View 文件，`registerForm.jsp`和`profile.jsp`。第一个文件如下
+
+```xml
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Spitter</title>
+</head>
+<body>
+    <h1>Register</h1>
+
+    <form method="post" action="register">
+        First Name: <input type="text" name="firstName"><br>
+        Last Name: <input type="text" name="lastName"><br>
+        User Name: <input type="text" name="username"><br>
+        Password: <input type="password" name="password"><br>
+
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>
+```
+
+第二个文件为
+
+```xml
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Spitter Profile</h1>
+    <c:out value="Username is ${spitter.username}" /><br>
+    <c:out value="First name is ${spitter.firstName} " />
+    <c:out value="and last name is ${spitter.lastName}" />
+</body>
+</html>
+```
+
+运行项目即可检验开发成果
+
+---
+
+最后再给出主页视图的文件`home.jsp`，关于本章的内容基本就是这样
+
+```xml
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Spittr</title>
+</head>
+<body>
+    <h1>Welcome to Spittr</h1>
+
+    <a href="<c:url value="/spittles" />">Spittles</a> |
+    <a href="<c:url value="/spitter/register" />">Register</a>
+</body>
+</html>
+```
 
