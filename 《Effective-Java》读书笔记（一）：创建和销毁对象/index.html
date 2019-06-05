@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="ReBE">
 <meta property="og:description" content="Spring 系列还在进行，又开了新坑（苦笑）。这一系列基于《Effective Java》——相比《Spring in Action》，标题就友好很多，大部分是 Java 的一些编程思想，探讨如何写出简洁、高效和健壮的代码，写起来会很轻松（毕竟就是抄嘛）。这本书买了有一年多，反复翻阅了几次。记忆最深的是，有一次从成都到武汉，因为赶高铁不及，只能转坐绿皮火车。在车上的二十多个小时，大部分时间花在这">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-04T14:27:44.000Z">
+<meta property="og:updated_time" content="2019-06-05T03:42:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Effective Java》读书笔记（一）：创建和销毁对象">
 <meta name="twitter:description" content="Spring 系列还在进行，又开了新坑（苦笑）。这一系列基于《Effective Java》——相比《Spring in Action》，标题就友好很多，大部分是 Java 的一些编程思想，探讨如何写出简洁、高效和健壮的代码，写起来会很轻松（毕竟就是抄嘛）。这本书买了有一年多，反复翻阅了几次。记忆最深的是，有一次从成都到武汉，因为赶高铁不及，只能转坐绿皮火车。在车上的二十多个小时，大部分时间花在这">
@@ -88,8 +88,10 @@ ga('send', 'pageview');
 
   
     <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
+
+  <link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 </html>
@@ -191,19 +193,30 @@ ga('send', 'pageview');
       
       <i class="fa fa-eye"></i> 
         <span id="busuanzi_container_page_pv">
-           &nbsp热度 <span id="busuanzi_value_page_pv">
-           <i class="fa fa-spinner fa-spin"></i></span>℃
+           &nbsp点击 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>
         </span>
       
       
     </div>
   </header>
 
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+ $$('pre').addClass('prettyprint linenums').attr('style', 'overflow:scroll;');
+   prettyPrint();
+ })
+</script>
+
   <div class="article-content">
     
       <p>Spring 系列还在进行，又开了新坑（苦笑）。这一系列基于《Effective Java》——相比《Spring in Action》，标题就友好很多，大部分是 Java 的一些编程思想，探讨如何写出简洁、高效和健壮的代码，写起来会很轻松（<del>毕竟就是抄嘛</del>）。这本书买了有一年多，反复翻阅了几次。记忆最深的是，有一次从成都到武汉，因为赶高铁不及，只能转坐绿皮火车。在车上的二十多个小时，大部分时间花在这本书上。算是一本质量很高的指导手册。<a id="more"></a></p>
 <h2 id="用静态工厂方法代替构造器"><a href="#用静态工厂方法代替构造器" class="headerlink" title="用静态工厂方法代替构造器"></a>用静态工厂方法代替构造器</h2><p>比如下面的代码，来自 Boolean 的简单示例</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title">valueOf</span><span class="params">(<span class="keyword">boolean</span> b)</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> b ? Boolean.TRUE : Boolean.FALSE</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre><code class="java">public static Boolean valueOf(boolean b) {
+    return b ? Boolean.TRUE : Boolean.FALSE
+}
+</code></pre>
 <p>通过静态工厂方法（区别于设计模式中的工厂方法），代替传统的公有构造器，向客户端提供实例，这么做的优势在于</p>
 <ul>
 <li><p>静态工厂方法具有名称：这是显而易见的。另一方面，拥有多个参数的类很可能提供多个构造器，如何区分这些构造器就是问题。</p>
@@ -213,10 +226,12 @@ ga('send', 'pageview');
 <li><p>静态工厂方法可以返回任何子类型的对象：典型的应用为<code>Java.util.Collections</code>类，其中定义了很多静态内部类比如<code>EmptyList</code>，并通过静态方法<code>emptyList</code>返回实现</p>
 </li>
 <li><p>静态工厂方法可以提供更简洁的实例化代码：实际上在较新的 JDK 版本已经去掉了多余的类型参数，但是静态工程方法确实可以做到更简洁</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line">List<string> strings = <span class="keyword">new</span> ArrayList<>();</string></span><br><span class="line">List<string> emptyList = Collections.emptyList();</string></span><br></pre></td></tr></tbody></table></figure>
+<pre><code class="java">         List< String> strings = new ArrayList<>();
+         List< String> emptyList = Collections.emptyList();
+</code></pre>
 </li>
 </ul>
-<p>静态工厂方法的缺点在于，第一是如果类不包含公有构造器，则外部无法继承它——勉强算一个缺点吧——第二是它与其他静态方法没有任何区别，只是返回的是自身的一个实例。这就造成如何类没有提供公有构造方法，那么外部调用者将苦恼于它的实例化。下面是一些静态工厂方法的惯用名称：</p>
+<p>静态工厂方法的缺点在于，第一如果类不包含公有构造器，则外部无法继承它——勉强算一个缺点吧——第二它与其他静态方法没有任何区别，只是返回的是自身的一个实例。这就造成如何类没有提供公有构造方法，那么外部调用者将苦恼于它的实例化。下面是一些静态工厂方法的惯用名称：</p>
 <ul>
 <li><code>valueOf</code>：实际上属于类型转换方法</li>
 <li><code>of</code>：上面名称的简洁形式</li>
@@ -226,26 +241,132 @@ ga('send', 'pageview');
 <li><code>newType</code>：不了解</li>
 </ul>
 <h2 id="多个构造器时考虑使用构建器"><a href="#多个构造器时考虑使用构建器" class="headerlink" title="多个构造器时考虑使用构建器"></a>多个构造器时考虑使用构建器</h2><p>实际上就是使用简单的建造者模式实例化对象，还是通过代码说明</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Human</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> height;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> weight;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span> </span>{</span><br><span class="line">        <span class="comment">// 必要参数</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> name;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 可选参数</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> height = <span class="number">170</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> weight = <span class="number">60</span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Builder</span><span class="params">(String name)</span> </span>{</span><br><span class="line">            <span class="keyword">this</span>.name = name</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">height</span><span class="params">(<span class="keyword">int</span> height)</span> </span>{</span><br><span class="line">            <span class="keyword">this</span>.height = height;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">weight</span><span class="params">(<span class="keyword">int</span> weight)</span> </span>{</span><br><span class="line">            <span class="keyword">this</span>.weight = weight;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Human <span class="title">build</span><span class="params">()</span> </span>{</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Human(<span class="keyword">this</span>);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Human</span><span class="params">(Builder builder)</span> </span>{</span><br><span class="line">        name = builder.name;</span><br><span class="line">        height = builder.height;</span><br><span class="line">        weight = builder.weight;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        Human human = <span class="keyword">new</span> Human.Builder(<span class="string">"Jack"</span>)</span><br><span class="line">                    .height(<span class="number">175</span>)</span><br><span class="line">                    .weight(<span class="number">60</span>)</span><br><span class="line">                    .build();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre><code class="java">public class Human {
+
+    private final String name;
+    private final int height;
+    private final int weight;
+
+    public static class Builder {
+        // 必要参数
+        private final int name;
+
+        // 可选参数
+        private int height = 170;
+        private int weight = 60;
+
+        public Builder(String name) {
+            this.name = name
+        }
+
+        public Builder height(int height) {
+            this.height = height;
+            return this;
+        }
+
+        public Builder weight(int weight) {
+            this.weight = weight;
+            return this;
+        }
+
+        public Human build() {
+            return new Human(this);
+        }
+    }
+
+    private Human(Builder builder) {
+        name = builder.name;
+        height = builder.height;
+        weight = builder.weight;
+    }
+
+    public static void main(String[] args) {
+        Human human = new Human.Builder("Jack")
+                    .height(175)
+                    .weight(60)
+                    .build();
+    }
+}
+</code></pre>
 <p>这种方式广泛运用于 Java 开发中，优点显而易见，唯一的缺点可能为了创建对象需要先创建其建造器（不值一提）</p>
 <h2 id="使用私有构造器、枚举强化单例"><a href="#使用私有构造器、枚举强化单例" class="headerlink" title="使用私有构造器、枚举强化单例"></a>使用私有构造器、枚举强化单例</h2><p>其实就是单例模式，简单贴一下代码吧，忘记了可以回去看设计模式的笔记：<a href="https://febers.github.io/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" target="_blank" rel="noopener">Java设计模式：创建型模式</a></p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>{  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>{}  </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>{  </span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) {  </span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) {  </span><br><span class="line">                <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) {  </span><br><span class="line">                    singleton = <span class="keyword">new</span> Singleton();  </span><br><span class="line">                }  </span><br><span class="line">            }  </span><br><span class="line">        }  </span><br><span class="line">        <span class="keyword">return</span> singleton;  </span><br><span class="line">    }  </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre><code class="java">public class Singleton {  
+
+    private volatile static Singleton singleton;  
+    private Singleton (){}  
+
+    public static Singleton getSingleton() {  
+        if (singleton == null) {  
+            synchronized (Singleton.class) {  
+                if (singleton == null) {  
+                    singleton = new Singleton();  
+                }  
+            }  
+        }  
+        return singleton;  
+    }  
+}
+</code></pre>
 <p>下面是枚举类型实现单例</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span>  Singleton {</span><br><span class="line">    INSTANCE</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre><code class="java">public enum  Singleton {
+    INSTANCE
+}
+</code></pre>
 <h2 id="通过私有构造器强化不可实例化的能力"><a href="#通过私有构造器强化不可实例化的能力" class="headerlink" title="通过私有构造器强化不可实例化的能力"></a>通过私有构造器强化不可实例化的能力</h2><p>用得最多的地方就是各种<code>Util</code>类，一般只有一个静态方法，实现一个简单的功能。最典型的例子就是<code>java.lang.Math</code></p>
 <p><del>划水而过</del></p>
 <h2 id="避免创建不必要的对象"><a href="#避免创建不必要的对象" class="headerlink" title="避免创建不必要的对象"></a>避免创建不必要的对象</h2><p>最常见的例子就是 Java 的基本数据类型，直接使用<code>int</code>、<code>char</code>而不是它们的包装类型<code>Integer</code>、<code>Character</code>，因为基本数据类型直接保存在内存模型中的栈中，而且具有复用性，比对象类型更加节省内存</p>
 <p>Java 的经典面试题中经常牵扯到<code>String</code>的实例化</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line">String s0 = <span class="string">"9527"</span>;</span><br><span class="line">String s1 = <span class="string">"9527"</span>;</span><br><span class="line">System.out.println(s0 == s1);</span><br><span class="line"></span><br><span class="line">String s2 = <span class="keyword">new</span> String(<span class="string">"9527"</span>);</span><br><span class="line">System.out.println(s0 == s2);</span><br></pre></td></tr></tbody></table></figure>
+<pre><code class="java">        String s0 = "9527";
+        String s1 = "9527";
+        System.out.println(s0 == s1);
+
+        String s2 = new String("9527");
+        System.out.println(s0 == s2);
+</code></pre>
 <p>（第一个比较是多余的，因为对于基本类型来说，<code>==</code>会直接比较他们的值）。<strong>一定范围内</strong>的基本数据类型会保存在栈内的常量池中。第一行代码，虚拟机首先创建一个引用<code>s0</code>，然后到常量池中寻找是否存在字面量为<code>9527</code>的值，如果有则直接返回栈地址，没有则新建一个常量<code>9527</code>并将<code>s0</code>指向它，然后返回。到了<code>s1</code>被创建的时候，根据上面的步骤，<code>s1</code>将直接指向<code>s0</code>所指向的栈地址</p>
 <p>第二个比较结果显然是<code>false</code>。如果使用构造器构造一个<code>String</code>类型的变量，则虚拟机会先在栈中创建引用<code>s2</code>，在堆中开辟内存新建<code>String</code>对象，保存传入的参数<code>9527</code>，然后将堆地址指向栈内的<code>s2</code></p>
 <p>对于<code>String</code>来说，直接使用构造器更糟糕的一点还在于，其被声明为<code>final</code>，每<code>new</code>一次就创建一个对象。可以想象如果在循环中使用了构造器来创建字符串，将会造成多么大的内存浪费</p>
 <h2 id="消除过期的对象引用"><a href="#消除过期的对象引用" class="headerlink" title="消除过期的对象引用"></a>消除过期的对象引用</h2><p>通过一个栈的实现说明</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Stack</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> Object[] elements;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">16</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Stack</span><span class="params">()</span> </span>{</span><br><span class="line">        elements = <span class="keyword">new</span> Object[DEFAULT_INITIAL_CAPACITY];</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(Object o)</span> </span>{</span><br><span class="line">        ensureCapacity();</span><br><span class="line">        elements[size++] = o;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">pop</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="keyword">if</span> (size == <span class="number">0</span>) </span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> EmptyStackException();</span><br><span class="line">        <span class="keyword">return</span> elements[--size];</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacity</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">if</span> (elements.length == size) {</span><br><span class="line">            elements = Arrays.copyOf(elements, <span class="number">2</span> * size + <span class="number">1</span>);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre><code class="java">public class Stack {
+    private Object[] elements;
+    private int size;
+    private static final int DEFAULT_INITIAL_CAPACITY = 16;
+
+    public Stack() {
+        elements = new Object[DEFAULT_INITIAL_CAPACITY];
+    }
+
+    public void push(Object o) {
+        ensureCapacity();
+        elements[size++] = o;
+    }
+
+    public Object pop(){
+        if (size == 0) 
+            throw new EmptyStackException();
+        return elements[--size];
+    }
+
+    private void ensureCapacity() {
+        if (elements.length == size) {
+            elements = Arrays.copyOf(elements, 2 * size + 1);
+        }
+    }
+}
+</code></pre>
 <p>该实现的问题出现在，<code>pop</code>方法中弹出的对象将不会被系统回收，因为栈内部仍然维护着它们的过期引用，解决办法如下</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">pop</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">if</span> (size == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> EmptyStackException();</span><br><span class="line">    Object result = elements[--size];</span><br><span class="line">    elements[size] = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre><code class="java">    public Object pop(){
+        if (size == 0)
+            throw new EmptyStackException();
+        Object result = elements[--size];
+        elements[size] = null;
+        return result;
+    }
+</code></pre>
 <h2 id="避免使用终结方法"><a href="#避免使用终结方法" class="headerlink" title="避免使用终结方法"></a>避免使用终结方法</h2><p>终结方法其实就是<code>Object</code>内的<code>finalize</code>方法，其声明为</p>
-<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>{ }</span><br></pre></td></tr></tbody></table></figure>
+<pre><code class="java">protected void finalize() throws Throwable { }
+
+</code></pre>
 <p>该方法是当 JVM 发现不可达对象时，将其回收之前调用的方法。问题在于，从发现该回收对象到真正回收这之间的时间是不确定的。JVM 不但不保证终结方法会被及时执行，甚至不保证其会被执行，如果重写终结方法，并期望在其中添加资源回收业务，将造成巨大隐患——资源可能永远都不会被回收。</p>
 <p>使用终结方法的另一个弊端在于，如果子类重写了父类的<code>finalize</code>，但是却没有在其中调用父类的<code>finalize</code>，那么父类（非  Object）永远不会被回收。</p>
 <hr>
@@ -275,7 +396,6 @@ ga('send', 'pageview');
   </div>
 
 </article>
-
 
    
 
@@ -395,7 +515,24 @@ ga('send', 'pageview');
       // load success
     });
   }
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 </body>
 </html>

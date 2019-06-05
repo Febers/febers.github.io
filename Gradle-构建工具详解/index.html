@@ -93,8 +93,10 @@ ga('send', 'pageview');
 
   
     <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
+
+  <link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 </html>
@@ -196,13 +198,21 @@ ga('send', 'pageview');
       
       <i class="fa fa-eye"></i> 
         <span id="busuanzi_container_page_pv">
-           &nbsp热度 <span id="busuanzi_value_page_pv">
-           <i class="fa fa-spinner fa-spin"></i></span>℃
+           &nbsp点击 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>
         </span>
       
       
     </div>
   </header>
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+ $$('pre').addClass('prettyprint linenums').attr('style', 'overflow:scroll;');
+   prettyPrint();
+ })
+</script>
 
   <div class="article-content">
     
@@ -426,7 +436,6 @@ https://plugins.gradle.org/">Gradle - Plugins</a>，也可以不使用<code>buil
   </div>
 
 </article>
-
 
    
 

@@ -88,8 +88,10 @@ ga('send', 'pageview');
 
   
     <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
+
+  <link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 </html>
@@ -191,13 +193,21 @@ ga('send', 'pageview');
       
       <i class="fa fa-eye"></i> 
         <span id="busuanzi_container_page_pv">
-           &nbsp热度 <span id="busuanzi_value_page_pv">
-           <i class="fa fa-spinner fa-spin"></i></span>℃
+           &nbsp点击 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>
         </span>
       
       
     </div>
   </header>
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+ $$('pre').addClass('prettyprint linenums').attr('style', 'overflow:scroll;');
+   prettyPrint();
+ })
+</script>
 
   <div class="article-content">
     
@@ -305,7 +315,6 @@ ga('send', 'pageview');
   </div>
 
 </article>
-
 
    
 
@@ -425,7 +434,24 @@ ga('send', 'pageview');
       // load success
     });
   }
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 </body>
 </html>
