@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/Github-Pages-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
+    
+    <lastmod>2019-06-07T16:20:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/Markdown-%E8%AF%AD%E6%B3%95%E8%AF%A6%E8%A7%A3/</loc>
     
     <lastmod>2019-06-07T04:26:22.000Z</lastmod>
@@ -180,13 +187,6 @@
     <loc>http://yoursite.com/Gradle-%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E8%AF%A6%E8%A7%A3/</loc>
     
     <lastmod>2019-06-02T05:00:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/Github-Pages-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
-    
-    <lastmod>2019-06-02T05:00:36.000Z</lastmod>
     
   </url>
   
