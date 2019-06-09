@@ -193,8 +193,7 @@
   }
 
   function highlightText(text, matchKeyWords) {
-    //text = text.replace(/<[^>]*>/g, '');
-    text = text.replace(/<[^>]*>/g, 'xxx');
+    text = text.replace(/<[^>]*>/g, '');
     matchKeyWords.forEach(function(word) {
       var reg = new RegExp('(' + word + ')', 'ig');
       text = text.replace(reg, '<span class="color-hightlight">$1</span>');

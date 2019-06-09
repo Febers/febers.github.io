@@ -164,7 +164,7 @@ open class Minstrel(private val stream: PrintStream) {
     }
 }
 ```
-```xml
+```html
 //knights.xml 加入以下代码
 <bean id="minstrel" class="Minstrel">
     <constructor-arg value="#{T(System).out}" />

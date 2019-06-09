@@ -75,7 +75,7 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: next-reloaded
-theme: fexo
+theme: next
 
 # 支持时序图
 sequence:
@@ -107,24 +107,11 @@ symbols_count_time:
   total_time: false
   exclude_codeblock: false
 
-search:
-  path: search.json
-  source: all # other values: posts, pages
-  trim_html: false
-
-math:
-  engine: 'mathjax' # or 'katex'
-  mathjax:
-    src: custom_mathjax_source
-    config:
-      # MathJax config
-  katex:
-    css: custom_css_source
-    js: custom_js_source # not used
-    config:
-      # KaTeX config
-      
-mathjax: true
+#f for fexo
+#search:
+#  path: search.json
+#  source: all # other values: posts, pages
+#  trim_html: false
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

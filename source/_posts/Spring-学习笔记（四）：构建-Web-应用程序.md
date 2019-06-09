@@ -278,7 +278,7 @@ class SpitterRepositoryImpl: SpitterRepository {
 
 添加一个控制器 SpitterController，实现下面的逻辑：用户打开`/spitter/register`页面时显示注册页面，其中包含一个表单。提交注册信息之后，判断注册信息有误错误，正确则重定向至`/spitter/username`路径，展示 Profile 信息
 
->  奇怪的是当表单参数不符合注解要求时并不会触发 Error，尚不知道原因，已排除 Kotlin 代码的问题
+*奇怪的是当表单参数不符合注解要求时并不会触发 Error，尚不知道原因，已排除 Kotlin 代码的问题*
 
 ```kotlin
 @Controller

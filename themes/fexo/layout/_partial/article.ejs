@@ -27,13 +27,21 @@
       <% if (theme.busuanzi){ %>
       <i class="fa fa-eye"></i> 
         <span id="busuanzi_container_page_pv">
-           &nbsp热度 <span id="busuanzi_value_page_pv">
-           <i class="fa fa-spinner fa-spin"></i></span>℃
+           &nbsp点击 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>
         </span>
       <% } %>
       
     </div>
   </header>
+
+<script src="<%- config.root %>js/prettify.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+ $$('pre').addClass('prettyprint linenums').attr('style', 'overflow:scroll;');
+   prettyPrint();
+ })
+</script>
 
   <div class="article-content">
     <% if (post.excerpt && index){ %>
